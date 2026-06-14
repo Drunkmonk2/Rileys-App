@@ -2186,5 +2186,669 @@
   {
     "key": "listen again nnn net",
     "text": "Listen again... nnn... net."
+  },
+  {
+    "key": "let's count",
+    "text": "Let's count!"
+  },
+  {
+    "key": "zero means none",
+    "text": "Zero means none!"
+  },
+  {
+    "key": "one",
+    "text": "one"
+  },
+  {
+    "key": "1",
+    "text": "1!"
+  },
+  {
+    "key": "two",
+    "text": "two"
+  },
+  {
+    "key": "2",
+    "text": "2!"
+  },
+  {
+    "key": "three",
+    "text": "three"
+  },
+  {
+    "key": "3",
+    "text": "3!"
+  },
+  {
+    "key": "four",
+    "text": "four"
+  },
+  {
+    "key": "4",
+    "text": "4!"
+  },
+  {
+    "key": "five",
+    "text": "five"
+  },
+  {
+    "key": "5",
+    "text": "5!"
+  },
+  {
+    "key": "six",
+    "text": "six"
+  },
+  {
+    "key": "6",
+    "text": "6!"
+  },
+  {
+    "key": "seven",
+    "text": "seven"
+  },
+  {
+    "key": "7",
+    "text": "7!"
+  },
+  {
+    "key": "eight",
+    "text": "eight"
+  },
+  {
+    "key": "8",
+    "text": "8!"
+  },
+  {
+    "key": "nine",
+    "text": "nine"
+  },
+  {
+    "key": "9",
+    "text": "9!"
+  },
+  {
+    "key": "ten",
+    "text": "ten"
+  },
+  {
+    "key": "10",
+    "text": "10!"
+  },
+  {
+    "key": "eleven",
+    "text": "eleven"
+  },
+  {
+    "key": "11",
+    "text": "11!"
+  },
+  {
+    "key": "twelve",
+    "text": "twelve"
+  },
+  {
+    "key": "12",
+    "text": "12!"
+  },
+  {
+    "key": "thirteen",
+    "text": "thirteen"
+  },
+  {
+    "key": "13",
+    "text": "13!"
+  },
+  {
+    "key": "fourteen",
+    "text": "fourteen"
+  },
+  {
+    "key": "14",
+    "text": "14!"
+  },
+  {
+    "key": "fifteen",
+    "text": "fifteen"
+  },
+  {
+    "key": "15",
+    "text": "15!"
+  },
+  {
+    "key": "sixteen",
+    "text": "sixteen"
+  },
+  {
+    "key": "16",
+    "text": "16!"
+  },
+  {
+    "key": "seventeen",
+    "text": "seventeen"
+  },
+  {
+    "key": "17",
+    "text": "17!"
+  },
+  {
+    "key": "eighteen",
+    "text": "eighteen"
+  },
+  {
+    "key": "18",
+    "text": "18!"
+  },
+  {
+    "key": "nineteen",
+    "text": "nineteen"
+  },
+  {
+    "key": "19",
+    "text": "19!"
+  },
+  {
+    "key": "twenty",
+    "text": "twenty"
+  },
+  {
+    "key": "20",
+    "text": "20!"
+  },
+  {
+    "key": "can you read this word sound it out then say it",
+    "text": "Can you read this word? Sound it out, then say it."
+  },
+  {
+    "key": "now read it cat",
+    "text": "Now read it: cat!"
+  },
+  {
+    "key": "yes you read cat great reading",
+    "text": "Yes! You read cat! Great reading!"
+  },
+  {
+    "key": "sound it out again then say cat",
+    "text": "Sound it out again, then say cat."
+  },
+  {
+    "key": "now read it dog",
+    "text": "Now read it: dog!"
+  },
+  {
+    "key": "yes you read dog great reading",
+    "text": "Yes! You read dog! Great reading!"
+  },
+  {
+    "key": "sound it out again then say dog",
+    "text": "Sound it out again, then say dog."
+  },
+  {
+    "key": "now read it sun",
+    "text": "Now read it: sun!"
+  },
+  {
+    "key": "yes you read sun great reading",
+    "text": "Yes! You read sun! Great reading!"
+  },
+  {
+    "key": "sound it out again then say sun",
+    "text": "Sound it out again, then say sun."
+  },
+  {
+    "key": "now read it hat",
+    "text": "Now read it: hat!"
+  },
+  {
+    "key": "yes you read hat great reading",
+    "text": "Yes! You read hat! Great reading!"
+  },
+  {
+    "key": "sound it out again then say hat",
+    "text": "Sound it out again, then say hat."
+  },
+  {
+    "key": "now read it bat",
+    "text": "Now read it: bat!"
+  },
+  {
+    "key": "yes you read bat great reading",
+    "text": "Yes! You read bat! Great reading!"
+  },
+  {
+    "key": "sound it out again then say bat",
+    "text": "Sound it out again, then say bat."
+  },
+  {
+    "key": "now read it cup",
+    "text": "Now read it: cup!"
+  },
+  {
+    "key": "yes you read cup great reading",
+    "text": "Yes! You read cup! Great reading!"
+  },
+  {
+    "key": "sound it out again then say cup",
+    "text": "Sound it out again, then say cup."
+  },
+  {
+    "key": "now read it mom",
+    "text": "Now read it: mom!"
+  },
+  {
+    "key": "yes you read mom great reading",
+    "text": "Yes! You read mom! Great reading!"
+  },
+  {
+    "key": "sound it out again then say mom",
+    "text": "Sound it out again, then say mom."
+  },
+  {
+    "key": "now read it pig",
+    "text": "Now read it: pig!"
+  },
+  {
+    "key": "yes you read pig great reading",
+    "text": "Yes! You read pig! Great reading!"
+  },
+  {
+    "key": "sound it out again then say pig",
+    "text": "Sound it out again, then say pig."
+  },
+  {
+    "key": "now read it bed",
+    "text": "Now read it: bed!"
+  },
+  {
+    "key": "yes you read bed great reading",
+    "text": "Yes! You read bed! Great reading!"
+  },
+  {
+    "key": "sound it out again then say bed",
+    "text": "Sound it out again, then say bed."
+  },
+  {
+    "key": "now read it box",
+    "text": "Now read it: box!"
+  },
+  {
+    "key": "yes you read box great reading",
+    "text": "Yes! You read box! Great reading!"
+  },
+  {
+    "key": "sound it out again then say box",
+    "text": "Sound it out again, then say box."
+  },
+  {
+    "key": "now read it ball",
+    "text": "Now read it: ball!"
+  },
+  {
+    "key": "yes you read ball great reading",
+    "text": "Yes! You read ball! Great reading!"
+  },
+  {
+    "key": "sound it out again then say ball",
+    "text": "Sound it out again, then say ball."
+  },
+  {
+    "key": "now read it fun",
+    "text": "Now read it: fun!"
+  },
+  {
+    "key": "yes you read fun great reading",
+    "text": "Yes! You read fun! Great reading!"
+  },
+  {
+    "key": "sound it out again then say fun",
+    "text": "Sound it out again, then say fun."
+  },
+  {
+    "key": "let's learn together riley here we go",
+    "text": "Let's learn together, Riley! Here we go!"
+  },
+  {
+    "key": "you did it great job today riley i'm so proud of you",
+    "text": "You did it! Great job today, Riley! I'm so proud of you!"
+  },
+  {
+    "key": "a says ah a is for apple",
+    "text": "A says ah. A is for Apple."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write a",
+    "text": "Start at the green dot and follow the arrows to write A."
+  },
+  {
+    "key": "b says buh b is for ball",
+    "text": "B says buh. B is for Ball."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write b",
+    "text": "Start at the green dot and follow the arrows to write B."
+  },
+  {
+    "key": "c says kuh c is for crown",
+    "text": "C says kuh. C is for Crown."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write c",
+    "text": "Start at the green dot and follow the arrows to write C."
+  },
+  {
+    "key": "d says duh d is for dog",
+    "text": "D says duh. D is for Dog."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write d",
+    "text": "Start at the green dot and follow the arrows to write D."
+  },
+  {
+    "key": "e says eh e is for egg",
+    "text": "E says eh. E is for Egg."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write e",
+    "text": "Start at the green dot and follow the arrows to write E."
+  },
+  {
+    "key": "f says fff f is for flamingo",
+    "text": "F says fff. F is for Flamingo."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write f",
+    "text": "Start at the green dot and follow the arrows to write F."
+  },
+  {
+    "key": "g says guh g is for goal",
+    "text": "G says guh. G is for Goal."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write g",
+    "text": "Start at the green dot and follow the arrows to write G."
+  },
+  {
+    "key": "h says huh h is for hat",
+    "text": "H says huh. H is for Hat."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write h",
+    "text": "Start at the green dot and follow the arrows to write H."
+  },
+  {
+    "key": "i says ih i is for igloo",
+    "text": "I says ih. I is for Igloo."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write i",
+    "text": "Start at the green dot and follow the arrows to write I."
+  },
+  {
+    "key": "j says juh j is for jump",
+    "text": "J says juh. J is for Jump."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write j",
+    "text": "Start at the green dot and follow the arrows to write J."
+  },
+  {
+    "key": "k says kuh k is for kick",
+    "text": "K says kuh. K is for Kick."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write k",
+    "text": "Start at the green dot and follow the arrows to write K."
+  },
+  {
+    "key": "l says luh l is for lollipop",
+    "text": "L says luh. L is for Lollipop."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write l",
+    "text": "Start at the green dot and follow the arrows to write L."
+  },
+  {
+    "key": "m says mmm m is for mom",
+    "text": "M says mmm. M is for Mom."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write m",
+    "text": "Start at the green dot and follow the arrows to write M."
+  },
+  {
+    "key": "n says nnn n is for net",
+    "text": "N says nnn. N is for Net."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write n",
+    "text": "Start at the green dot and follow the arrows to write N."
+  },
+  {
+    "key": "o says ah o is for octopus",
+    "text": "O says ah. O is for Octopus."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write o",
+    "text": "Start at the green dot and follow the arrows to write O."
+  },
+  {
+    "key": "p says puh p is for princess",
+    "text": "P says puh. P is for Princess."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write p",
+    "text": "Start at the green dot and follow the arrows to write P."
+  },
+  {
+    "key": "q says kwuh q is for queen",
+    "text": "Q says kwuh. Q is for Queen."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write q",
+    "text": "Start at the green dot and follow the arrows to write Q."
+  },
+  {
+    "key": "r says rrr r is for riley",
+    "text": "R says rrr. R is for Riley."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write r",
+    "text": "Start at the green dot and follow the arrows to write R."
+  },
+  {
+    "key": "s says sss s is for soccer",
+    "text": "S says sss. S is for Soccer."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write s",
+    "text": "Start at the green dot and follow the arrows to write S."
+  },
+  {
+    "key": "t says tuh t is for touchdown",
+    "text": "T says tuh. T is for Touchdown."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write t",
+    "text": "Start at the green dot and follow the arrows to write T."
+  },
+  {
+    "key": "u says uh u is for umbrella",
+    "text": "U says uh. U is for Umbrella."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write u",
+    "text": "Start at the green dot and follow the arrows to write U."
+  },
+  {
+    "key": "v says vvv v is for violin",
+    "text": "V says vvv. V is for Violin."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write v",
+    "text": "Start at the green dot and follow the arrows to write V."
+  },
+  {
+    "key": "w says wuh w is for whisk",
+    "text": "W says wuh. W is for Whisk."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write w",
+    "text": "Start at the green dot and follow the arrows to write W."
+  },
+  {
+    "key": "x says ks x is for fox",
+    "text": "X says ks. X is for Fox."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write x",
+    "text": "Start at the green dot and follow the arrows to write X."
+  },
+  {
+    "key": "y says yuh y is for yarn",
+    "text": "Y says yuh. Y is for Yarn."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write y",
+    "text": "Start at the green dot and follow the arrows to write Y."
+  },
+  {
+    "key": "z says zzz z is for zebra",
+    "text": "Z says zzz. Z is for Zebra."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write z",
+    "text": "Start at the green dot and follow the arrows to write Z."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write 0",
+    "text": "Start at the green dot and follow the arrows to write 0."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write 1",
+    "text": "Start at the green dot and follow the arrows to write 1."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write 2",
+    "text": "Start at the green dot and follow the arrows to write 2."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write 3",
+    "text": "Start at the green dot and follow the arrows to write 3."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write 4",
+    "text": "Start at the green dot and follow the arrows to write 4."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write 5",
+    "text": "Start at the green dot and follow the arrows to write 5."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write 6",
+    "text": "Start at the green dot and follow the arrows to write 6."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write 7",
+    "text": "Start at the green dot and follow the arrows to write 7."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write 8",
+    "text": "Start at the green dot and follow the arrows to write 8."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write 9",
+    "text": "Start at the green dot and follow the arrows to write 9."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write 10",
+    "text": "Start at the green dot and follow the arrows to write 10."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write 11",
+    "text": "Start at the green dot and follow the arrows to write 11."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write 12",
+    "text": "Start at the green dot and follow the arrows to write 12."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write 13",
+    "text": "Start at the green dot and follow the arrows to write 13."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write 14",
+    "text": "Start at the green dot and follow the arrows to write 14."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write 15",
+    "text": "Start at the green dot and follow the arrows to write 15."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write 16",
+    "text": "Start at the green dot and follow the arrows to write 16."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write 17",
+    "text": "Start at the green dot and follow the arrows to write 17."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write 18",
+    "text": "Start at the green dot and follow the arrows to write 18."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write 19",
+    "text": "Start at the green dot and follow the arrows to write 19."
+  },
+  {
+    "key": "start at the green dot and follow the arrows to write 20",
+    "text": "Start at the green dot and follow the arrows to write 20."
+  },
+  {
+    "key": "yay you earned a flamingo",
+    "text": "Yay! You earned a Flamingo!"
+  },
+  {
+    "key": "yay you earned a princess crown",
+    "text": "Yay! You earned a Princess Crown!"
+  },
+  {
+    "key": "yay you earned a soccer ball",
+    "text": "Yay! You earned a Soccer Ball!"
+  },
+  {
+    "key": "yay you earned a football",
+    "text": "Yay! You earned a Football!"
+  },
+  {
+    "key": "yay you earned a softball",
+    "text": "Yay! You earned a Softball!"
+  },
+  {
+    "key": "yay you earned a basketball",
+    "text": "Yay! You earned a Basketball!"
+  },
+  {
+    "key": "yay you earned a cupcake",
+    "text": "Yay! You earned a Cupcake!"
+  },
+  {
+    "key": "yay you earned a crayon",
+    "text": "Yay! You earned a Crayon!"
+  },
+  {
+    "key": "yay you earned a gold star",
+    "text": "Yay! You earned a Gold Star!"
+  },
+  {
+    "key": "yay you earned a rainbow",
+    "text": "Yay! You earned a Rainbow!"
+  },
+  {
+    "key": "yay you earned a trophy",
+    "text": "Yay! You earned a Trophy!"
+  },
+  {
+    "key": "yay you earned a unicorn",
+    "text": "Yay! You earned a Unicorn!"
   }
 ]

@@ -35,9 +35,18 @@ const Speech = (() => {
     return new Promise((resolve) => {
       const a = new Audio(url);
       currentAudio = a;
-      a.onended = () => resolve();
-      a.onerror = () => resolve();
-      a.play().catch(() => resolve());
+      let done = false;
+      const finish = () => { if (done) return; done = true; resolve(); };
+      a.onended = finish;
+      a.onerror = finish;
+      // Safety net so a lesson never stalls if "ended" doesn't fire: resolve a
+      // bit after the clip's real duration, or 5s if duration is unknown.
+      a.onloadedmetadata = () => {
+        const ms = isFinite(a.duration) ? a.duration * 1000 + 400 : 5000;
+        setTimeout(finish, ms);
+      };
+      setTimeout(finish, 5000);
+      a.play().catch(finish);
     });
   }
   function clipFor(text) {

@@ -53,32 +53,39 @@ const App = (() => {
   }
   function goHome() { renderHome(); goScreen("home"); }
 
-  /* ---- Flamingo talks --------------------------------------------------- */
+  /* ---- Flamingo talks (returns a promise that resolves when audio ends) -- */
   function flamingo(text, opts) {
     const bubble = $("#bubble");
     if (bubble) bubble.textContent = text;
-    Speech.say(text, opts);
+    return Speech.say(text, opts);
+  }
+  const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+  function playSfx(name) {
+    try { const a = new Audio(`audio/sfx/${name}.mp3`); a.volume = 0.5; a.play().catch(() => {}); }
+    catch {}
   }
 
   /* ---- stars + sticker rewards ----------------------------------------- */
   function updateStars() { $("#stars").textContent = "⭐ " + state.stars; }
+  // Adds stars and returns a newly-earned sticker (or null). Does NOT speak —
+  // callers sequence the praise + celebration so nothing gets cut off.
   function reward(stars = 1) {
+    const before = Math.floor(state.stars / 5);
     state.stars += stars;
-    cheer();                              // Flamingo does a happy wiggle
-    // every 5 stars earns a random themed sticker
-    if (state.stars % 5 === 0) earnSticker();
+    cheer();
+    const earned = Math.floor(state.stars / 5) > before ? grantSticker() : null;
     updateStars(); save();
+    return earned;
+  }
+  function grantSticker() {
+    const s = STICKERS[Math.floor(Math.random() * STICKERS.length)];
+    state.stickers[s.id] = (state.stickers[s.id] || 0) + 1;
+    return s;
   }
   function cheer() {
     const f = document.querySelector(".flamingo");
     if (!f) return;
     f.classList.remove("cheer"); void f.offsetWidth; f.classList.add("cheer");
-  }
-  function earnSticker() {
-    const s = STICKERS[Math.floor(Math.random() * STICKERS.length)];
-    state.stickers[s.id] = (state.stickers[s.id] || 0) + 1;
-    burst(s.emoji);
-    setTimeout(() => flamingo(`You earned a ${s.label}! ${s.emoji}`), 300);
   }
   function burst(emoji) {
     const b = document.createElement("div");
@@ -87,14 +94,33 @@ const App = (() => {
     document.body.appendChild(b);
     setTimeout(() => b.remove(), 1300);
   }
-  /* A "win" in a mini-game: celebrate, reward, and tee up the next round.
-   * cat/key let games log activity for the parent dashboard. */
-  function win(message, nextRound, cat, key) {
+  /* Full-screen sticker celebration with a chime; resolves when dismissed. */
+  function celebrateSticker(s) {
+    return new Promise((resolve) => {
+      playSfx("sticker");
+      const o = document.createElement("div");
+      o.className = "celebrate";
+      o.innerHTML = `<div class="cele-card"><div class="cele-emoji">${s.emoji}</div>
+        <div class="cele-text">New sticker!<br>${s.label}</div>
+        <div class="cele-tap">tap to keep going</div></div>`;
+      document.body.appendChild(o);
+      flamingo(`Yay! You earned a ${s.label}!`);
+      let done = false;
+      const finish = () => { if (done) return; done = true; o.remove(); resolve(); };
+      o.onclick = finish;
+      setTimeout(finish, 3200);
+    });
+  }
+  /* A correct answer: celebrate, reward, finish the praise, THEN continue. */
+  async function win(message, nextRound, cat, key) {
     burst("⭐");
-    flamingo(message);
-    reward(1);
     if (cat) recordMastery(cat, key || cat, true);
-    setTimeout(() => nextRound && nextRound(), 1600);
+    const earned = reward(1);
+    playSfx("correct");
+    await flamingo(message);             // let the praise finish (no more cut-off)
+    if (earned) await celebrateSticker(earned);
+    await wait(250);
+    if (nextRound) nextRound();
   }
 
   /* ===================================================================== *
@@ -181,6 +207,23 @@ const App = (() => {
     flamingo(`This is ${N.value}. ${N.word}.`);
   }
   function hearNumber() { const N = NUMBERS[nIdx]; Speech.say(`${N.value}. ${N.word}.`); }
+  // Point to each object and count it out loud, then say the total.
+  async function countAloud() {
+    const N = NUMBERS[nIdx];
+    if (N.value < 1) { flamingo("Zero means none!"); return; }
+    const total = Math.min(N.value, 20);
+    const box = $("#number-objects");
+    box.innerHTML = Array.from({ length: total },
+      (_, i) => `<span id="cobj-${i}">🦩</span>`).join("");
+    await flamingo("Let's count!");
+    for (let i = 0; i < total; i++) {
+      const s = $("#cobj-" + i);
+      if (s) { s.classList.add("counting"); }
+      await Speech.say(NUMBERS[i + 1].word);   // "one", "two", ...
+      if (s) s.classList.remove("counting");
+    }
+    await Speech.say(`${N.value}!`);
+  }
   function nextNumber() { nIdx = (nIdx + 1) % NUMBERS.length; renderNumber(); }
   function prevNumber() { nIdx = (nIdx - 1 + NUMBERS.length) % NUMBERS.length; renderNumber(); }
   async function sayNumber() {
@@ -226,18 +269,19 @@ const App = (() => {
       await Speech.say(W.word + "!");
     })();
   }
-  function tapTile(btn) {
+  async function tapTile(btn) {
     const W = SPELLING_WORDS[sIdx];
     const need = W.word[builtLen];
     if (btn.dataset.c === need && !btn.disabled) {
       $("#slot-" + builtLen).textContent = need.toUpperCase();
       btn.disabled = true; btn.style.opacity = .3;
-      Speech.saySound(W.sounds[builtLen]);
+      await Speech.saySound(W.sounds[builtLen]);
       builtLen++;
       if (builtLen === W.word.length) {
-        burst("🎉"); reward(2);
-        recordMastery("words", W.word, true);
-        flamingo(`You spelled ${W.word}! Amazing Riley!`);
+        burst("🎉"); recordMastery("words", W.word, true);
+        const earned = reward(2); playSfx("correct");
+        await flamingo(`You spelled ${W.word}! Amazing Riley!`);
+        if (earned) await celebrateSticker(earned);
       }
     } else {
       flamingo(`Next we need the ${W.sounds[builtLen]} sound. Find that letter!`);
@@ -269,17 +313,20 @@ const App = (() => {
     });
     if (heard) heard.textContent = text ? `I heard: "${text}"` : "I didn't hear you!";
     const ok = accept.some(a => text.includes(a));
-    if (ok) { burst("⭐"); reward(1); flamingo(good); }
-    else { flamingo(retry); }
+    if (ok) {
+      burst("⭐"); const earned = reward(1); playSfx("correct");
+      await flamingo(good);
+      if (earned) await celebrateSticker(earned);
+    } else { await flamingo(retry); }
     return ok;
   }
 
   /* ===================================================================== *
    * Tracing screen (shared by letters & numbers)
    * ===================================================================== */
-  let traceReturn = null, traceInited = false, traceCat = "", traceKey = "";
-  function openTrace(ch, onBack, cat, key) {
-    traceReturn = onBack; traceCat = cat; traceKey = key;
+  let traceReturn = null, traceInited = false, traceCat = "", traceKey = "", traceChar = "", traceAuto = false;
+  function openTrace(ch, onBack, cat, key, auto) {
+    traceReturn = onBack; traceCat = cat; traceKey = key; traceChar = ch; traceAuto = !!auto;
     goScreen("trace");
     if (!traceInited) {
       Tracing.init($("#trace-guide"), $("#trace-draw"));
@@ -287,18 +334,22 @@ const App = (() => {
     }
     $("#trace-result").textContent = "";
     Tracing.setChar(ch);
-    flamingo(`Trace the ${isNaN(+ch) ? "letter" : "number"} ${ch} with your finger!`);
+    // Say the instruction, then demonstrate the strokes with the green dot.
+    flamingo(`Start at the green dot and follow the arrows to write ${ch}.`)
+      .then(() => Tracing.demo(ch));
   }
-  function checkTrace() {
+  async function checkTrace() {
     const r = Tracing.check();
     if (traceCat) recordMastery(traceCat, traceKey, r.pass);
     if (r.pass) {
-      burst("⭐"); reward(r.stars);
+      burst("⭐"); const earned = reward(r.stars); playSfx("correct");
       $("#trace-result").textContent = "⭐".repeat(r.stars) + "  Beautiful!";
-      flamingo(`Wonderful tracing, Riley! ${r.stars} stars!`);
+      await flamingo(`Wonderful tracing, Riley! ${r.stars} stars!`);
+      if (earned) await celebrateSticker(earned);
+      if (traceAuto && traceReturn) { await wait(300); traceReturn(); }
     } else {
       $("#trace-result").textContent = "Let's try once more!";
-      flamingo(`Good try! Let's trace it again, slow and steady.`);
+      await flamingo(`Good try! Let's trace it again, slow and steady.`);
       Tracing.reset();
     }
   }
@@ -439,9 +490,91 @@ const App = (() => {
       Speech.say("Hi Riley! I am Flamingo Flamingo. Let's learn together!", { device: true });
   }
   function resetProgress() {
-    if (!confirm("Reset ALL of Riley's stars, stickers and progress?")) return;
-    state = { stars: 0, stickers: {}, learned: [], progress: {} };
-    save(); updateStars(); renderParent();
+    if (!confirm("Reset ALL of Riley's stars, stickers and progress?\n(Her voice settings are kept.)")) return;
+    state = { stars: 0, stickers: {}, learned: [], progress: {}, settings: state.settings };
+    save(); updateStars();
+    flamingo("");                       // clear any lingering bubble
+    renderParent();
+  }
+
+  /* ===================================================================== *
+   * READ WORDS — blend the sounds and read the whole word (the payoff!)
+   * ===================================================================== */
+  const READ_WORDS = SPELLING_WORDS;    // simple decodable CVC words
+  let rIdx = 0, readWord = null, readDone = null;
+  function startReading() { rIdx = 0; readDone = null; renderRead(READ_WORDS[rIdx]); }
+  function renderRead(W, onDone) {
+    readWord = W; readDone = onDone || null;
+    $("#read-emoji").textContent = W.emoji;
+    $("#read-word").innerHTML = W.word.split("")
+      .map((c, i) => `<span id="read-l-${i}">${c.toUpperCase()}</span>`).join("");
+    $("#read-heard").textContent = "";
+    // In a guided lesson the button reads "Keep going"; on its own it cycles words.
+    $("#read-next").innerHTML = readDone ? "Keep going ➡️" : "Next word ➡️";
+    goScreen("read");
+    flamingo("Can you read this word? Sound it out, then say it.");
+  }
+  function hiRead(i) {
+    readWord.word.split("").forEach((_, k) => {
+      const el = $("#read-l-" + k); if (el) el.classList.toggle("hi", k === i);
+    });
+  }
+  async function readSound() {
+    const W = readWord;
+    for (let i = 0; i < W.sounds.length; i++) { hiRead(i); await Speech.saySound(W.sounds[i]); }
+    hiRead(-1); await Speech.say(`${W.word}!`);
+  }
+  async function readSay() {
+    const W = readWord;
+    const ok = await listenFor([W.word], `Now read it: ${W.word}!`,
+      `Yes! You read ${W.word}! Great reading!`,
+      `Sound it out again, then say ${W.word}.`, "#read-heard");
+    if (ok !== null) recordMastery("reading", W.word, ok);
+    if (ok && readDone) { const d = readDone; readDone = null; await wait(300); d(); }
+  }
+  function nextReadWord() {
+    if (readDone) { const d = readDone; readDone = null; d(); return; }   // guided: advance lesson
+    rIdx = (rIdx + 1) % READ_WORDS.length; renderRead(READ_WORDS[rIdx]);
+  }
+
+  /* ===================================================================== *
+   * GUIDED LESSON — "Let's Learn!" weaves teaching + games + reading and
+   * focuses on what Riley hasn't mastered yet. Games live here, not in a menu.
+   * ===================================================================== */
+  let gQueue = [], gIdx = 0;
+  function startGuided() {
+    gQueue = buildSession(); gIdx = 0;
+    flamingo("Let's learn together, Riley! Here we go!").then(runGuided);
+  }
+  function runGuided() {
+    if (gIdx >= gQueue.length) return finishGuided();
+    gQueue[gIdx]();
+  }
+  function guidedNext() { gIdx++; runGuided(); }
+  function finishGuided() {
+    burst("🏆"); playSfx("sticker");
+    goScreen("home");
+    flamingo("You did it! Great job today, Riley! I'm so proud of you!");
+  }
+  function buildSession() {
+    const weak = LETTERS_ORDERED.filter(l => masteryLevel("letters", l.letter) < 2);
+    const pick = (n) => (weak[n] || LETTERS_ORDERED[n]).letter;
+    const L1 = pick(0), L2 = pick(1);
+    const word = READ_WORDS[Math.floor(Math.random() * READ_WORDS.length)];
+    return [
+      () => teachLetterStep(L1),
+      () => { goScreen("game"); Games.firstSound(guidedNext); },
+      () => { goScreen("game"); Games.counting(guidedNext); },
+      () => renderRead(word, guidedNext),
+      () => teachLetterStep(L2),
+      () => { goScreen("game"); Games.findLetter(guidedNext); },
+      () => { goScreen("game"); Games.colors(guidedNext); },
+    ];
+  }
+  function teachLetterStep(ch) {
+    const L = LETTER_BY_CHAR[ch];
+    flamingo(`${L.letter} says ${L.sound}. ${L.letter} is for ${L.word}.`)
+      .then(() => openTrace(L.letter, guidedNext, "letters", L.letter, true));
   }
 
   /* ===================================================================== *
@@ -453,12 +586,12 @@ const App = (() => {
     applyVoiceSettings();
 
     // home tiles
+    bind("#tile-learn", startGuided);
     bind("#tile-letters", startLetters);
     bind("#tile-numbers", startNumbers);
+    bind("#tile-read", startReading);
     bind("#tile-spelling", startSpelling);
-    bind("#tile-games", () => { goScreen("games"); flamingo("Pick a game, Riley!"); });
     bind("#tile-stickers", renderStickers);
-    bind("#tile-sounds", () => { goScreen("game"); Games.firstSound(); });
 
     // letter screen
     bind("#letter-char", hearLetter);   // kids tap the big letter to hear it
@@ -470,7 +603,7 @@ const App = (() => {
     bind("#letter-prev", prevLetter);
 
     // number screen
-    bind("#number-hear", hearNumber);
+    bind("#number-count", countAloud);
     bind("#number-say", sayNumber);
     bind("#number-trace", traceNumber);
     bind("#number-next", nextNumber);
@@ -482,15 +615,15 @@ const App = (() => {
     bind("#spell-next", nextSpelling);
 
     // trace screen
+    bind("#trace-watch", () => Tracing.demo(traceChar));
     bind("#trace-check", checkTrace);
     bind("#trace-clear", () => Tracing.reset());
     bind("#trace-back", () => traceReturn && traceReturn());
 
-    // games menu
-    bind("#g-colors", () => { goScreen("game"); Games.colors(); });
-    bind("#g-letters", () => { goScreen("game"); Games.findLetter(); });
-    bind("#g-count", () => { goScreen("game"); Games.counting(); });
-    bind("#g-sounds", () => { goScreen("game"); Games.firstSound(); });
+    // read words
+    bind("#read-sound", readSound);
+    bind("#read-say", readSay);
+    bind("#read-next", nextReadWord);
 
     // parent dashboard
     bind("#grownups", openGate);
@@ -499,7 +632,6 @@ const App = (() => {
 
     // every "home" back button
     document.querySelectorAll(".to-home").forEach(b => b.onclick = goHome);
-    document.querySelectorAll(".to-games").forEach(b => b.onclick = () => goScreen("games"));
 
     renderHome();
   }
