@@ -1,0 +1,58 @@
+# Regenerate Flamingo's voice clips with ElevenLabs, then commit them.
+# Run it from the Actions tab (Run workflow). Your API key is read from the
+# repo secret ELEVENLABS_API_KEY and never appears in code or logs.
+name: Voice — ElevenLabs
+
+on:
+  workflow_dispatch:
+    inputs:
+      voice_id:
+        description: "ElevenLabs Voice ID (default = Rachel)"
+        required: false
+        default: "21m00Tcm4TlvDq8ikWAM"
+      model:
+        description: "ElevenLabs model"
+        required: false
+        default: "eleven_multilingual_v2"
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with: { node-version: "20" }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+
+      - name: Refresh phrase list
+        run: node scripts/voice/enumerate-phrases.js
+
+      - name: Generate clips with ElevenLabs
+        env:
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          ELEVEN_VOICE_ID: ${{ github.event.inputs.voice_id }}
+          ELEVEN_MODEL: ${{ github.event.inputs.model }}
+        run: |
+          if [ -z "$ELEVENLABS_API_KEY" ]; then
+            echo "::error::Add your key as a repo secret named ELEVENLABS_API_KEY (Settings → Secrets and variables → Actions)."
+            exit 1
+          fi
+          python3 -m pip install --quiet requests
+          python3 scripts/voice/generate-clips-elevenlabs.py
+
+      - name: Bump service-worker cache so phones update
+        run: |
+          sed -i -E "s/rileys-app-v[a-z0-9]+/rileys-app-el${{ github.run_id }}/" service-worker.js
+
+      - name: Commit regenerated voice
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add audio/clips audio/manifest.json service-worker.js
+          git commit -m "Regenerate Flamingo voice with ElevenLabs voice ${{ github.event.inputs.voice_id }}" || echo "no changes"
+          git push
