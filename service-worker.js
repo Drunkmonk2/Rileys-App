@@ -1,5 +1,7 @@
-/* Simple offline cache so Riley's app works without internet once loaded. */
-const CACHE = "rileys-app-v1";
+/* Offline cache for Riley's app.
+ * Strategy: NETWORK-FIRST so new versions show up as soon as the phone is
+ * online, falling back to the cache when offline. Bump CACHE on each release. */
+const CACHE = "rileys-app-v2";
 const ASSETS = [
   "./", "./index.html", "./manifest.json",
   "./css/styles.css",
@@ -15,5 +17,12 @@ self.addEventListener("activate", (e) => {
     Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))).then(() => self.clients.claim()));
 });
 self.addEventListener("fetch", (e) => {
-  e.respondWith(caches.match(e.request).then((hit) => hit || fetch(e.request).catch(() => hit)));
+  if (e.request.method !== "GET") return;
+  e.respondWith(
+    fetch(e.request).then((res) => {
+      const copy = res.clone();
+      caches.open(CACHE).then((c) => c.put(e.request, copy)).catch(() => {});
+      return res;
+    }).catch(() => caches.match(e.request))
+  );
 });
