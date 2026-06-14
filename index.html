@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, user-scalable=no" />
+  <title>Riley's Reading Adventure 🦩</title>
+
+  <!-- Make it feel like a real app when added to the iPhone home screen -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Riley" />
+  <meta name="theme-color" content="#ff5fa2" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icons/icon-180.png" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+<div id="app">
+
+  <!-- Persistent top bar -->
+  <div class="topbar">
+    <span class="hello">🦩 Riley's Adventure</span>
+    <span class="stars-pill" id="stars">⭐ 0</span>
+  </div>
+
+  <!-- Flamingo Flamingo, the teacher mascot (shared across screens) -->
+  <svg class="flamingo bounce" viewBox="0 0 200 210" aria-hidden="true">
+    <!-- ground shadow -->
+    <ellipse cx="100" cy="200" rx="58" ry="8" fill="rgba(0,0,0,.08)"/>
+    <!-- long flamingo legs with backward knees -->
+    <g stroke="#ff9a4d" stroke-width="6" stroke-linecap="round" fill="none">
+      <path d="M88 168 L96 182 L84 198"/>
+      <path d="M114 168 L108 182 L120 198"/>
+      <path d="M76 198 h16 M112 198 h16" stroke-width="6"/>
+    </g>
+    <!-- body -->
+    <ellipse cx="100" cy="140" rx="50" ry="44" fill="#ff8fbf"/>
+    <!-- folded wing -->
+    <path d="M70 124 Q104 112 132 132 Q108 160 70 150 Z" fill="#ff6fa8"/>
+    <!-- raised wing holding the pointer -->
+    <path d="M138 132 Q160 118 168 96 Q150 104 138 120 Z" fill="#ff6fa8"/>
+    <!-- teacher's pointer -->
+    <line x1="158" y1="108" x2="186" y2="70" stroke="#a9744f" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="187" cy="68" r="5" fill="#ffd23f"/>
+    <!-- neck -->
+    <path d="M100 110 C 96 84, 108 74, 112 58" fill="none" stroke="#ff8fbf"
+          stroke-width="22" stroke-linecap="round"/>
+    <!-- head -->
+    <circle cx="112" cy="48" r="26" fill="#ff8fbf"/>
+    <!-- hooked flamingo beak -->
+    <path d="M104 64 Q112 60 121 64 Q119 78 112 80 Q106 76 104 64 Z" fill="#ffb13f"/>
+    <path d="M108 74 Q112 80 116 74 Q112 78 108 74 Z" fill="#2d2640"/>
+    <!-- round teacher glasses + eyes -->
+    <g stroke="#2d2640" stroke-width="3" fill="#fff">
+      <circle cx="103" cy="44" r="10"/>
+      <circle cx="124" cy="44" r="10"/>
+    </g>
+    <path d="M113 44 q3 -3 6 0" stroke="#2d2640" stroke-width="3" fill="none"/>
+    <circle cx="104" cy="45" r="3.6" fill="#2d2640"/>
+    <circle cx="123" cy="45" r="3.6" fill="#2d2640"/>
+    <!-- graduation cap (mortarboard) with tassel -->
+    <rect x="96" y="22" width="36" height="9" rx="3" fill="#2d2640"
+          transform="rotate(-7 114 26)"/>
+    <polygon points="114,8 142,20 114,32 86,20" fill="#3a3157"/>
+    <path d="M140 20 V36" stroke="#ffd23f" stroke-width="2.5"/>
+    <circle cx="140" cy="39" r="3.5" fill="#ffd23f"/>
+    <!-- rosy cheek -->
+    <circle cx="96" cy="56" r="5" fill="#ff5fa2" opacity=".5"/>
+  </svg>
+  <div class="speech-bubble" id="bubble">Hi Riley!</div>
+
+  <!-- ================= HOME ================= -->
+  <section id="home" class="screen active">
+    <div class="menu">
+      <button class="tile letters"  id="tile-letters"><span class="ico">🔤</span>Letters</button>
+      <button class="tile numbers"  id="tile-numbers"><span class="ico">🔢</span>Numbers</button>
+      <button class="tile spelling" id="tile-spelling"><span class="ico">📝</span>Spelling</button>
+      <button class="tile sounds"   id="tile-sounds"><span class="ico">👂</span>Sounds</button>
+      <button class="tile games"    id="tile-games"><span class="ico">🎮</span>Games</button>
+      <button class="tile stickers" id="tile-stickers"><span class="ico">🏆</span>My Stickers</button>
+    </div>
+  </section>
+
+  <!-- ================= LETTERS ================= -->
+  <section id="letter" class="screen">
+    <div class="bigchar" id="letter-char">A</div>
+    <div class="example" id="letter-example"></div>
+    <div class="heard" id="letter-heard"></div>
+    <div class="row">
+      <button class="btn" id="letter-hear">🔊 Hear it</button>
+      <button class="btn" id="letter-say">🎤 Say it</button>
+      <button class="btn" id="letter-trace">✏️ Trace it</button>
+    </div>
+    <div class="row">
+      <button class="btn secondary" id="letter-prev">⬅️</button>
+      <button class="back to-home">🏠 Home</button>
+      <button class="btn secondary" id="letter-next">➡️</button>
+    </div>
+  </section>
+
+  <!-- ================= NUMBERS ================= -->
+  <section id="number" class="screen">
+    <div class="bigchar" id="number-char">1</div>
+    <div class="example" id="number-example"></div>
+    <div class="heard" id="number-heard"></div>
+    <div class="row">
+      <button class="btn" id="number-hear">🔊 Hear it</button>
+      <button class="btn" id="number-say">🎤 Say it</button>
+      <button class="btn" id="number-trace">✏️ Trace it</button>
+    </div>
+    <div class="row">
+      <button class="btn secondary" id="number-prev">⬅️</button>
+      <button class="back to-home">🏠 Home</button>
+      <button class="btn secondary" id="number-next">➡️</button>
+    </div>
+  </section>
+
+  <!-- ================= SPELLING ================= -->
+  <section id="spell" class="screen">
+    <div style="font-size:4rem;text-align:center" id="spell-emoji">🐱</div>
+    <div id="spell-slots" style="text-align:center;font-size:1.6rem;margin:8px"></div>
+    <div id="spell-tiles" style="text-align:center;margin:8px"></div>
+    <div class="heard" id="spell-heard"></div>
+    <div class="row">
+      <button class="btn" id="spell-hear">🔊 Sound it out</button>
+      <button class="btn" id="spell-say">🎤 Say it</button>
+    </div>
+    <div class="row">
+      <button class="back to-home">🏠 Home</button>
+      <button class="btn secondary" id="spell-next">Next word ➡️</button>
+    </div>
+  </section>
+
+  <!-- ================= TRACE ================= -->
+  <section id="trace" class="screen">
+    <div class="trace-wrap">
+      <canvas id="trace-guide"></canvas>
+      <canvas id="trace-draw"></canvas>
+    </div>
+    <div class="progress" id="trace-result"></div>
+    <div class="row">
+      <button class="btn" id="trace-check">✅ Done</button>
+      <button class="btn secondary" id="trace-clear">🔄 Clear</button>
+      <button class="back" id="trace-back">⬅️ Back</button>
+    </div>
+  </section>
+
+  <!-- ================= GAMES MENU ================= -->
+  <section id="games" class="screen">
+    <h2>🎮 Pick a Game</h2>
+    <div class="menu">
+      <button class="tile games"    id="g-colors"><span class="ico">🎨</span>Colors</button>
+      <button class="tile letters"  id="g-letters"><span class="ico">🔤</span>Letter Hunt</button>
+      <button class="tile numbers"  id="g-count"><span class="ico">🔢</span>Counting</button>
+      <button class="tile sounds"   id="g-sounds"><span class="ico">👂</span>First Sound</button>
+    </div>
+    <div class="row"><button class="back to-home">🏠 Home</button></div>
+  </section>
+
+  <!-- ================= SINGLE GAME ================= -->
+  <section id="game" class="screen">
+    <h2 id="game-title">Game</h2>
+    <div id="game-area"></div>
+    <div class="row">
+      <button class="back to-games">⬅️ Games</button>
+      <button class="back to-home">🏠 Home</button>
+    </div>
+  </section>
+
+  <!-- ================= STICKERS ================= -->
+  <section id="stickers" class="screen">
+    <h2>🏆 My Sticker Book</h2>
+    <p class="subtitle">Earn a sticker every 5 stars!</p>
+    <div class="sticker-grid" id="sticker-grid"></div>
+    <div class="row"><button class="back to-home">🏠 Home</button></div>
+  </section>
+
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/speech.js"></script>
+<script src="js/tracing.js"></script>
+<script src="js/games.js"></script>
+<script src="js/app.js"></script>
+<script>
+  // Register the service worker so the app works offline & installs cleanly.
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () =>
+      navigator.serviceWorker.register("service-worker.js").catch(() => {}));
+  }
+</script>
+</body>
+</html>
