@@ -118,6 +118,13 @@ for (const W of D.SPELLING_WORDS) {
   add(`Let's sound it out again, then say ${W.word}.`);
 }
 
+// --- Journey to the Castle (princess board game) --------------------------
+add(`Help Princess Riley get back to her castle! Get it right to move closer!`);
+add(`Which word is this?`);
+add(`Yes! One step closer!`);
+add(`Oops! One step back. You can do it!`);
+add(`You made it to the castle! Hooray, Princess Riley!`);
+
 // --- Guided lesson + tracing demo + celebration ---------------------------
 add(`Let's learn together, Riley! Here we go!`);
 add(`You did it! Great job today, Riley! I'm so proud of you!`);
