@@ -60,6 +60,15 @@ const App = (() => {
     return Speech.say(text, opts);
   }
   const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+  const pick = (a) => a[Math.floor(Math.random() * a.length)];
+  // Re-entrancy guard: ignore taps that arrive while Flamingo is mid-sentence,
+  // so two narrations can never play over each other ("tripping over itself").
+  let narrating = false;
+  async function narrate(fn) {
+    if (narrating) return;
+    narrating = true;
+    try { return await fn(); } finally { narrating = false; }
+  }
   function playSfx(name) {
     try { const a = new Audio(`audio/sfx/${name}.mp3`); a.volume = 0.5; a.play().catch(() => {}); }
     catch {}
@@ -126,14 +135,29 @@ const App = (() => {
   /* ===================================================================== *
    * HOME
    * ===================================================================== */
+  let sessionGreeted = false;
+  const HOME_PROMPTS = [
+    "What would you like to do, Riley? Letters, numbers, or reading?",
+    "Ooh, what should we learn next, Riley?",
+    "Pick something fun and let's play, Riley!",
+    "I'm ready when you are, Riley! What sounds fun?",
+  ];
   function renderHome() {
-    flamingo(`Welcome Riley! What would you like to work on today?`);
+    if (!sessionGreeted) {
+      flamingo("Hey Riley! It's me, Flamingo Flamingo! I'm going to help you " +
+               "learn your letters and numbers today. Where should we get started?");
+    } else {
+      flamingo(pick(HOME_PROMPTS));
+    }
   }
   // iOS blocks audio until the first tap, so the greeting can't speak on load.
-  // We replay it on that first interaction (if Riley is still on the home screen).
+  // We play Flamingo's welcome on that first interaction (if still on home).
   function firstInteraction() {
     if (window.speechSynthesis) { try { speechSynthesis.resume(); } catch {} }
-    if (screens.home && screens.home.classList.contains("active")) renderHome();
+    if (screens.home && screens.home.classList.contains("active")) {
+      renderHome();
+      sessionGreeted = true;       // after the big intro, use shorter prompts
+    }
   }
 
   /* ===================================================================== *
@@ -162,20 +186,24 @@ const App = (() => {
     $("#letter-action").textContent = lStep === 0 ? "✏️ Trace it" : "🎤 Say it";
   }
   // The app tells Riley what to do next (trace, then say), then moves on.
-  function letterAction() {
+  function letterAction() { return narrate(letterActionInner); }
+  async function letterActionInner() {
     const L = LETTERS_ORDERED[lIdx];
     if (lStep === 0) {
       openTrace(L.letter, () => {
         lStep = 1; goScreen("letter"); updateLetterAction();
       }, "letters", L.letter, true);
     } else {
-      sayLetter().then(() => wait(600)).then(nextLetter);
+      await sayLetter(); await wait(600); nextLetter();
     }
   }
   function hearLetter() {
     const L = LETTERS_ORDERED[lIdx];
-    Speech.say(`${L.letter}.`).then(() => Speech.saySound(L.sound))
-      .then(() => Speech.say(`${L.word}.`));
+    return narrate(async () => {
+      await Speech.say(`${L.letter}.`);
+      await Speech.saySound(L.sound);
+      await Speech.say(`${L.word}.`);
+    });
   }
   function nextLetter() { lIdx = (lIdx + 1) % LETTERS_ORDERED.length; renderLetter(); }
   function prevLetter() { lIdx = (lIdx - 1 + LETTERS_ORDERED.length) % LETTERS_ORDERED.length; renderLetter(); }
@@ -229,19 +257,20 @@ const App = (() => {
     $("#number-action").textContent =
       ["🔢 Count with me", "✏️ Trace it", "🎤 Say it"][nStep];
   }
-  function numberAction() {
+  function numberAction() { return narrate(numberActionInner); }
+  async function numberActionInner() {
     const N = NUMBERS[nIdx];
     if (nStep === 0) {
-      countAloud().then(() => { nStep = 1; updateNumberAction(); });
+      await countAloud(); nStep = 1; updateNumberAction();
     } else if (nStep === 1) {
       openTrace(String(N.value), () => {
         nStep = 2; goScreen("number"); updateNumberAction();
       }, "numbers", String(N.value), true);
     } else {
-      sayNumber().then(() => wait(600)).then(nextNumber);
+      await sayNumber(); await wait(600); nextNumber();
     }
   }
-  function hearNumber() { const N = NUMBERS[nIdx]; Speech.say(`${N.value}. ${N.word}.`); }
+  function hearNumber() { const N = NUMBERS[nIdx]; return narrate(() => Speech.say(`${N.value}. ${N.word}.`)); }
   // Point to each object and count it out loud, then say the total.
   async function countAloud() {
     const N = NUMBERS[nIdx];
@@ -294,16 +323,17 @@ const App = (() => {
       `<button class="choice" data-c="${t.c}" style="width:64px">${t.c.toUpperCase()}</button>`
     ).join(" ");
     $("#spell-tiles").querySelectorAll("button").forEach(b => b.onclick = () => tapTile(b));
-    flamingo(`Let's spell ${W.word}. Listen to the sounds and put them in order.`);
-    soundOut(W);
+    narrate(async () => {
+      await flamingo(`Let's spell ${W.word}. Listen to the sounds and put them in order.`);
+      await soundOutInner(W);
+    });
   }
-  function soundOut(W) {
-    // say each sound slowly, then blend the whole word
-    (async () => {
-      for (const s of W.sounds) { await Speech.saySound(s); }
-      await Speech.say(W.word + "!");
-    })();
+  // say each sound slowly (with small gaps), then blend the whole word
+  async function soundOutInner(W) {
+    for (const s of W.sounds) { await Speech.saySound(s); await wait(180); }
+    await wait(220); await Speech.say(W.word + "!");
   }
+  function soundOut(W) { return narrate(() => soundOutInner(W)); }
   async function tapTile(btn) {
     const W = SPELLING_WORDS[sIdx];
     const need = W.word[builtLen];
@@ -596,25 +626,37 @@ const App = (() => {
     // In a guided lesson the button reads "Keep going"; on its own it cycles words.
     $("#read-next").innerHTML = readDone ? "Keep going ➡️" : "Next word ➡️";
     goScreen("read");
-    flamingo("Can you read this word? Sound it out, then say it.");
+    // Flamingo models the word first (clear, paced), THEN invites Riley to try.
+    narrate(async () => {
+      await flamingo("Let's read this word, Riley. Listen!");
+      await soundOutWord();
+      flamingo("Now you try! Sound it out, then read it.");
+    });
   }
   function hiRead(i) {
     readWord.word.split("").forEach((_, k) => {
       const el = $("#read-l-" + k); if (el) el.classList.toggle("hi", k === i);
     });
   }
-  async function readSound() {
+  // Sound each letter in turn (highlighted), pause, then blend into the word.
+  // Small gaps keep the sounds from running together so it's clear, not garbled.
+  async function soundOutWord() {
     const W = readWord;
-    for (let i = 0; i < W.sounds.length; i++) { hiRead(i); await Speech.saySound(W.sounds[i]); }
-    hiRead(-1); await Speech.say(`${W.word}!`);
+    for (let i = 0; i < W.sounds.length; i++) {
+      hiRead(i); await Speech.saySound(W.sounds[i]); await wait(180);
+    }
+    hiRead(-1); await wait(220); await Speech.say(`${W.word}!`); hiRead(-1);
   }
-  async function readSay() {
-    const W = readWord;
-    const ok = await listenFor([W.word], `Now read it: ${W.word}!`,
-      `Yes! You read ${W.word}! Great reading!`,
-      `Sound it out again, then say ${W.word}.`, "#read-heard");
-    if (ok !== null) recordMastery("reading", W.word, ok);
-    if (ok && readDone) { const d = readDone; readDone = null; await wait(300); d(); }
+  function readSound() { return narrate(soundOutWord); }
+  function readSay() {
+    return narrate(async () => {
+      const W = readWord;
+      const ok = await listenFor([W.word], `Now read it: ${W.word}!`,
+        `Yes! You read ${W.word}! Great reading, Riley!`,
+        `Let's sound it out again, then say ${W.word}.`, "#read-heard");
+      if (ok !== null) recordMastery("reading", W.word, ok);
+      if (ok && readDone) { const d = readDone; readDone = null; await wait(300); d(); }
+    });
   }
   function nextReadWord() {
     if (readDone) { const d = readDone; readDone = null; d(); return; }   // guided: advance lesson

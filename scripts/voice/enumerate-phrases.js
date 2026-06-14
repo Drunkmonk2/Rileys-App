@@ -75,6 +75,12 @@ for (const W of D.SPELLING_WORDS) {
 
 // --- Stickers + home + menus ----------------------------------------------
 for (const s of D.STICKERS) add(`You earned a ${s.label}! ${s.emoji}`);
+// Flamingo's launch self-introduction + warm home prompts (keep in sync w/ app.js)
+add(`Hey Riley! It's me, Flamingo Flamingo! I'm going to help you learn your letters and numbers today. Where should we get started?`);
+add(`What would you like to do, Riley? Letters, numbers, or reading?`);
+add(`Ooh, what should we learn next, Riley?`);
+add(`Pick something fun and let's play, Riley!`);
+add(`I'm ready when you are, Riley! What sounds fun?`);
 add(`Welcome Riley! What would you like to work on today?`);
 add(`Pick a game, Riley!`);
 
@@ -104,11 +110,12 @@ for (const N of D.NUMBERS) {
 }
 
 // --- Read Words (blending payoff) -----------------------------------------
-add(`Can you read this word? Sound it out, then say it.`);
+add(`Let's read this word, Riley. Listen!`);
+add(`Now you try! Sound it out, then read it.`);
 for (const W of D.SPELLING_WORDS) {
   add(`Now read it: ${W.word}!`);
-  add(`Yes! You read ${W.word}! Great reading!`);
-  add(`Sound it out again, then say ${W.word}.`);
+  add(`Yes! You read ${W.word}! Great reading, Riley!`);
+  add(`Let's sound it out again, then say ${W.word}.`);
 }
 
 // --- Guided lesson + tracing demo + celebration ---------------------------
