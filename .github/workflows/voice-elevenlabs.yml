@@ -47,7 +47,7 @@ jobs:
 
       - name: Bump service-worker cache so phones update
         run: |
-          sed -i -E "s/rileys-app-v[a-z0-9]+/rileys-app-el${{ github.run_id }}/" service-worker.js
+          sed -i -E "s/rileys-app-[a-z0-9]+/rileys-app-el${{ github.run_id }}/" service-worker.js
 
       - name: Commit regenerated voice
         run: |
