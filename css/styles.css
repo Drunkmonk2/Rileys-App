@@ -56,8 +56,8 @@ h1 { font-size: 2rem; color: var(--pink-deep); }
 
 /* ---- Flamingo mascot ----------------------------------------------------*/
 .flamingo {
-  width: 130px; height: 130px; margin: 0 auto; display: block;
-  filter: drop-shadow(0 6px 0 rgba(0,0,0,.1));
+  width: 120px; height: 168px; margin: 0 auto; display: block;
+  filter: drop-shadow(0 6px 0 rgba(0,0,0,.08));
 }
 .flamingo.bounce { animation: bob 1.6s ease-in-out infinite; }
 @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }

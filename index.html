@@ -26,48 +26,55 @@
   </div>
 
   <!-- Flamingo Flamingo, the teacher mascot (shared across screens) -->
-  <svg class="flamingo bounce" viewBox="0 0 200 210" aria-hidden="true">
-    <!-- ground shadow -->
-    <ellipse cx="100" cy="200" rx="58" ry="8" fill="rgba(0,0,0,.08)"/>
-    <!-- long flamingo legs with backward knees -->
-    <g stroke="#ff9a4d" stroke-width="6" stroke-linecap="round" fill="none">
-      <path d="M88 168 L96 182 L84 198"/>
-      <path d="M114 168 L108 182 L120 198"/>
-      <path d="M76 198 h16 M112 198 h16" stroke-width="6"/>
+  <svg class="flamingo bounce" viewBox="0 0 150 210" aria-hidden="true">
+    <defs>
+      <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#ffb6cf"/><stop offset="1" stop-color="#ff7ea6"/>
+      </linearGradient>
+      <linearGradient id="wing" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#ff7ea6"/><stop offset="1" stop-color="#ec5a89"/>
+      </linearGradient>
+    </defs>
+    <ellipse cx="72" cy="203" rx="42" ry="6" fill="rgba(0,0,0,.08)"/>
+    <!-- long elegant legs -->
+    <g stroke="#f5945f" stroke-width="5" stroke-linecap="round" fill="none">
+      <path d="M78 134 L84 168 L76 196"/>
+      <path d="M64 134 L58 168 L66 196"/>
+      <path d="M70 196 h14 M60 196 h14"/>
     </g>
-    <!-- body -->
-    <ellipse cx="100" cy="140" rx="50" ry="44" fill="#ff8fbf"/>
-    <!-- folded wing -->
-    <path d="M70 124 Q104 112 132 132 Q108 160 70 150 Z" fill="#ff6fa8"/>
-    <!-- raised wing holding the pointer -->
-    <path d="M138 132 Q160 118 168 96 Q150 104 138 120 Z" fill="#ff6fa8"/>
-    <!-- teacher's pointer -->
-    <line x1="158" y1="108" x2="186" y2="70" stroke="#a9744f" stroke-width="4" stroke-linecap="round"/>
-    <circle cx="187" cy="68" r="5" fill="#ffd23f"/>
-    <!-- neck -->
-    <path d="M100 110 C 96 84, 108 74, 112 58" fill="none" stroke="#ff8fbf"
-          stroke-width="22" stroke-linecap="round"/>
+    <!-- tail feathers -->
+    <path d="M46 120 C28 116 16 104 10 94 C24 100 42 108 54 118 Z" fill="url(#wing)"/>
+    <path d="M18 96 C14 92 12 88 12 84 C16 86 20 90 22 96 Z" fill="#2b2440"/>
+    <!-- slender body -->
+    <ellipse cx="66" cy="120" rx="34" ry="23" transform="rotate(-14 66 120)" fill="url(#body)"/>
+    <!-- folded wing with feather detail -->
+    <path d="M50 110 Q72 99 94 113 Q88 132 60 131 Q50 123 50 110 Z" fill="url(#wing)"/>
+    <g stroke="#d94d7d" stroke-width="1.5" fill="none" opacity=".7">
+      <path d="M58 114 Q72 110 86 118"/>
+      <path d="M60 120 Q73 117 84 123"/>
+    </g>
+    <path d="M50 112 C46 116 45 121 47 125 C50 121 52 117 54 114 Z" fill="#2b2440"/>
+    <!-- long S-curve neck -->
+    <path d="M82 112 C106 100 96 62 80 48" fill="none" stroke="#ff8fae"
+          stroke-width="12" stroke-linecap="round"/>
     <!-- head -->
-    <circle cx="112" cy="48" r="26" fill="#ff8fbf"/>
-    <!-- hooked flamingo beak -->
-    <path d="M104 64 Q112 60 121 64 Q119 78 112 80 Q106 76 104 64 Z" fill="#ffb13f"/>
-    <path d="M108 74 Q112 80 116 74 Q112 78 108 74 Z" fill="#2d2640"/>
-    <!-- round teacher glasses + eyes -->
-    <g stroke="#2d2640" stroke-width="3" fill="#fff">
-      <circle cx="103" cy="44" r="10"/>
-      <circle cx="124" cy="44" r="10"/>
+    <circle cx="78" cy="44" r="13" fill="#ff8fae"/>
+    <!-- iconic hooked beak with black tip -->
+    <path d="M85 36 C103 30 116 38 114 50 L104 52 C104 42 95 39 85 43 Z" fill="#ff9bb0"/>
+    <path d="M114 50 C113 63 103 66 95 59 C102 57 104 52 104 52 Z" fill="#2b2440"/>
+    <!-- teacher glasses + eye -->
+    <g stroke="#2b2440" stroke-width="2.5" fill="#fff"><circle cx="76" cy="42" r="8"/></g>
+    <circle cx="77" cy="43" r="3.2" fill="#2b2440"/>
+    <path d="M84 42 q4 -1 6 1" stroke="#2b2440" stroke-width="2.5" fill="none"/>
+    <path d="M68 41 L62 39" stroke="#2b2440" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <!-- graduation cap -->
+    <g transform="rotate(-12 78 28)">
+      <rect x="66" y="22" width="24" height="6" rx="2" fill="#2b2440"/>
+      <polygon points="78,16 99,25 78,34 57,25" fill="#3a3157"/>
+      <path d="M97 25 V37" stroke="#ffce3a" stroke-width="2"/>
+      <circle cx="97" cy="39" r="2.6" fill="#ffce3a"/>
     </g>
-    <path d="M113 44 q3 -3 6 0" stroke="#2d2640" stroke-width="3" fill="none"/>
-    <circle cx="104" cy="45" r="3.6" fill="#2d2640"/>
-    <circle cx="123" cy="45" r="3.6" fill="#2d2640"/>
-    <!-- graduation cap (mortarboard) with tassel -->
-    <rect x="96" y="22" width="36" height="9" rx="3" fill="#2d2640"
-          transform="rotate(-7 114 26)"/>
-    <polygon points="114,8 142,20 114,32 86,20" fill="#3a3157"/>
-    <path d="M140 20 V36" stroke="#ffd23f" stroke-width="2.5"/>
-    <circle cx="140" cy="39" r="3.5" fill="#ffd23f"/>
-    <!-- rosy cheek -->
-    <circle cx="96" cy="56" r="5" fill="#ff5fa2" opacity=".5"/>
+    <circle cx="70" cy="50" r="4" fill="#ff5fa2" opacity=".45"/>
   </svg>
   <div class="speech-bubble" id="bubble">Hi Riley!</div>
 

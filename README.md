@@ -116,7 +116,7 @@ icons/              App icons
 ```
 
 ## 🛣️ Ideas for next versions
-- Long flamingo legs on the mascot + animated reactions.
+- Animated mascot reactions (Flamingo cheering, pointing, blinking).
 - Parent dashboard: see which letters Riley has mastered.
 - Digraphs (sh/ch/th), long vowels, and first decodable sentences.
 - Native iOS build for guaranteed **offline on-device** speech.
