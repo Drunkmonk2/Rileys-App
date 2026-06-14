@@ -64,9 +64,15 @@ const App = (() => {
   function updateStars() { $("#stars").textContent = "⭐ " + state.stars; }
   function reward(stars = 1) {
     state.stars += stars;
+    cheer();                              // Flamingo does a happy wiggle
     // every 5 stars earns a random themed sticker
     if (state.stars % 5 === 0) earnSticker();
     updateStars(); save();
+  }
+  function cheer() {
+    const f = document.querySelector(".flamingo");
+    if (!f) return;
+    f.classList.remove("cheer"); void f.offsetWidth; f.classList.add("cheer");
   }
   function earnSticker() {
     const s = STICKERS[Math.floor(Math.random() * STICKERS.length)];
@@ -107,26 +113,34 @@ const App = (() => {
   /* ===================================================================== *
    * LETTERS lesson
    * ===================================================================== */
+  // Taught in science-of-reading order (s, a, t, p, i, n, ...), NOT A–Z, so
+  // Riley can build real words almost immediately.
+  const LETTER_BY_CHAR = Object.fromEntries(LETTERS.map(l => [l.letter, l]));
+  const LETTERS_ORDERED = TEACHING_SEQUENCE.flat().map(c => LETTER_BY_CHAR[c]);
+
   let lIdx = 0;
   function startLetters() { lIdx = 0; renderLetter(); goScreen("letter"); }
   function renderLetter() {
-    const L = LETTERS[lIdx];
+    const L = LETTERS_ORDERED[lIdx];
     $("#letter-char").textContent = L.letter;
     $("#letter-example").innerHTML =
       `<span class="emoji">${L.emoji}</span> ${L.letter} is for ${L.word}`;
+    $("#letter-progress").innerHTML =
+      progressCaption("letters", L.letter, lIdx, LETTERS_ORDERED.length, "Letter");
+    $("#letter-heard").textContent = "";
     flamingo(`This is ${L.letter}. ${L.letter} says ${L.sound}. ${L.letter} is for ${L.word}.`);
   }
   function hearLetter() {
-    const L = LETTERS[lIdx];
+    const L = LETTERS_ORDERED[lIdx];
     Speech.say(`${L.letter}.`).then(() => Speech.saySound(L.sound))
       .then(() => Speech.say(`${L.word}.`));
   }
-  function nextLetter() { lIdx = (lIdx + 1) % LETTERS.length; renderLetter(); }
-  function prevLetter() { lIdx = (lIdx - 1 + LETTERS.length) % LETTERS.length; renderLetter(); }
+  function nextLetter() { lIdx = (lIdx + 1) % LETTERS_ORDERED.length; renderLetter(); }
+  function prevLetter() { lIdx = (lIdx - 1 + LETTERS_ORDERED.length) % LETTERS_ORDERED.length; renderLetter(); }
 
   /* ---- say-it-back (microphone) for the current letter ----------------- */
   async function sayLetter() {
-    const L = LETTERS[lIdx];
+    const L = LETTERS_ORDERED[lIdx];
     const ok = await listenFor([L.letter.toLowerCase(), L.sound, L.word.toLowerCase()],
       `Say the letter ${L.letter}!`,
       `Yes! ${L.letter}! Great job Riley!`,
@@ -137,19 +151,33 @@ const App = (() => {
 
   /* ---- trace-it for the current letter --------------------------------- */
   function traceLetter() {
-    openTrace(LETTERS[lIdx].letter, () => { renderLetter(); goScreen("letter"); },
-      "letters", LETTERS[lIdx].letter);
+    const L = LETTERS_ORDERED[lIdx];
+    openTrace(L.letter, () => { renderLetter(); goScreen("letter"); }, "letters", L.letter);
+  }
+
+  /* A small progress line shown under each lesson item. */
+  function progressCaption(cat, key, idx, total, word) {
+    const lvl = masteryLevel(cat, key);
+    const badge = lvl === 2 ? "⭐ Mastered!" : lvl === 1 ? "👍 Practicing" : "";
+    if (total <= 0) return badge;        // numbers: numeral is its own position
+    const pos = `<span style="opacity:.55">${word} ${idx + 1} of ${total}</span>`;
+    return badge ? `${badge}  ${pos}` : pos;
   }
 
   /* ===================================================================== *
    * NUMBERS lesson
    * ===================================================================== */
-  let nIdx = 0;
-  function startNumbers() { nIdx = 0; renderNumber(); goScreen("number"); }
+  let nIdx = 1;                       // start at 1, not the abstract 0
+  function startNumbers() { nIdx = 1; renderNumber(); goScreen("number"); }
   function renderNumber() {
     const N = NUMBERS[nIdx];
     $("#number-char").textContent = N.value;
     $("#number-example").textContent = N.word;
+    // Show that many objects so the numeral connects to a real quantity.
+    $("#number-objects").textContent = N.value > 0 ? "🦩".repeat(Math.min(N.value, 20)) : "";
+    $("#number-progress").innerHTML =
+      progressCaption("numbers", String(N.value), 0, 0, "Number");
+    $("#number-heard").textContent = "";
     flamingo(`This is ${N.value}. ${N.word}.`);
   }
   function hearNumber() { const N = NUMBERS[nIdx]; Speech.say(`${N.value}. ${N.word}.`); }
@@ -433,6 +461,8 @@ const App = (() => {
     bind("#tile-sounds", () => { goScreen("game"); Games.firstSound(); });
 
     // letter screen
+    bind("#letter-char", hearLetter);   // kids tap the big letter to hear it
+    bind("#number-char", hearNumber);
     bind("#letter-hear", hearLetter);
     bind("#letter-say", sayLetter);
     bind("#letter-trace", traceLetter);
