@@ -7,9 +7,13 @@ on:
   workflow_dispatch:
     inputs:
       voice_id:
-        description: "ElevenLabs Voice ID (default = Rachel)"
+        description: "ElevenLabs Voice ID"
         required: false
-        default: "21m00Tcm4TlvDq8ikWAM"
+        default: "Nggzl2QAXh3OijoXD116"
+      regenerate_all:
+        description: "Re-record ALL lines? Turn ON only when changing the voice. OFF = just new/changed lines (much cheaper)."
+        type: boolean
+        default: false
       model:
         description: "ElevenLabs model"
         required: false
@@ -37,6 +41,8 @@ jobs:
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
           ELEVEN_VOICE_ID: ${{ github.event.inputs.voice_id }}
           ELEVEN_MODEL: ${{ github.event.inputs.model }}
+          # FORCE=1 re-records everything (voice change); FORCE=0 only new/changed lines
+          FORCE: ${{ github.event.inputs.regenerate_all == 'true' && '1' || '0' }}
         run: |
           if [ -z "$ELEVENLABS_API_KEY" ]; then
             echo "::error::Add your key as a repo secret named ELEVENLABS_API_KEY (Settings → Secrets and variables → Actions)."
