@@ -13,9 +13,7 @@
  * ==========================================================================*/
 
 const Tracing = (() => {
-  const GRID = 28;          // mask resolution (GRID x GRID cells)
-  const PASS_COVERAGE = 0.55;
-  const MAX_OFF = 0.55;     // allow lots of slop; little fingers wander
+  const GRID = 36;          // mask resolution (finer = stricter, fairer scoring)
 
   let guide, draw;          // visible canvases
   let maskCells;            // Set of "r,c" cells that are part of the letter
@@ -23,6 +21,7 @@ const Tracing = (() => {
   let drawing = false, lastPt = null;
   let onComplete = null, char = "";
   let demoRAF = 0, demoActive = false;
+  let drawnPts = [];        // pixel points the finger passed through (for scoring)
 
   function init(guideCanvas, drawCanvas) {
     guide = guideCanvas; draw = drawCanvas;
@@ -39,7 +38,7 @@ const Tracing = (() => {
   /* Load a new character to trace and draw the faded guide. */
   function setChar(ch, done) {
     char = ch; onComplete = done;
-    drawn = new Set(); lastPt = null;
+    drawn = new Set(); drawnPts = []; lastPt = null;
     cancelDemo();
     buildMask(ch);
     drawGuide(ch);
@@ -69,7 +68,9 @@ const Tracing = (() => {
     const S = strokesFor(ch);
     if (S) {
       x.strokeStyle = "#000"; x.lineCap = "round"; x.lineJoin = "round";
-      x.lineWidth = GRID * 0.14;          // gives the path real thickness to cover
+      // thin CENTERLINE for scoring: she must trace down the middle of the
+      // letter, not just anywhere inside the wide guide, to earn the stars.
+      x.lineWidth = GRID * 0.05;
       pathStrokes(x, S, GRID, GRID);
     } else {
       x.fillStyle = "#000"; x.textAlign = "center"; x.textBaseline = "middle";
@@ -94,10 +95,10 @@ const Tracing = (() => {
     const S = strokesFor(ch);
     if (S) {
       ctx.lineCap = "round"; ctx.lineJoin = "round";
-      ctx.lineWidth = Math.max(24, w * 0.14);            // wide "road" to trace on
+      ctx.lineWidth = Math.max(18, w * 0.11);            // "road" to trace on
       ctx.strokeStyle = "rgba(255,95,162,0.26)";
       pathStrokes(ctx, S, w, h);
-      ctx.lineWidth = 2; ctx.setLineDash([8, 9]);        // dashed center line
+      ctx.lineWidth = 2; ctx.setLineDash([8, 9]);        // dashed center line to follow
       ctx.strokeStyle = "rgba(230,57,138,0.55)";
       pathStrokes(ctx, S, w, h);
       ctx.setLineDash([]);
@@ -205,6 +206,7 @@ const Tracing = (() => {
   }
 
   function record(pt) {
+    drawnPts.push({ x: pt.x, y: pt.y });
     const { r, c } = cellOf(pt);
     if (r < 0 || c < 0 || r >= GRID || c >= GRID) return;
     drawn.add(r + "," + c);
@@ -244,30 +246,68 @@ const Tracing = (() => {
     window.addEventListener("mouseup", end);
   }
 
-  /* Called when child taps "Done". Returns a score object.
-   * coverage : a mask cell counts as traced if a finger point passed within 2
-   *            cells of it — so drawing the letter's centerline is enough (a
-   *            toddler won't fill the whole thick glyph).
-   * offRatio : fraction of finger points that were nowhere near the letter,
-   *            used to catch pure scribbling. */
+  // distance (px) from a point to a line segment
+  function distToSeg(px, py, ax, ay, bx, by) {
+    const dx = bx - ax, dy = by - ay;
+    const len2 = dx * dx + dy * dy || 1;
+    let t = ((px - ax) * dx + (py - ay) * dy) / len2;
+    t = Math.max(0, Math.min(1, t));
+    const cx = ax + t * dx, cy = ay + t * dy;
+    return Math.hypot(px - cx, py - cy);
+  }
+  // nearest distance (px) from a point to the whole glyph path
+  function distToPath(px, py, S, w, h) {
+    let best = Infinity;
+    for (const stroke of S) {
+      for (let i = 1; i < stroke.length; i++) {
+        const d = distToSeg(px, py, stroke[i-1][0]*w, stroke[i-1][1]*h, stroke[i][0]*w, stroke[i][1]*h);
+        if (d < best) best = d;
+      }
+    }
+    return best;
+  }
+  // evenly-spaced sample points along the glyph path
+  function samplePath(S, w, h, step) {
+    const pts = [];
+    for (const stroke of S) {
+      for (let i = 1; i < stroke.length; i++) {
+        const ax = stroke[i-1][0]*w, ay = stroke[i-1][1]*h, bx = stroke[i][0]*w, by = stroke[i][1]*h;
+        const segLen = Math.hypot(bx - ax, by - ay);
+        const n = Math.max(1, Math.round(segLen / step));
+        for (let k = 0; k <= n; k++) {
+          const f = k / n; pts.push({ x: ax + (bx-ax)*f, y: ay + (by-ay)*f });
+        }
+      }
+    }
+    return pts;
+  }
+
+  /* Called when child taps "Done". Scored on real pixel distance from the
+   * letter's centerline, so stars are honest:
+   *   accuracy = % of her finger points that stayed close to the line
+   *   coverage = % of the line she actually traced over
+   * Both must be good to earn 3 stars; sloppy/partial traces score lower. */
   function check() {
-    let covered = 0;
-    for (const cell of maskCells) {
-      const [r, c] = cell.split(",").map(Number);
-      if (near(drawn, r, c, 2)) covered++;
-    }
-    const coverage = maskCells.size ? covered / maskCells.size : 0;
+    const S = strokesFor(char);
+    const { w, h } = size(draw);
+    if (!S || drawnPts.length < 12) return { pass: false, stars: 0, coverage: 0, accuracy: 0 };
 
-    let off = 0;
-    for (const cell of drawn) {
-      const [r, c] = cell.split(",").map(Number);
-      if (!near(maskCells, r, c, 1)) off++;
-    }
-    const offRatio = drawn.size ? off / drawn.size : 1;
+    const tol = Math.max(13, w * 0.05);      // how close counts as "on the line"
+    let on = 0;
+    for (const p of drawnPts) if (distToPath(p.x, p.y, S, w, h) <= tol) on++;
+    const accuracy = on / drawnPts.length;
 
-    const pass = coverage >= PASS_COVERAGE && offRatio <= MAX_OFF;
-    const stars = !pass ? 0 : coverage > 0.85 ? 3 : coverage > 0.7 ? 2 : 1;
-    return { pass, stars, coverage: Math.round(coverage * 100) };
+    const samples = samplePath(S, w, h, tol);
+    let cov = 0;
+    for (const s of samples) {
+      if (drawnPts.some(p => (p.x - s.x) ** 2 + (p.y - s.y) ** 2 <= tol * tol)) cov++;
+    }
+    const coverage = samples.length ? cov / samples.length : 0;
+    const overall = coverage * accuracy;
+
+    const pass = coverage >= 0.6 && accuracy >= 0.6;
+    const stars = !pass ? 0 : overall >= 0.82 ? 3 : overall >= 0.62 ? 2 : 1;
+    return { pass, stars, coverage: Math.round(coverage * 100), accuracy: Math.round(accuracy * 100) };
   }
 
   function reset() { setChar(char, onComplete); }

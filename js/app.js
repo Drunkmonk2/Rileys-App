@@ -144,17 +144,33 @@ const App = (() => {
   const LETTER_BY_CHAR = Object.fromEntries(LETTERS.map(l => [l.letter, l]));
   const LETTERS_ORDERED = TEACHING_SEQUENCE.flat().map(c => LETTER_BY_CHAR[c]);
 
-  let lIdx = 0;
+  let lIdx = 0, lStep = 0;            // step 0 = trace, 1 = say (app-directed)
   function startLetters() { lIdx = 0; renderLetter(); goScreen("letter"); }
   function renderLetter() {
     const L = LETTERS_ORDERED[lIdx];
+    lStep = 0;
     $("#letter-char").textContent = L.letter;
     $("#letter-example").innerHTML =
       `<span class="emoji">${L.emoji}</span> ${L.letter} is for ${L.word}`;
     $("#letter-progress").innerHTML =
       progressCaption("letters", L.letter, lIdx, LETTERS_ORDERED.length, "Letter");
     $("#letter-heard").textContent = "";
+    updateLetterAction();
     flamingo(`This is ${L.letter}. ${L.letter} says ${L.sound}. ${L.letter} is for ${L.word}.`);
+  }
+  function updateLetterAction() {
+    $("#letter-action").textContent = lStep === 0 ? "✏️ Trace it" : "🎤 Say it";
+  }
+  // The app tells Riley what to do next (trace, then say), then moves on.
+  function letterAction() {
+    const L = LETTERS_ORDERED[lIdx];
+    if (lStep === 0) {
+      openTrace(L.letter, () => {
+        lStep = 1; goScreen("letter"); updateLetterAction();
+      }, "letters", L.letter, true);
+    } else {
+      sayLetter().then(() => wait(600)).then(nextLetter);
+    }
   }
   function hearLetter() {
     const L = LETTERS_ORDERED[lIdx];
@@ -194,10 +210,11 @@ const App = (() => {
   /* ===================================================================== *
    * NUMBERS lesson
    * ===================================================================== */
-  let nIdx = 1;                       // start at 1, not the abstract 0
+  let nIdx = 1, nStep = 0;            // step 0 = count, 1 = trace, 2 = say
   function startNumbers() { nIdx = 1; renderNumber(); goScreen("number"); }
   function renderNumber() {
     const N = NUMBERS[nIdx];
+    nStep = 0;
     $("#number-char").textContent = N.value;
     $("#number-example").textContent = N.word;
     // Show that many objects so the numeral connects to a real quantity.
@@ -205,7 +222,24 @@ const App = (() => {
     $("#number-progress").innerHTML =
       progressCaption("numbers", String(N.value), 0, 0, "Number");
     $("#number-heard").textContent = "";
+    updateNumberAction();
     flamingo(`This is ${N.value}. ${N.word}.`);
+  }
+  function updateNumberAction() {
+    $("#number-action").textContent =
+      ["🔢 Count with me", "✏️ Trace it", "🎤 Say it"][nStep];
+  }
+  function numberAction() {
+    const N = NUMBERS[nIdx];
+    if (nStep === 0) {
+      countAloud().then(() => { nStep = 1; updateNumberAction(); });
+    } else if (nStep === 1) {
+      openTrace(String(N.value), () => {
+        nStep = 2; goScreen("number"); updateNumberAction();
+      }, "numbers", String(N.value), true);
+    } else {
+      sayNumber().then(() => wait(600)).then(nextNumber);
+    }
   }
   function hearNumber() { const N = NUMBERS[nIdx]; Speech.say(`${N.value}. ${N.word}.`); }
   // Point to each object and count it out loud, then say the total.
@@ -672,19 +706,15 @@ const App = (() => {
     bind("#tile-spelling", startSpelling);
     bind("#tile-stickers", renderStickers);
 
-    // letter screen
+    // letter screen — app-directed single action (trace → say → next)
     bind("#letter-char", hearLetter);   // kids tap the big letter to hear it
-    bind("#number-char", hearNumber);
-    bind("#letter-hear", hearLetter);
-    bind("#letter-say", sayLetter);
-    bind("#letter-trace", traceLetter);
+    bind("#letter-action", letterAction);
     bind("#letter-next", nextLetter);
     bind("#letter-prev", prevLetter);
 
-    // number screen
-    bind("#number-count", countAloud);
-    bind("#number-say", sayNumber);
-    bind("#number-trace", traceNumber);
+    // number screen — app-directed single action (count → trace → say → next)
+    bind("#number-char", hearNumber);
+    bind("#number-action", numberAction);
     bind("#number-next", nextNumber);
     bind("#number-prev", prevNumber);
 
