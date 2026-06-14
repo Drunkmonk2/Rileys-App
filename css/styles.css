@@ -107,6 +107,17 @@ h1 { font-size: 2rem; color: var(--pink-deep); }
   font-size: .78rem; font-weight: 700; opacity: .9; }
 .tile.read { background: #b487ff; }
 .tile.wide { width: 100%; flex-direction: row; gap: 12px; min-height: 64px; }
+.tile.castle-tile { background: linear-gradient(120deg, #b487ff, #ff8a5c); }
+
+/* ---- Journey to the Castle ----------------------------------------------*/
+.castle-map {
+  display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;
+  font-size: 1.9rem; line-height: 1; margin: 6px 0 12px;
+}
+.castle-map .stone { transition: transform .25s ease; }
+.castle-map .stone.here { transform: scale(1.4) translateY(-2px); }
+.castle-map .stone.castle { font-size: 2.2rem; }
+.castle-big { text-align: center; margin: 8px 0; }
 
 /* counting objects pulse as they're counted */
 .number-objects .counting { display: inline-block; transform: scale(1.5);

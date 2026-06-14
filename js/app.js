@@ -664,6 +664,11 @@ const App = (() => {
   }
 
   /* ===================================================================== *
+   * JOURNEY TO THE CASTLE — princess board game (lives in games.js)
+   * ===================================================================== */
+  function startCastle() { goScreen("castle"); Games.castle(); }
+
+  /* ===================================================================== *
    * GUIDED LESSON — "Let's Learn!" weaves teaching + games + reading and
    * focuses on what Riley hasn't mastered yet. Games live here, not in a menu.
    * ===================================================================== */
@@ -746,6 +751,7 @@ const App = (() => {
     bind("#tile-numbers", startNumbers);
     bind("#tile-read", startReading);
     bind("#tile-spelling", startSpelling);
+    bind("#tile-castle", startCastle);
     bind("#tile-stickers", renderStickers);
 
     // letter screen — app-directed single action (trace → say → next)

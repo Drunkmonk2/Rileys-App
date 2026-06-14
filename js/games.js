@@ -103,5 +103,103 @@ const Games = (() => {
     });
   }
 
-  return { colors, findLetter, counting, firstSound };
+  /* ---- JOURNEY TO THE CASTLE: princess board game --------------------- *
+   * Riley the princess walks a path of stones to her castle. A correct answer
+   * hops her forward one stone; a wrong one steps her back one (never past the
+   * start). Reaching the castle = big celebration, then a fresh journey.
+   * Questions are a fun mix (letters, counting, first sounds, colors, reading).*/
+  const GOAL = 10;
+  let cPos = 0, cBusy = false;
+  const cmap = () => document.getElementById("castle-map");
+  const cq = () => document.getElementById("castle-q");
+
+  function renderCastleMap() {
+    let html = "";
+    for (let i = 0; i <= GOAL; i++) {
+      const face = i === cPos ? "👑" : i === GOAL ? "🏰" : i < cPos ? "🟢" : "⚪";
+      html += `<span class="stone${i === cPos ? " here" : ""}${i === GOAL ? " castle" : ""}">${face}</span>`;
+    }
+    cmap().innerHTML = html;
+  }
+
+  // Each maker returns { say, big?, choices:[{label, correct, cls?, style?}] }
+  function qLetter() {
+    const pool = shuffle([...LETTERS]).slice(0, 4), t = rand(pool);
+    return { say: `Find the letter ${t.letter}. It says ${t.sound}.`,
+      choices: pool.map(l => ({ label: l.letter, correct: l.letter === t.letter })) };
+  }
+  function qCount() {
+    const n = 1 + Math.floor(Math.random() * 9);
+    const icon = rand(["🦩","⚽","🧁","👑","⭐","🐱","🌸"]);
+    const set = new Set([n, clampDiff(n, -1), clampDiff(n, 1), clampDiff(n, 2)]);
+    const opts = shuffle([...set]).slice(0, 4); if (!opts.includes(n)) opts[0] = n;
+    return { say: `How many do you see? Count them out loud!`,
+      big: `<div style="font-size:2.2rem;line-height:1.3">${icon.repeat(n)}</div>`,
+      choices: shuffle(opts).map(v => ({ label: v, correct: v === n })) };
+  }
+  function qFirstSound() {
+    const item = rand(FIRST_SOUND_WORDS);
+    const distract = shuffle(LETTERS.filter(l => l.letter !== item.first)).slice(0, 3);
+    const opts = shuffle([{ letter: item.first }, ...distract]);
+    return { say: `Listen: ${item.word}. What sound does ${item.word} start with?`,
+      big: `<div style="font-size:3.6rem">${item.emoji}</div>`,
+      choices: opts.map(o => ({ label: o.letter, correct: o.letter === item.first })) };
+  }
+  function qColor() {
+    const opts = shuffle([...COLORS]).slice(0, 4), t = rand(opts);
+    return { say: `Riley, can you find the color ${t.name}?`,
+      choices: opts.map(c => ({ label: "", correct: c.name === t.name, cls: "swatch", style: `background:${c.hex}` })) };
+  }
+  function qRead() {
+    const pool = shuffle([...SPELLING_WORDS]).slice(0, 4), t = rand(pool);
+    return { say: `Which word is this?`,
+      big: `<div style="font-size:3.6rem">${t.emoji}</div>`,
+      choices: shuffle(pool).map(w => ({ label: w.word.toUpperCase(), correct: w.word === t.word })) };
+  }
+  const CASTLE_Q = [qLetter, qCount, qFirstSound, qColor, qRead];
+
+  function castle() {
+    cPos = 0; cBusy = false;
+    renderCastleMap();
+    cq().innerHTML = "";
+    App.flamingo("Help Princess Riley get back to her castle! Get it right to move closer!");
+    setTimeout(askCastle, 2600);
+  }
+  function askCastle() {
+    const q = rand(CASTLE_Q)();
+    App.flamingo(q.say);
+    cq().innerHTML =
+      (q.big ? `<div class="castle-big">${q.big}</div>` : "") +
+      `<div class="choices">${q.choices.map((c, i) =>
+        `<button class="choice${c.cls ? " " + c.cls : ""}" data-i="${i}"${c.style ? ` style="${c.style}"` : ""}>${c.label}</button>`
+      ).join("")}</div>`;
+    cq().querySelectorAll(".choice").forEach(b => b.onclick = () => {
+      if (cBusy) return;
+      onCastlePick(b, q.choices[+b.dataset.i].correct);
+    });
+  }
+  function onCastlePick(btn, correct) {
+    cBusy = true;
+    if (correct) {
+      btn.classList.add("correct");
+      App.reward(1);
+      cPos = Math.min(GOAL, cPos + 1); renderCastleMap();
+      if (cPos >= GOAL) return winCastle();
+      App.flamingo("Yes! One step closer!");
+      setTimeout(() => { cBusy = false; askCastle(); }, 1200);
+    } else {
+      btn.classList.add("wrong");
+      cPos = Math.max(0, cPos - 1); renderCastleMap();
+      App.flamingo("Oops! One step back. You can do it!");
+      setTimeout(() => { cBusy = false; askCastle(); }, 1700);
+    }
+  }
+  function winCastle() {
+    App.burst("🏰"); App.reward(3);
+    App.flamingo("You made it to the castle! Hooray, Princess Riley!");
+    setTimeout(() => App.burst("🎆"), 700);
+    setTimeout(() => { cPos = 0; renderCastleMap(); cBusy = false; askCastle(); }, 3400);
+  }
+
+  return { colors, findLetter, counting, firstSound, castle };
 })();
