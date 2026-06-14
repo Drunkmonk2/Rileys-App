@@ -1732,6 +1732,26 @@
     "text": "You earned a Unicorn!"
   },
   {
+    "key": "hey riley it's me flamingo flamingo i'm going to help you learn your letters and numbers today where should we get started",
+    "text": "Hey Riley! It's me, Flamingo Flamingo! I'm going to help you learn your letters and numbers today. Where should we get started?"
+  },
+  {
+    "key": "what would you like to do riley letters numbers or reading",
+    "text": "What would you like to do, Riley? Letters, numbers, or reading?"
+  },
+  {
+    "key": "ooh what should we learn next riley",
+    "text": "Ooh, what should we learn next, Riley?"
+  },
+  {
+    "key": "pick something fun and let's play riley",
+    "text": "Pick something fun and let's play, Riley!"
+  },
+  {
+    "key": "i'm ready when you are riley what sounds fun",
+    "text": "I'm ready when you are, Riley! What sounds fun?"
+  },
+  {
     "key": "welcome riley what would you like to work on today",
     "text": "Welcome Riley! What would you like to work on today?"
   },
@@ -2356,152 +2376,156 @@
     "text": "20!"
   },
   {
-    "key": "can you read this word sound it out then say it",
-    "text": "Can you read this word? Sound it out, then say it."
+    "key": "let's read this word riley listen",
+    "text": "Let's read this word, Riley. Listen!"
+  },
+  {
+    "key": "now you try sound it out then read it",
+    "text": "Now you try! Sound it out, then read it."
   },
   {
     "key": "now read it cat",
     "text": "Now read it: cat!"
   },
   {
-    "key": "yes you read cat great reading",
-    "text": "Yes! You read cat! Great reading!"
+    "key": "yes you read cat great reading riley",
+    "text": "Yes! You read cat! Great reading, Riley!"
   },
   {
-    "key": "sound it out again then say cat",
-    "text": "Sound it out again, then say cat."
+    "key": "let's sound it out again then say cat",
+    "text": "Let's sound it out again, then say cat."
   },
   {
     "key": "now read it dog",
     "text": "Now read it: dog!"
   },
   {
-    "key": "yes you read dog great reading",
-    "text": "Yes! You read dog! Great reading!"
+    "key": "yes you read dog great reading riley",
+    "text": "Yes! You read dog! Great reading, Riley!"
   },
   {
-    "key": "sound it out again then say dog",
-    "text": "Sound it out again, then say dog."
+    "key": "let's sound it out again then say dog",
+    "text": "Let's sound it out again, then say dog."
   },
   {
     "key": "now read it sun",
     "text": "Now read it: sun!"
   },
   {
-    "key": "yes you read sun great reading",
-    "text": "Yes! You read sun! Great reading!"
+    "key": "yes you read sun great reading riley",
+    "text": "Yes! You read sun! Great reading, Riley!"
   },
   {
-    "key": "sound it out again then say sun",
-    "text": "Sound it out again, then say sun."
+    "key": "let's sound it out again then say sun",
+    "text": "Let's sound it out again, then say sun."
   },
   {
     "key": "now read it hat",
     "text": "Now read it: hat!"
   },
   {
-    "key": "yes you read hat great reading",
-    "text": "Yes! You read hat! Great reading!"
+    "key": "yes you read hat great reading riley",
+    "text": "Yes! You read hat! Great reading, Riley!"
   },
   {
-    "key": "sound it out again then say hat",
-    "text": "Sound it out again, then say hat."
+    "key": "let's sound it out again then say hat",
+    "text": "Let's sound it out again, then say hat."
   },
   {
     "key": "now read it bat",
     "text": "Now read it: bat!"
   },
   {
-    "key": "yes you read bat great reading",
-    "text": "Yes! You read bat! Great reading!"
+    "key": "yes you read bat great reading riley",
+    "text": "Yes! You read bat! Great reading, Riley!"
   },
   {
-    "key": "sound it out again then say bat",
-    "text": "Sound it out again, then say bat."
+    "key": "let's sound it out again then say bat",
+    "text": "Let's sound it out again, then say bat."
   },
   {
     "key": "now read it cup",
     "text": "Now read it: cup!"
   },
   {
-    "key": "yes you read cup great reading",
-    "text": "Yes! You read cup! Great reading!"
+    "key": "yes you read cup great reading riley",
+    "text": "Yes! You read cup! Great reading, Riley!"
   },
   {
-    "key": "sound it out again then say cup",
-    "text": "Sound it out again, then say cup."
+    "key": "let's sound it out again then say cup",
+    "text": "Let's sound it out again, then say cup."
   },
   {
     "key": "now read it mom",
     "text": "Now read it: mom!"
   },
   {
-    "key": "yes you read mom great reading",
-    "text": "Yes! You read mom! Great reading!"
+    "key": "yes you read mom great reading riley",
+    "text": "Yes! You read mom! Great reading, Riley!"
   },
   {
-    "key": "sound it out again then say mom",
-    "text": "Sound it out again, then say mom."
+    "key": "let's sound it out again then say mom",
+    "text": "Let's sound it out again, then say mom."
   },
   {
     "key": "now read it pig",
     "text": "Now read it: pig!"
   },
   {
-    "key": "yes you read pig great reading",
-    "text": "Yes! You read pig! Great reading!"
+    "key": "yes you read pig great reading riley",
+    "text": "Yes! You read pig! Great reading, Riley!"
   },
   {
-    "key": "sound it out again then say pig",
-    "text": "Sound it out again, then say pig."
+    "key": "let's sound it out again then say pig",
+    "text": "Let's sound it out again, then say pig."
   },
   {
     "key": "now read it bed",
     "text": "Now read it: bed!"
   },
   {
-    "key": "yes you read bed great reading",
-    "text": "Yes! You read bed! Great reading!"
+    "key": "yes you read bed great reading riley",
+    "text": "Yes! You read bed! Great reading, Riley!"
   },
   {
-    "key": "sound it out again then say bed",
-    "text": "Sound it out again, then say bed."
+    "key": "let's sound it out again then say bed",
+    "text": "Let's sound it out again, then say bed."
   },
   {
     "key": "now read it box",
     "text": "Now read it: box!"
   },
   {
-    "key": "yes you read box great reading",
-    "text": "Yes! You read box! Great reading!"
+    "key": "yes you read box great reading riley",
+    "text": "Yes! You read box! Great reading, Riley!"
   },
   {
-    "key": "sound it out again then say box",
-    "text": "Sound it out again, then say box."
+    "key": "let's sound it out again then say box",
+    "text": "Let's sound it out again, then say box."
   },
   {
     "key": "now read it ball",
     "text": "Now read it: ball!"
   },
   {
-    "key": "yes you read ball great reading",
-    "text": "Yes! You read ball! Great reading!"
+    "key": "yes you read ball great reading riley",
+    "text": "Yes! You read ball! Great reading, Riley!"
   },
   {
-    "key": "sound it out again then say ball",
-    "text": "Sound it out again, then say ball."
+    "key": "let's sound it out again then say ball",
+    "text": "Let's sound it out again, then say ball."
   },
   {
     "key": "now read it fun",
     "text": "Now read it: fun!"
   },
   {
-    "key": "yes you read fun great reading",
-    "text": "Yes! You read fun! Great reading!"
+    "key": "yes you read fun great reading riley",
+    "text": "Yes! You read fun! Great reading, Riley!"
   },
   {
-    "key": "sound it out again then say fun",
-    "text": "Sound it out again, then say fun."
+    "key": "let's sound it out again then say fun",
+    "text": "Let's sound it out again, then say fun."
   },
   {
     "key": "let's learn together riley here we go",
