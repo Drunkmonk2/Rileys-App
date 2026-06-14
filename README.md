@@ -91,6 +91,19 @@ real HTTPS GitHub Pages URL on the phone, but everything else works locally.)
 Everything is personalized to **Riley** and themed around **princesses,
 soccer, football, softball, basketball, baking, and coloring**.
 
+### Flamingo's voice
+Flamingo speaks with **pre-recorded human-voice clips** (generated once with
+the open-source [Piper](https://github.com/rhasspy/piper) neural TTS) — they
+sound natural, play instantly, and work offline. Any line without a clip falls
+back to the device's built-in voice (adjustable under **Grown-ups → Backup
+Voice**). To (re)generate the clips after changing wording or curriculum:
+```bash
+pip install piper-tts imageio-ffmpeg
+python3 -m piper.download_voices en_US-amy-medium
+node   scripts/voice/enumerate-phrases.js
+python3 scripts/voice/generate-clips.py
+```
+
 ### How recognition works
 - **Tracing** is checked **entirely on the phone** — the app renders the
   target letter, then measures how well Riley's finger covered it. Nothing
@@ -113,6 +126,8 @@ js/speech.js        Flamingo's voice (TTS) + listening (speech recognition)
 js/tracing.js       On-device finger-tracing recognition
 js/games.js         Mini-games
 js/app.js           Navigation, lessons, rewards, progress + parent dashboard
+audio/              Pre-recorded human-voice clips + manifest.json
+scripts/voice/      Tools that generate the voice clips (Piper TTS)
 icons/              App icons
 ios/                Native iOS wrapper (Mac/cloud build) — see ios/README.md
 ```

@@ -1,0 +1,2190 @@
+[
+  {
+    "key": "this is a a says ah a is for apple",
+    "text": "This is A. A says ah. A is for Apple."
+  },
+  {
+    "key": "a",
+    "text": "A."
+  },
+  {
+    "key": "apple",
+    "text": "Apple."
+  },
+  {
+    "key": "ah",
+    "text": "ah"
+  },
+  {
+    "key": "say the letter a",
+    "text": "Say the letter A!"
+  },
+  {
+    "key": "yes a great job riley",
+    "text": "Yes! A! Great job Riley!"
+  },
+  {
+    "key": "let's try again a says ah",
+    "text": "Let's try again. A says ah."
+  },
+  {
+    "key": "trace the letter a with your finger",
+    "text": "Trace the letter A with your finger!"
+  },
+  {
+    "key": "this is b b says buh b is for ball",
+    "text": "This is B. B says buh. B is for Ball."
+  },
+  {
+    "key": "b",
+    "text": "B."
+  },
+  {
+    "key": "ball",
+    "text": "Ball."
+  },
+  {
+    "key": "buh",
+    "text": "buh"
+  },
+  {
+    "key": "say the letter b",
+    "text": "Say the letter B!"
+  },
+  {
+    "key": "yes b great job riley",
+    "text": "Yes! B! Great job Riley!"
+  },
+  {
+    "key": "let's try again b says buh",
+    "text": "Let's try again. B says buh."
+  },
+  {
+    "key": "trace the letter b with your finger",
+    "text": "Trace the letter B with your finger!"
+  },
+  {
+    "key": "this is c c says kuh c is for crown",
+    "text": "This is C. C says kuh. C is for Crown."
+  },
+  {
+    "key": "c",
+    "text": "C."
+  },
+  {
+    "key": "crown",
+    "text": "Crown."
+  },
+  {
+    "key": "kuh",
+    "text": "kuh"
+  },
+  {
+    "key": "say the letter c",
+    "text": "Say the letter C!"
+  },
+  {
+    "key": "yes c great job riley",
+    "text": "Yes! C! Great job Riley!"
+  },
+  {
+    "key": "let's try again c says kuh",
+    "text": "Let's try again. C says kuh."
+  },
+  {
+    "key": "trace the letter c with your finger",
+    "text": "Trace the letter C with your finger!"
+  },
+  {
+    "key": "this is d d says duh d is for dog",
+    "text": "This is D. D says duh. D is for Dog."
+  },
+  {
+    "key": "d",
+    "text": "D."
+  },
+  {
+    "key": "dog",
+    "text": "Dog."
+  },
+  {
+    "key": "duh",
+    "text": "duh"
+  },
+  {
+    "key": "say the letter d",
+    "text": "Say the letter D!"
+  },
+  {
+    "key": "yes d great job riley",
+    "text": "Yes! D! Great job Riley!"
+  },
+  {
+    "key": "let's try again d says duh",
+    "text": "Let's try again. D says duh."
+  },
+  {
+    "key": "trace the letter d with your finger",
+    "text": "Trace the letter D with your finger!"
+  },
+  {
+    "key": "this is e e says eh e is for egg",
+    "text": "This is E. E says eh. E is for Egg."
+  },
+  {
+    "key": "e",
+    "text": "E."
+  },
+  {
+    "key": "egg",
+    "text": "Egg."
+  },
+  {
+    "key": "eh",
+    "text": "eh"
+  },
+  {
+    "key": "say the letter e",
+    "text": "Say the letter E!"
+  },
+  {
+    "key": "yes e great job riley",
+    "text": "Yes! E! Great job Riley!"
+  },
+  {
+    "key": "let's try again e says eh",
+    "text": "Let's try again. E says eh."
+  },
+  {
+    "key": "trace the letter e with your finger",
+    "text": "Trace the letter E with your finger!"
+  },
+  {
+    "key": "this is f f says fff f is for flamingo",
+    "text": "This is F. F says fff. F is for Flamingo."
+  },
+  {
+    "key": "f",
+    "text": "F."
+  },
+  {
+    "key": "flamingo",
+    "text": "Flamingo."
+  },
+  {
+    "key": "fff",
+    "text": "fff"
+  },
+  {
+    "key": "say the letter f",
+    "text": "Say the letter F!"
+  },
+  {
+    "key": "yes f great job riley",
+    "text": "Yes! F! Great job Riley!"
+  },
+  {
+    "key": "let's try again f says fff",
+    "text": "Let's try again. F says fff."
+  },
+  {
+    "key": "trace the letter f with your finger",
+    "text": "Trace the letter F with your finger!"
+  },
+  {
+    "key": "this is g g says guh g is for goal",
+    "text": "This is G. G says guh. G is for Goal."
+  },
+  {
+    "key": "g",
+    "text": "G."
+  },
+  {
+    "key": "goal",
+    "text": "Goal."
+  },
+  {
+    "key": "guh",
+    "text": "guh"
+  },
+  {
+    "key": "say the letter g",
+    "text": "Say the letter G!"
+  },
+  {
+    "key": "yes g great job riley",
+    "text": "Yes! G! Great job Riley!"
+  },
+  {
+    "key": "let's try again g says guh",
+    "text": "Let's try again. G says guh."
+  },
+  {
+    "key": "trace the letter g with your finger",
+    "text": "Trace the letter G with your finger!"
+  },
+  {
+    "key": "this is h h says huh h is for hat",
+    "text": "This is H. H says huh. H is for Hat."
+  },
+  {
+    "key": "h",
+    "text": "H."
+  },
+  {
+    "key": "hat",
+    "text": "Hat."
+  },
+  {
+    "key": "huh",
+    "text": "huh"
+  },
+  {
+    "key": "say the letter h",
+    "text": "Say the letter H!"
+  },
+  {
+    "key": "yes h great job riley",
+    "text": "Yes! H! Great job Riley!"
+  },
+  {
+    "key": "let's try again h says huh",
+    "text": "Let's try again. H says huh."
+  },
+  {
+    "key": "trace the letter h with your finger",
+    "text": "Trace the letter H with your finger!"
+  },
+  {
+    "key": "this is i i says ih i is for igloo",
+    "text": "This is I. I says ih. I is for Igloo."
+  },
+  {
+    "key": "i",
+    "text": "I."
+  },
+  {
+    "key": "igloo",
+    "text": "Igloo."
+  },
+  {
+    "key": "ih",
+    "text": "ih"
+  },
+  {
+    "key": "say the letter i",
+    "text": "Say the letter I!"
+  },
+  {
+    "key": "yes i great job riley",
+    "text": "Yes! I! Great job Riley!"
+  },
+  {
+    "key": "let's try again i says ih",
+    "text": "Let's try again. I says ih."
+  },
+  {
+    "key": "trace the letter i with your finger",
+    "text": "Trace the letter I with your finger!"
+  },
+  {
+    "key": "this is j j says juh j is for jump",
+    "text": "This is J. J says juh. J is for Jump."
+  },
+  {
+    "key": "j",
+    "text": "J."
+  },
+  {
+    "key": "jump",
+    "text": "Jump."
+  },
+  {
+    "key": "juh",
+    "text": "juh"
+  },
+  {
+    "key": "say the letter j",
+    "text": "Say the letter J!"
+  },
+  {
+    "key": "yes j great job riley",
+    "text": "Yes! J! Great job Riley!"
+  },
+  {
+    "key": "let's try again j says juh",
+    "text": "Let's try again. J says juh."
+  },
+  {
+    "key": "trace the letter j with your finger",
+    "text": "Trace the letter J with your finger!"
+  },
+  {
+    "key": "this is k k says kuh k is for kick",
+    "text": "This is K. K says kuh. K is for Kick."
+  },
+  {
+    "key": "k",
+    "text": "K."
+  },
+  {
+    "key": "kick",
+    "text": "Kick."
+  },
+  {
+    "key": "say the letter k",
+    "text": "Say the letter K!"
+  },
+  {
+    "key": "yes k great job riley",
+    "text": "Yes! K! Great job Riley!"
+  },
+  {
+    "key": "let's try again k says kuh",
+    "text": "Let's try again. K says kuh."
+  },
+  {
+    "key": "trace the letter k with your finger",
+    "text": "Trace the letter K with your finger!"
+  },
+  {
+    "key": "this is l l says luh l is for lollipop",
+    "text": "This is L. L says luh. L is for Lollipop."
+  },
+  {
+    "key": "l",
+    "text": "L."
+  },
+  {
+    "key": "lollipop",
+    "text": "Lollipop."
+  },
+  {
+    "key": "luh",
+    "text": "luh"
+  },
+  {
+    "key": "say the letter l",
+    "text": "Say the letter L!"
+  },
+  {
+    "key": "yes l great job riley",
+    "text": "Yes! L! Great job Riley!"
+  },
+  {
+    "key": "let's try again l says luh",
+    "text": "Let's try again. L says luh."
+  },
+  {
+    "key": "trace the letter l with your finger",
+    "text": "Trace the letter L with your finger!"
+  },
+  {
+    "key": "this is m m says mmm m is for mom",
+    "text": "This is M. M says mmm. M is for Mom."
+  },
+  {
+    "key": "m",
+    "text": "M."
+  },
+  {
+    "key": "mom",
+    "text": "Mom."
+  },
+  {
+    "key": "mmm",
+    "text": "mmm"
+  },
+  {
+    "key": "say the letter m",
+    "text": "Say the letter M!"
+  },
+  {
+    "key": "yes m great job riley",
+    "text": "Yes! M! Great job Riley!"
+  },
+  {
+    "key": "let's try again m says mmm",
+    "text": "Let's try again. M says mmm."
+  },
+  {
+    "key": "trace the letter m with your finger",
+    "text": "Trace the letter M with your finger!"
+  },
+  {
+    "key": "this is n n says nnn n is for net",
+    "text": "This is N. N says nnn. N is for Net."
+  },
+  {
+    "key": "n",
+    "text": "N."
+  },
+  {
+    "key": "net",
+    "text": "Net."
+  },
+  {
+    "key": "nnn",
+    "text": "nnn"
+  },
+  {
+    "key": "say the letter n",
+    "text": "Say the letter N!"
+  },
+  {
+    "key": "yes n great job riley",
+    "text": "Yes! N! Great job Riley!"
+  },
+  {
+    "key": "let's try again n says nnn",
+    "text": "Let's try again. N says nnn."
+  },
+  {
+    "key": "trace the letter n with your finger",
+    "text": "Trace the letter N with your finger!"
+  },
+  {
+    "key": "this is o o says ah o is for octopus",
+    "text": "This is O. O says ah. O is for Octopus."
+  },
+  {
+    "key": "o",
+    "text": "O."
+  },
+  {
+    "key": "octopus",
+    "text": "Octopus."
+  },
+  {
+    "key": "say the letter o",
+    "text": "Say the letter O!"
+  },
+  {
+    "key": "yes o great job riley",
+    "text": "Yes! O! Great job Riley!"
+  },
+  {
+    "key": "let's try again o says ah",
+    "text": "Let's try again. O says ah."
+  },
+  {
+    "key": "trace the letter o with your finger",
+    "text": "Trace the letter O with your finger!"
+  },
+  {
+    "key": "this is p p says puh p is for princess",
+    "text": "This is P. P says puh. P is for Princess."
+  },
+  {
+    "key": "p",
+    "text": "P."
+  },
+  {
+    "key": "princess",
+    "text": "Princess."
+  },
+  {
+    "key": "puh",
+    "text": "puh"
+  },
+  {
+    "key": "say the letter p",
+    "text": "Say the letter P!"
+  },
+  {
+    "key": "yes p great job riley",
+    "text": "Yes! P! Great job Riley!"
+  },
+  {
+    "key": "let's try again p says puh",
+    "text": "Let's try again. P says puh."
+  },
+  {
+    "key": "trace the letter p with your finger",
+    "text": "Trace the letter P with your finger!"
+  },
+  {
+    "key": "this is q q says kwuh q is for queen",
+    "text": "This is Q. Q says kwuh. Q is for Queen."
+  },
+  {
+    "key": "q",
+    "text": "Q."
+  },
+  {
+    "key": "queen",
+    "text": "Queen."
+  },
+  {
+    "key": "kwuh",
+    "text": "kwuh"
+  },
+  {
+    "key": "say the letter q",
+    "text": "Say the letter Q!"
+  },
+  {
+    "key": "yes q great job riley",
+    "text": "Yes! Q! Great job Riley!"
+  },
+  {
+    "key": "let's try again q says kwuh",
+    "text": "Let's try again. Q says kwuh."
+  },
+  {
+    "key": "trace the letter q with your finger",
+    "text": "Trace the letter Q with your finger!"
+  },
+  {
+    "key": "this is r r says rrr r is for riley",
+    "text": "This is R. R says rrr. R is for Riley."
+  },
+  {
+    "key": "r",
+    "text": "R."
+  },
+  {
+    "key": "riley",
+    "text": "Riley."
+  },
+  {
+    "key": "rrr",
+    "text": "rrr"
+  },
+  {
+    "key": "say the letter r",
+    "text": "Say the letter R!"
+  },
+  {
+    "key": "yes r great job riley",
+    "text": "Yes! R! Great job Riley!"
+  },
+  {
+    "key": "let's try again r says rrr",
+    "text": "Let's try again. R says rrr."
+  },
+  {
+    "key": "trace the letter r with your finger",
+    "text": "Trace the letter R with your finger!"
+  },
+  {
+    "key": "this is s s says sss s is for soccer",
+    "text": "This is S. S says sss. S is for Soccer."
+  },
+  {
+    "key": "s",
+    "text": "S."
+  },
+  {
+    "key": "soccer",
+    "text": "Soccer."
+  },
+  {
+    "key": "sss",
+    "text": "sss"
+  },
+  {
+    "key": "say the letter s",
+    "text": "Say the letter S!"
+  },
+  {
+    "key": "yes s great job riley",
+    "text": "Yes! S! Great job Riley!"
+  },
+  {
+    "key": "let's try again s says sss",
+    "text": "Let's try again. S says sss."
+  },
+  {
+    "key": "trace the letter s with your finger",
+    "text": "Trace the letter S with your finger!"
+  },
+  {
+    "key": "this is t t says tuh t is for touchdown",
+    "text": "This is T. T says tuh. T is for Touchdown."
+  },
+  {
+    "key": "t",
+    "text": "T."
+  },
+  {
+    "key": "touchdown",
+    "text": "Touchdown."
+  },
+  {
+    "key": "tuh",
+    "text": "tuh"
+  },
+  {
+    "key": "say the letter t",
+    "text": "Say the letter T!"
+  },
+  {
+    "key": "yes t great job riley",
+    "text": "Yes! T! Great job Riley!"
+  },
+  {
+    "key": "let's try again t says tuh",
+    "text": "Let's try again. T says tuh."
+  },
+  {
+    "key": "trace the letter t with your finger",
+    "text": "Trace the letter T with your finger!"
+  },
+  {
+    "key": "this is u u says uh u is for umbrella",
+    "text": "This is U. U says uh. U is for Umbrella."
+  },
+  {
+    "key": "u",
+    "text": "U."
+  },
+  {
+    "key": "umbrella",
+    "text": "Umbrella."
+  },
+  {
+    "key": "uh",
+    "text": "uh"
+  },
+  {
+    "key": "say the letter u",
+    "text": "Say the letter U!"
+  },
+  {
+    "key": "yes u great job riley",
+    "text": "Yes! U! Great job Riley!"
+  },
+  {
+    "key": "let's try again u says uh",
+    "text": "Let's try again. U says uh."
+  },
+  {
+    "key": "trace the letter u with your finger",
+    "text": "Trace the letter U with your finger!"
+  },
+  {
+    "key": "this is v v says vvv v is for violin",
+    "text": "This is V. V says vvv. V is for Violin."
+  },
+  {
+    "key": "v",
+    "text": "V."
+  },
+  {
+    "key": "violin",
+    "text": "Violin."
+  },
+  {
+    "key": "vvv",
+    "text": "vvv"
+  },
+  {
+    "key": "say the letter v",
+    "text": "Say the letter V!"
+  },
+  {
+    "key": "yes v great job riley",
+    "text": "Yes! V! Great job Riley!"
+  },
+  {
+    "key": "let's try again v says vvv",
+    "text": "Let's try again. V says vvv."
+  },
+  {
+    "key": "trace the letter v with your finger",
+    "text": "Trace the letter V with your finger!"
+  },
+  {
+    "key": "this is w w says wuh w is for whisk",
+    "text": "This is W. W says wuh. W is for Whisk."
+  },
+  {
+    "key": "w",
+    "text": "W."
+  },
+  {
+    "key": "whisk",
+    "text": "Whisk."
+  },
+  {
+    "key": "wuh",
+    "text": "wuh"
+  },
+  {
+    "key": "say the letter w",
+    "text": "Say the letter W!"
+  },
+  {
+    "key": "yes w great job riley",
+    "text": "Yes! W! Great job Riley!"
+  },
+  {
+    "key": "let's try again w says wuh",
+    "text": "Let's try again. W says wuh."
+  },
+  {
+    "key": "trace the letter w with your finger",
+    "text": "Trace the letter W with your finger!"
+  },
+  {
+    "key": "this is x x says ks x is for fox",
+    "text": "This is X. X says ks. X is for Fox."
+  },
+  {
+    "key": "x",
+    "text": "X."
+  },
+  {
+    "key": "fox",
+    "text": "Fox."
+  },
+  {
+    "key": "ks",
+    "text": "ks"
+  },
+  {
+    "key": "say the letter x",
+    "text": "Say the letter X!"
+  },
+  {
+    "key": "yes x great job riley",
+    "text": "Yes! X! Great job Riley!"
+  },
+  {
+    "key": "let's try again x says ks",
+    "text": "Let's try again. X says ks."
+  },
+  {
+    "key": "trace the letter x with your finger",
+    "text": "Trace the letter X with your finger!"
+  },
+  {
+    "key": "this is y y says yuh y is for yarn",
+    "text": "This is Y. Y says yuh. Y is for Yarn."
+  },
+  {
+    "key": "y",
+    "text": "Y."
+  },
+  {
+    "key": "yarn",
+    "text": "Yarn."
+  },
+  {
+    "key": "yuh",
+    "text": "yuh"
+  },
+  {
+    "key": "say the letter y",
+    "text": "Say the letter Y!"
+  },
+  {
+    "key": "yes y great job riley",
+    "text": "Yes! Y! Great job Riley!"
+  },
+  {
+    "key": "let's try again y says yuh",
+    "text": "Let's try again. Y says yuh."
+  },
+  {
+    "key": "trace the letter y with your finger",
+    "text": "Trace the letter Y with your finger!"
+  },
+  {
+    "key": "this is z z says zzz z is for zebra",
+    "text": "This is Z. Z says zzz. Z is for Zebra."
+  },
+  {
+    "key": "z",
+    "text": "Z."
+  },
+  {
+    "key": "zebra",
+    "text": "Zebra."
+  },
+  {
+    "key": "zzz",
+    "text": "zzz"
+  },
+  {
+    "key": "say the letter z",
+    "text": "Say the letter Z!"
+  },
+  {
+    "key": "yes z great job riley",
+    "text": "Yes! Z! Great job Riley!"
+  },
+  {
+    "key": "let's try again z says zzz",
+    "text": "Let's try again. Z says zzz."
+  },
+  {
+    "key": "trace the letter z with your finger",
+    "text": "Trace the letter Z with your finger!"
+  },
+  {
+    "key": "this is 0 zero",
+    "text": "This is 0. zero."
+  },
+  {
+    "key": "0 zero",
+    "text": "0. zero."
+  },
+  {
+    "key": "say the number 0",
+    "text": "Say the number 0!"
+  },
+  {
+    "key": "yes 0 awesome riley",
+    "text": "Yes! 0! Awesome Riley!"
+  },
+  {
+    "key": "almost this is 0 say zero",
+    "text": "Almost! This is 0, say zero."
+  },
+  {
+    "key": "trace the number 0 with your finger",
+    "text": "Trace the number 0 with your finger!"
+  },
+  {
+    "key": "this is 1 one",
+    "text": "This is 1. one."
+  },
+  {
+    "key": "1 one",
+    "text": "1. one."
+  },
+  {
+    "key": "say the number 1",
+    "text": "Say the number 1!"
+  },
+  {
+    "key": "yes 1 awesome riley",
+    "text": "Yes! 1! Awesome Riley!"
+  },
+  {
+    "key": "almost this is 1 say one",
+    "text": "Almost! This is 1, say one."
+  },
+  {
+    "key": "trace the number 1 with your finger",
+    "text": "Trace the number 1 with your finger!"
+  },
+  {
+    "key": "this is 2 two",
+    "text": "This is 2. two."
+  },
+  {
+    "key": "2 two",
+    "text": "2. two."
+  },
+  {
+    "key": "say the number 2",
+    "text": "Say the number 2!"
+  },
+  {
+    "key": "yes 2 awesome riley",
+    "text": "Yes! 2! Awesome Riley!"
+  },
+  {
+    "key": "almost this is 2 say two",
+    "text": "Almost! This is 2, say two."
+  },
+  {
+    "key": "trace the number 2 with your finger",
+    "text": "Trace the number 2 with your finger!"
+  },
+  {
+    "key": "this is 3 three",
+    "text": "This is 3. three."
+  },
+  {
+    "key": "3 three",
+    "text": "3. three."
+  },
+  {
+    "key": "say the number 3",
+    "text": "Say the number 3!"
+  },
+  {
+    "key": "yes 3 awesome riley",
+    "text": "Yes! 3! Awesome Riley!"
+  },
+  {
+    "key": "almost this is 3 say three",
+    "text": "Almost! This is 3, say three."
+  },
+  {
+    "key": "trace the number 3 with your finger",
+    "text": "Trace the number 3 with your finger!"
+  },
+  {
+    "key": "this is 4 four",
+    "text": "This is 4. four."
+  },
+  {
+    "key": "4 four",
+    "text": "4. four."
+  },
+  {
+    "key": "say the number 4",
+    "text": "Say the number 4!"
+  },
+  {
+    "key": "yes 4 awesome riley",
+    "text": "Yes! 4! Awesome Riley!"
+  },
+  {
+    "key": "almost this is 4 say four",
+    "text": "Almost! This is 4, say four."
+  },
+  {
+    "key": "trace the number 4 with your finger",
+    "text": "Trace the number 4 with your finger!"
+  },
+  {
+    "key": "this is 5 five",
+    "text": "This is 5. five."
+  },
+  {
+    "key": "5 five",
+    "text": "5. five."
+  },
+  {
+    "key": "say the number 5",
+    "text": "Say the number 5!"
+  },
+  {
+    "key": "yes 5 awesome riley",
+    "text": "Yes! 5! Awesome Riley!"
+  },
+  {
+    "key": "almost this is 5 say five",
+    "text": "Almost! This is 5, say five."
+  },
+  {
+    "key": "trace the number 5 with your finger",
+    "text": "Trace the number 5 with your finger!"
+  },
+  {
+    "key": "this is 6 six",
+    "text": "This is 6. six."
+  },
+  {
+    "key": "6 six",
+    "text": "6. six."
+  },
+  {
+    "key": "say the number 6",
+    "text": "Say the number 6!"
+  },
+  {
+    "key": "yes 6 awesome riley",
+    "text": "Yes! 6! Awesome Riley!"
+  },
+  {
+    "key": "almost this is 6 say six",
+    "text": "Almost! This is 6, say six."
+  },
+  {
+    "key": "trace the number 6 with your finger",
+    "text": "Trace the number 6 with your finger!"
+  },
+  {
+    "key": "this is 7 seven",
+    "text": "This is 7. seven."
+  },
+  {
+    "key": "7 seven",
+    "text": "7. seven."
+  },
+  {
+    "key": "say the number 7",
+    "text": "Say the number 7!"
+  },
+  {
+    "key": "yes 7 awesome riley",
+    "text": "Yes! 7! Awesome Riley!"
+  },
+  {
+    "key": "almost this is 7 say seven",
+    "text": "Almost! This is 7, say seven."
+  },
+  {
+    "key": "trace the number 7 with your finger",
+    "text": "Trace the number 7 with your finger!"
+  },
+  {
+    "key": "this is 8 eight",
+    "text": "This is 8. eight."
+  },
+  {
+    "key": "8 eight",
+    "text": "8. eight."
+  },
+  {
+    "key": "say the number 8",
+    "text": "Say the number 8!"
+  },
+  {
+    "key": "yes 8 awesome riley",
+    "text": "Yes! 8! Awesome Riley!"
+  },
+  {
+    "key": "almost this is 8 say eight",
+    "text": "Almost! This is 8, say eight."
+  },
+  {
+    "key": "trace the number 8 with your finger",
+    "text": "Trace the number 8 with your finger!"
+  },
+  {
+    "key": "this is 9 nine",
+    "text": "This is 9. nine."
+  },
+  {
+    "key": "9 nine",
+    "text": "9. nine."
+  },
+  {
+    "key": "say the number 9",
+    "text": "Say the number 9!"
+  },
+  {
+    "key": "yes 9 awesome riley",
+    "text": "Yes! 9! Awesome Riley!"
+  },
+  {
+    "key": "almost this is 9 say nine",
+    "text": "Almost! This is 9, say nine."
+  },
+  {
+    "key": "trace the number 9 with your finger",
+    "text": "Trace the number 9 with your finger!"
+  },
+  {
+    "key": "this is 10 ten",
+    "text": "This is 10. ten."
+  },
+  {
+    "key": "10 ten",
+    "text": "10. ten."
+  },
+  {
+    "key": "say the number 10",
+    "text": "Say the number 10!"
+  },
+  {
+    "key": "yes 10 awesome riley",
+    "text": "Yes! 10! Awesome Riley!"
+  },
+  {
+    "key": "almost this is 10 say ten",
+    "text": "Almost! This is 10, say ten."
+  },
+  {
+    "key": "trace the number 10 with your finger",
+    "text": "Trace the number 10 with your finger!"
+  },
+  {
+    "key": "this is 11 eleven",
+    "text": "This is 11. eleven."
+  },
+  {
+    "key": "11 eleven",
+    "text": "11. eleven."
+  },
+  {
+    "key": "say the number 11",
+    "text": "Say the number 11!"
+  },
+  {
+    "key": "yes 11 awesome riley",
+    "text": "Yes! 11! Awesome Riley!"
+  },
+  {
+    "key": "almost this is 11 say eleven",
+    "text": "Almost! This is 11, say eleven."
+  },
+  {
+    "key": "trace the number 11 with your finger",
+    "text": "Trace the number 11 with your finger!"
+  },
+  {
+    "key": "this is 12 twelve",
+    "text": "This is 12. twelve."
+  },
+  {
+    "key": "12 twelve",
+    "text": "12. twelve."
+  },
+  {
+    "key": "say the number 12",
+    "text": "Say the number 12!"
+  },
+  {
+    "key": "yes 12 awesome riley",
+    "text": "Yes! 12! Awesome Riley!"
+  },
+  {
+    "key": "almost this is 12 say twelve",
+    "text": "Almost! This is 12, say twelve."
+  },
+  {
+    "key": "trace the number 12 with your finger",
+    "text": "Trace the number 12 with your finger!"
+  },
+  {
+    "key": "this is 13 thirteen",
+    "text": "This is 13. thirteen."
+  },
+  {
+    "key": "13 thirteen",
+    "text": "13. thirteen."
+  },
+  {
+    "key": "say the number 13",
+    "text": "Say the number 13!"
+  },
+  {
+    "key": "yes 13 awesome riley",
+    "text": "Yes! 13! Awesome Riley!"
+  },
+  {
+    "key": "almost this is 13 say thirteen",
+    "text": "Almost! This is 13, say thirteen."
+  },
+  {
+    "key": "trace the number 13 with your finger",
+    "text": "Trace the number 13 with your finger!"
+  },
+  {
+    "key": "this is 14 fourteen",
+    "text": "This is 14. fourteen."
+  },
+  {
+    "key": "14 fourteen",
+    "text": "14. fourteen."
+  },
+  {
+    "key": "say the number 14",
+    "text": "Say the number 14!"
+  },
+  {
+    "key": "yes 14 awesome riley",
+    "text": "Yes! 14! Awesome Riley!"
+  },
+  {
+    "key": "almost this is 14 say fourteen",
+    "text": "Almost! This is 14, say fourteen."
+  },
+  {
+    "key": "trace the number 14 with your finger",
+    "text": "Trace the number 14 with your finger!"
+  },
+  {
+    "key": "this is 15 fifteen",
+    "text": "This is 15. fifteen."
+  },
+  {
+    "key": "15 fifteen",
+    "text": "15. fifteen."
+  },
+  {
+    "key": "say the number 15",
+    "text": "Say the number 15!"
+  },
+  {
+    "key": "yes 15 awesome riley",
+    "text": "Yes! 15! Awesome Riley!"
+  },
+  {
+    "key": "almost this is 15 say fifteen",
+    "text": "Almost! This is 15, say fifteen."
+  },
+  {
+    "key": "trace the number 15 with your finger",
+    "text": "Trace the number 15 with your finger!"
+  },
+  {
+    "key": "this is 16 sixteen",
+    "text": "This is 16. sixteen."
+  },
+  {
+    "key": "16 sixteen",
+    "text": "16. sixteen."
+  },
+  {
+    "key": "say the number 16",
+    "text": "Say the number 16!"
+  },
+  {
+    "key": "yes 16 awesome riley",
+    "text": "Yes! 16! Awesome Riley!"
+  },
+  {
+    "key": "almost this is 16 say sixteen",
+    "text": "Almost! This is 16, say sixteen."
+  },
+  {
+    "key": "trace the number 16 with your finger",
+    "text": "Trace the number 16 with your finger!"
+  },
+  {
+    "key": "this is 17 seventeen",
+    "text": "This is 17. seventeen."
+  },
+  {
+    "key": "17 seventeen",
+    "text": "17. seventeen."
+  },
+  {
+    "key": "say the number 17",
+    "text": "Say the number 17!"
+  },
+  {
+    "key": "yes 17 awesome riley",
+    "text": "Yes! 17! Awesome Riley!"
+  },
+  {
+    "key": "almost this is 17 say seventeen",
+    "text": "Almost! This is 17, say seventeen."
+  },
+  {
+    "key": "trace the number 17 with your finger",
+    "text": "Trace the number 17 with your finger!"
+  },
+  {
+    "key": "this is 18 eighteen",
+    "text": "This is 18. eighteen."
+  },
+  {
+    "key": "18 eighteen",
+    "text": "18. eighteen."
+  },
+  {
+    "key": "say the number 18",
+    "text": "Say the number 18!"
+  },
+  {
+    "key": "yes 18 awesome riley",
+    "text": "Yes! 18! Awesome Riley!"
+  },
+  {
+    "key": "almost this is 18 say eighteen",
+    "text": "Almost! This is 18, say eighteen."
+  },
+  {
+    "key": "trace the number 18 with your finger",
+    "text": "Trace the number 18 with your finger!"
+  },
+  {
+    "key": "this is 19 nineteen",
+    "text": "This is 19. nineteen."
+  },
+  {
+    "key": "19 nineteen",
+    "text": "19. nineteen."
+  },
+  {
+    "key": "say the number 19",
+    "text": "Say the number 19!"
+  },
+  {
+    "key": "yes 19 awesome riley",
+    "text": "Yes! 19! Awesome Riley!"
+  },
+  {
+    "key": "almost this is 19 say nineteen",
+    "text": "Almost! This is 19, say nineteen."
+  },
+  {
+    "key": "trace the number 19 with your finger",
+    "text": "Trace the number 19 with your finger!"
+  },
+  {
+    "key": "this is 20 twenty",
+    "text": "This is 20. twenty."
+  },
+  {
+    "key": "20 twenty",
+    "text": "20. twenty."
+  },
+  {
+    "key": "say the number 20",
+    "text": "Say the number 20!"
+  },
+  {
+    "key": "yes 20 awesome riley",
+    "text": "Yes! 20! Awesome Riley!"
+  },
+  {
+    "key": "almost this is 20 say twenty",
+    "text": "Almost! This is 20, say twenty."
+  },
+  {
+    "key": "trace the number 20 with your finger",
+    "text": "Trace the number 20 with your finger!"
+  },
+  {
+    "key": "wonderful tracing riley 1 stars",
+    "text": "Wonderful tracing, Riley! 1 stars!"
+  },
+  {
+    "key": "wonderful tracing riley 2 stars",
+    "text": "Wonderful tracing, Riley! 2 stars!"
+  },
+  {
+    "key": "wonderful tracing riley 3 stars",
+    "text": "Wonderful tracing, Riley! 3 stars!"
+  },
+  {
+    "key": "good try let's trace it again slow and steady",
+    "text": "Good try! Let's trace it again, slow and steady."
+  },
+  {
+    "key": "let's spell cat listen to the sounds and put them in order",
+    "text": "Let's spell cat. Listen to the sounds and put them in order."
+  },
+  {
+    "key": "cat",
+    "text": "cat!"
+  },
+  {
+    "key": "you spelled cat amazing riley",
+    "text": "You spelled cat! Amazing Riley!"
+  },
+  {
+    "key": "now you say it cat",
+    "text": "Now you say it: cat!"
+  },
+  {
+    "key": "perfect cat",
+    "text": "Perfect! cat!"
+  },
+  {
+    "key": "try again cat",
+    "text": "Try again: cat."
+  },
+  {
+    "key": "next we need the kuh sound find that letter",
+    "text": "Next we need the kuh sound. Find that letter!"
+  },
+  {
+    "key": "next we need the ah sound find that letter",
+    "text": "Next we need the ah sound. Find that letter!"
+  },
+  {
+    "key": "next we need the tuh sound find that letter",
+    "text": "Next we need the tuh sound. Find that letter!"
+  },
+  {
+    "key": "let's spell dog listen to the sounds and put them in order",
+    "text": "Let's spell dog. Listen to the sounds and put them in order."
+  },
+  {
+    "key": "you spelled dog amazing riley",
+    "text": "You spelled dog! Amazing Riley!"
+  },
+  {
+    "key": "now you say it dog",
+    "text": "Now you say it: dog!"
+  },
+  {
+    "key": "perfect dog",
+    "text": "Perfect! dog!"
+  },
+  {
+    "key": "try again dog",
+    "text": "Try again: dog."
+  },
+  {
+    "key": "next we need the duh sound find that letter",
+    "text": "Next we need the duh sound. Find that letter!"
+  },
+  {
+    "key": "next we need the guh sound find that letter",
+    "text": "Next we need the guh sound. Find that letter!"
+  },
+  {
+    "key": "let's spell sun listen to the sounds and put them in order",
+    "text": "Let's spell sun. Listen to the sounds and put them in order."
+  },
+  {
+    "key": "sun",
+    "text": "sun!"
+  },
+  {
+    "key": "you spelled sun amazing riley",
+    "text": "You spelled sun! Amazing Riley!"
+  },
+  {
+    "key": "now you say it sun",
+    "text": "Now you say it: sun!"
+  },
+  {
+    "key": "perfect sun",
+    "text": "Perfect! sun!"
+  },
+  {
+    "key": "try again sun",
+    "text": "Try again: sun."
+  },
+  {
+    "key": "next we need the sss sound find that letter",
+    "text": "Next we need the sss sound. Find that letter!"
+  },
+  {
+    "key": "next we need the uh sound find that letter",
+    "text": "Next we need the uh sound. Find that letter!"
+  },
+  {
+    "key": "next we need the nnn sound find that letter",
+    "text": "Next we need the nnn sound. Find that letter!"
+  },
+  {
+    "key": "let's spell hat listen to the sounds and put them in order",
+    "text": "Let's spell hat. Listen to the sounds and put them in order."
+  },
+  {
+    "key": "you spelled hat amazing riley",
+    "text": "You spelled hat! Amazing Riley!"
+  },
+  {
+    "key": "now you say it hat",
+    "text": "Now you say it: hat!"
+  },
+  {
+    "key": "perfect hat",
+    "text": "Perfect! hat!"
+  },
+  {
+    "key": "try again hat",
+    "text": "Try again: hat."
+  },
+  {
+    "key": "next we need the huh sound find that letter",
+    "text": "Next we need the huh sound. Find that letter!"
+  },
+  {
+    "key": "let's spell bat listen to the sounds and put them in order",
+    "text": "Let's spell bat. Listen to the sounds and put them in order."
+  },
+  {
+    "key": "bat",
+    "text": "bat!"
+  },
+  {
+    "key": "you spelled bat amazing riley",
+    "text": "You spelled bat! Amazing Riley!"
+  },
+  {
+    "key": "now you say it bat",
+    "text": "Now you say it: bat!"
+  },
+  {
+    "key": "perfect bat",
+    "text": "Perfect! bat!"
+  },
+  {
+    "key": "try again bat",
+    "text": "Try again: bat."
+  },
+  {
+    "key": "next we need the buh sound find that letter",
+    "text": "Next we need the buh sound. Find that letter!"
+  },
+  {
+    "key": "let's spell cup listen to the sounds and put them in order",
+    "text": "Let's spell cup. Listen to the sounds and put them in order."
+  },
+  {
+    "key": "cup",
+    "text": "cup!"
+  },
+  {
+    "key": "you spelled cup amazing riley",
+    "text": "You spelled cup! Amazing Riley!"
+  },
+  {
+    "key": "now you say it cup",
+    "text": "Now you say it: cup!"
+  },
+  {
+    "key": "perfect cup",
+    "text": "Perfect! cup!"
+  },
+  {
+    "key": "try again cup",
+    "text": "Try again: cup."
+  },
+  {
+    "key": "next we need the puh sound find that letter",
+    "text": "Next we need the puh sound. Find that letter!"
+  },
+  {
+    "key": "let's spell mom listen to the sounds and put them in order",
+    "text": "Let's spell mom. Listen to the sounds and put them in order."
+  },
+  {
+    "key": "you spelled mom amazing riley",
+    "text": "You spelled mom! Amazing Riley!"
+  },
+  {
+    "key": "now you say it mom",
+    "text": "Now you say it: mom!"
+  },
+  {
+    "key": "perfect mom",
+    "text": "Perfect! mom!"
+  },
+  {
+    "key": "try again mom",
+    "text": "Try again: mom."
+  },
+  {
+    "key": "next we need the mmm sound find that letter",
+    "text": "Next we need the mmm sound. Find that letter!"
+  },
+  {
+    "key": "let's spell pig listen to the sounds and put them in order",
+    "text": "Let's spell pig. Listen to the sounds and put them in order."
+  },
+  {
+    "key": "pig",
+    "text": "pig!"
+  },
+  {
+    "key": "you spelled pig amazing riley",
+    "text": "You spelled pig! Amazing Riley!"
+  },
+  {
+    "key": "now you say it pig",
+    "text": "Now you say it: pig!"
+  },
+  {
+    "key": "perfect pig",
+    "text": "Perfect! pig!"
+  },
+  {
+    "key": "try again pig",
+    "text": "Try again: pig."
+  },
+  {
+    "key": "next we need the ih sound find that letter",
+    "text": "Next we need the ih sound. Find that letter!"
+  },
+  {
+    "key": "let's spell bed listen to the sounds and put them in order",
+    "text": "Let's spell bed. Listen to the sounds and put them in order."
+  },
+  {
+    "key": "bed",
+    "text": "bed!"
+  },
+  {
+    "key": "you spelled bed amazing riley",
+    "text": "You spelled bed! Amazing Riley!"
+  },
+  {
+    "key": "now you say it bed",
+    "text": "Now you say it: bed!"
+  },
+  {
+    "key": "perfect bed",
+    "text": "Perfect! bed!"
+  },
+  {
+    "key": "try again bed",
+    "text": "Try again: bed."
+  },
+  {
+    "key": "next we need the eh sound find that letter",
+    "text": "Next we need the eh sound. Find that letter!"
+  },
+  {
+    "key": "let's spell box listen to the sounds and put them in order",
+    "text": "Let's spell box. Listen to the sounds and put them in order."
+  },
+  {
+    "key": "box",
+    "text": "box!"
+  },
+  {
+    "key": "you spelled box amazing riley",
+    "text": "You spelled box! Amazing Riley!"
+  },
+  {
+    "key": "now you say it box",
+    "text": "Now you say it: box!"
+  },
+  {
+    "key": "perfect box",
+    "text": "Perfect! box!"
+  },
+  {
+    "key": "try again box",
+    "text": "Try again: box."
+  },
+  {
+    "key": "next we need the ks sound find that letter",
+    "text": "Next we need the ks sound. Find that letter!"
+  },
+  {
+    "key": "let's spell ball listen to the sounds and put them in order",
+    "text": "Let's spell ball. Listen to the sounds and put them in order."
+  },
+  {
+    "key": "you spelled ball amazing riley",
+    "text": "You spelled ball! Amazing Riley!"
+  },
+  {
+    "key": "now you say it ball",
+    "text": "Now you say it: ball!"
+  },
+  {
+    "key": "perfect ball",
+    "text": "Perfect! ball!"
+  },
+  {
+    "key": "try again ball",
+    "text": "Try again: ball."
+  },
+  {
+    "key": "next we need the luh sound find that letter",
+    "text": "Next we need the luh sound. Find that letter!"
+  },
+  {
+    "key": "let's spell fun listen to the sounds and put them in order",
+    "text": "Let's spell fun. Listen to the sounds and put them in order."
+  },
+  {
+    "key": "fun",
+    "text": "fun!"
+  },
+  {
+    "key": "you spelled fun amazing riley",
+    "text": "You spelled fun! Amazing Riley!"
+  },
+  {
+    "key": "now you say it fun",
+    "text": "Now you say it: fun!"
+  },
+  {
+    "key": "perfect fun",
+    "text": "Perfect! fun!"
+  },
+  {
+    "key": "try again fun",
+    "text": "Try again: fun."
+  },
+  {
+    "key": "next we need the fff sound find that letter",
+    "text": "Next we need the fff sound. Find that letter!"
+  },
+  {
+    "key": "you earned a flamingo",
+    "text": "You earned a Flamingo!"
+  },
+  {
+    "key": "you earned a princess crown",
+    "text": "You earned a Princess Crown!"
+  },
+  {
+    "key": "you earned a soccer ball",
+    "text": "You earned a Soccer Ball!"
+  },
+  {
+    "key": "you earned a football",
+    "text": "You earned a Football!"
+  },
+  {
+    "key": "you earned a softball",
+    "text": "You earned a Softball!"
+  },
+  {
+    "key": "you earned a basketball",
+    "text": "You earned a Basketball!"
+  },
+  {
+    "key": "you earned a cupcake",
+    "text": "You earned a Cupcake!"
+  },
+  {
+    "key": "you earned a crayon",
+    "text": "You earned a Crayon!"
+  },
+  {
+    "key": "you earned a gold star",
+    "text": "You earned a Gold Star!"
+  },
+  {
+    "key": "you earned a rainbow",
+    "text": "You earned a Rainbow!"
+  },
+  {
+    "key": "you earned a trophy",
+    "text": "You earned a Trophy!"
+  },
+  {
+    "key": "you earned a unicorn",
+    "text": "You earned a Unicorn!"
+  },
+  {
+    "key": "welcome riley what would you like to work on today",
+    "text": "Welcome Riley! What would you like to work on today?"
+  },
+  {
+    "key": "pick a game riley",
+    "text": "Pick a game, Riley!"
+  },
+  {
+    "key": "riley can you find the color red",
+    "text": "Riley, can you find the color red?"
+  },
+  {
+    "key": "yes that's red",
+    "text": "Yes! That's red!"
+  },
+  {
+    "key": "riley can you find the color orange",
+    "text": "Riley, can you find the color orange?"
+  },
+  {
+    "key": "yes that's orange",
+    "text": "Yes! That's orange!"
+  },
+  {
+    "key": "riley can you find the color yellow",
+    "text": "Riley, can you find the color yellow?"
+  },
+  {
+    "key": "yes that's yellow",
+    "text": "Yes! That's yellow!"
+  },
+  {
+    "key": "riley can you find the color green",
+    "text": "Riley, can you find the color green?"
+  },
+  {
+    "key": "yes that's green",
+    "text": "Yes! That's green!"
+  },
+  {
+    "key": "riley can you find the color blue",
+    "text": "Riley, can you find the color blue?"
+  },
+  {
+    "key": "yes that's blue",
+    "text": "Yes! That's blue!"
+  },
+  {
+    "key": "riley can you find the color purple",
+    "text": "Riley, can you find the color purple?"
+  },
+  {
+    "key": "yes that's purple",
+    "text": "Yes! That's purple!"
+  },
+  {
+    "key": "riley can you find the color pink",
+    "text": "Riley, can you find the color pink?"
+  },
+  {
+    "key": "yes that's pink",
+    "text": "Yes! That's pink!"
+  },
+  {
+    "key": "riley can you find the color brown",
+    "text": "Riley, can you find the color brown?"
+  },
+  {
+    "key": "yes that's brown",
+    "text": "Yes! That's brown!"
+  },
+  {
+    "key": "find the letter a it says ah",
+    "text": "Find the letter A. It says ah."
+  },
+  {
+    "key": "great that's a",
+    "text": "Great! That's A!"
+  },
+  {
+    "key": "find the letter b it says buh",
+    "text": "Find the letter B. It says buh."
+  },
+  {
+    "key": "great that's b",
+    "text": "Great! That's B!"
+  },
+  {
+    "key": "find the letter c it says kuh",
+    "text": "Find the letter C. It says kuh."
+  },
+  {
+    "key": "great that's c",
+    "text": "Great! That's C!"
+  },
+  {
+    "key": "find the letter d it says duh",
+    "text": "Find the letter D. It says duh."
+  },
+  {
+    "key": "great that's d",
+    "text": "Great! That's D!"
+  },
+  {
+    "key": "find the letter e it says eh",
+    "text": "Find the letter E. It says eh."
+  },
+  {
+    "key": "great that's e",
+    "text": "Great! That's E!"
+  },
+  {
+    "key": "find the letter f it says fff",
+    "text": "Find the letter F. It says fff."
+  },
+  {
+    "key": "great that's f",
+    "text": "Great! That's F!"
+  },
+  {
+    "key": "find the letter g it says guh",
+    "text": "Find the letter G. It says guh."
+  },
+  {
+    "key": "great that's g",
+    "text": "Great! That's G!"
+  },
+  {
+    "key": "find the letter h it says huh",
+    "text": "Find the letter H. It says huh."
+  },
+  {
+    "key": "great that's h",
+    "text": "Great! That's H!"
+  },
+  {
+    "key": "find the letter i it says ih",
+    "text": "Find the letter I. It says ih."
+  },
+  {
+    "key": "great that's i",
+    "text": "Great! That's I!"
+  },
+  {
+    "key": "find the letter j it says juh",
+    "text": "Find the letter J. It says juh."
+  },
+  {
+    "key": "great that's j",
+    "text": "Great! That's J!"
+  },
+  {
+    "key": "find the letter k it says kuh",
+    "text": "Find the letter K. It says kuh."
+  },
+  {
+    "key": "great that's k",
+    "text": "Great! That's K!"
+  },
+  {
+    "key": "find the letter l it says luh",
+    "text": "Find the letter L. It says luh."
+  },
+  {
+    "key": "great that's l",
+    "text": "Great! That's L!"
+  },
+  {
+    "key": "find the letter m it says mmm",
+    "text": "Find the letter M. It says mmm."
+  },
+  {
+    "key": "great that's m",
+    "text": "Great! That's M!"
+  },
+  {
+    "key": "find the letter n it says nnn",
+    "text": "Find the letter N. It says nnn."
+  },
+  {
+    "key": "great that's n",
+    "text": "Great! That's N!"
+  },
+  {
+    "key": "find the letter o it says ah",
+    "text": "Find the letter O. It says ah."
+  },
+  {
+    "key": "great that's o",
+    "text": "Great! That's O!"
+  },
+  {
+    "key": "find the letter p it says puh",
+    "text": "Find the letter P. It says puh."
+  },
+  {
+    "key": "great that's p",
+    "text": "Great! That's P!"
+  },
+  {
+    "key": "find the letter q it says kwuh",
+    "text": "Find the letter Q. It says kwuh."
+  },
+  {
+    "key": "great that's q",
+    "text": "Great! That's Q!"
+  },
+  {
+    "key": "find the letter r it says rrr",
+    "text": "Find the letter R. It says rrr."
+  },
+  {
+    "key": "great that's r",
+    "text": "Great! That's R!"
+  },
+  {
+    "key": "find the letter s it says sss",
+    "text": "Find the letter S. It says sss."
+  },
+  {
+    "key": "great that's s",
+    "text": "Great! That's S!"
+  },
+  {
+    "key": "find the letter t it says tuh",
+    "text": "Find the letter T. It says tuh."
+  },
+  {
+    "key": "great that's t",
+    "text": "Great! That's T!"
+  },
+  {
+    "key": "find the letter u it says uh",
+    "text": "Find the letter U. It says uh."
+  },
+  {
+    "key": "great that's u",
+    "text": "Great! That's U!"
+  },
+  {
+    "key": "find the letter v it says vvv",
+    "text": "Find the letter V. It says vvv."
+  },
+  {
+    "key": "great that's v",
+    "text": "Great! That's V!"
+  },
+  {
+    "key": "find the letter w it says wuh",
+    "text": "Find the letter W. It says wuh."
+  },
+  {
+    "key": "great that's w",
+    "text": "Great! That's W!"
+  },
+  {
+    "key": "find the letter x it says ks",
+    "text": "Find the letter X. It says ks."
+  },
+  {
+    "key": "great that's x",
+    "text": "Great! That's X!"
+  },
+  {
+    "key": "find the letter y it says yuh",
+    "text": "Find the letter Y. It says yuh."
+  },
+  {
+    "key": "great that's y",
+    "text": "Great! That's Y!"
+  },
+  {
+    "key": "find the letter z it says zzz",
+    "text": "Find the letter Z. It says zzz."
+  },
+  {
+    "key": "great that's z",
+    "text": "Great! That's Z!"
+  },
+  {
+    "key": "how many do you see count them out loud",
+    "text": "How many do you see? Count them out loud!"
+  },
+  {
+    "key": "that's right 1",
+    "text": "That's right 1!"
+  },
+  {
+    "key": "that's right 2",
+    "text": "That's right 2!"
+  },
+  {
+    "key": "that's right 3",
+    "text": "That's right 3!"
+  },
+  {
+    "key": "that's right 4",
+    "text": "That's right 4!"
+  },
+  {
+    "key": "that's right 5",
+    "text": "That's right 5!"
+  },
+  {
+    "key": "that's right 6",
+    "text": "That's right 6!"
+  },
+  {
+    "key": "that's right 7",
+    "text": "That's right 7!"
+  },
+  {
+    "key": "that's right 8",
+    "text": "That's right 8!"
+  },
+  {
+    "key": "that's right 9",
+    "text": "That's right 9!"
+  },
+  {
+    "key": "that's right 10",
+    "text": "That's right 10!"
+  },
+  {
+    "key": "that's right 11",
+    "text": "That's right 11!"
+  },
+  {
+    "key": "that's right 12",
+    "text": "That's right 12!"
+  },
+  {
+    "key": "let's count again together one two three",
+    "text": "Let's count again together: one, two, three..."
+  },
+  {
+    "key": "listen soccer what sound does soccer start with",
+    "text": "Listen: soccer. What sound does soccer start with?"
+  },
+  {
+    "key": "yes soccer starts with s sss",
+    "text": "Yes! soccer starts with S sss!"
+  },
+  {
+    "key": "listen again sss soccer",
+    "text": "Listen again... sss... soccer."
+  },
+  {
+    "key": "listen princess what sound does princess start with",
+    "text": "Listen: princess. What sound does princess start with?"
+  },
+  {
+    "key": "yes princess starts with p puh",
+    "text": "Yes! princess starts with P puh!"
+  },
+  {
+    "key": "listen again puh princess",
+    "text": "Listen again... puh... princess."
+  },
+  {
+    "key": "listen ball what sound does ball start with",
+    "text": "Listen: ball. What sound does ball start with?"
+  },
+  {
+    "key": "yes ball starts with b buh",
+    "text": "Yes! ball starts with B buh!"
+  },
+  {
+    "key": "listen again buh ball",
+    "text": "Listen again... buh... ball."
+  },
+  {
+    "key": "listen cupcake what sound does cupcake start with",
+    "text": "Listen: cupcake. What sound does cupcake start with?"
+  },
+  {
+    "key": "yes cupcake starts with c kuh",
+    "text": "Yes! cupcake starts with C kuh!"
+  },
+  {
+    "key": "listen again kuh cupcake",
+    "text": "Listen again... kuh... cupcake."
+  },
+  {
+    "key": "listen flamingo what sound does flamingo start with",
+    "text": "Listen: flamingo. What sound does flamingo start with?"
+  },
+  {
+    "key": "yes flamingo starts with f fff",
+    "text": "Yes! flamingo starts with F fff!"
+  },
+  {
+    "key": "listen again fff flamingo",
+    "text": "Listen again... fff... flamingo."
+  },
+  {
+    "key": "listen dog what sound does dog start with",
+    "text": "Listen: dog. What sound does dog start with?"
+  },
+  {
+    "key": "yes dog starts with d duh",
+    "text": "Yes! dog starts with D duh!"
+  },
+  {
+    "key": "listen again duh dog",
+    "text": "Listen again... duh... dog."
+  },
+  {
+    "key": "listen moon what sound does moon start with",
+    "text": "Listen: moon. What sound does moon start with?"
+  },
+  {
+    "key": "yes moon starts with m mmm",
+    "text": "Yes! moon starts with M mmm!"
+  },
+  {
+    "key": "listen again mmm moon",
+    "text": "Listen again... mmm... moon."
+  },
+  {
+    "key": "listen sun what sound does sun start with",
+    "text": "Listen: sun. What sound does sun start with?"
+  },
+  {
+    "key": "yes sun starts with s sss",
+    "text": "Yes! sun starts with S sss!"
+  },
+  {
+    "key": "listen again sss sun",
+    "text": "Listen again... sss... sun."
+  },
+  {
+    "key": "listen tiara what sound does tiara start with",
+    "text": "Listen: tiara. What sound does tiara start with?"
+  },
+  {
+    "key": "yes tiara starts with t tuh",
+    "text": "Yes! tiara starts with T tuh!"
+  },
+  {
+    "key": "listen again tuh tiara",
+    "text": "Listen again... tuh... tiara."
+  },
+  {
+    "key": "listen net what sound does net start with",
+    "text": "Listen: net. What sound does net start with?"
+  },
+  {
+    "key": "yes net starts with n nnn",
+    "text": "Yes! net starts with N nnn!"
+  },
+  {
+    "key": "listen again nnn net",
+    "text": "Listen again... nnn... net."
+  }
+]

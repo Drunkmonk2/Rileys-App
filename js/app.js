@@ -359,19 +359,19 @@ const App = (() => {
       <h3>Spelling Words</h3>
       <div class="dash-grid">${SPELLING_WORDS.map(w =>
         cell(w.word, masteryLevel("words", w.word))).join("")}</div>
-      <h3>🦩 Flamingo's Voice</h3>
+      <h3>🦩 Backup Voice</h3>
       <div class="voice-box">
-        <label>Voice
+        <p class="dash-tip">Flamingo speaks with built-in <b>recorded human
+          clips</b> for her lessons — no setup needed. These settings only
+          control the <b>backup</b> voice used for the occasional line that
+          doesn't have a clip yet.</p>
+        <label>Backup voice
           <select id="voice-select"></select>
         </label>
-        <label>Talking speed: <span id="rate-label"></span>
+        <label>Backup talking speed: <span id="rate-label"></span>
           <input type="range" id="voice-rate" min="0.5" max="1.05" step="0.05">
         </label>
-        <button class="btn" id="voice-test">🔊 Test voice</button>
-        <p class="dash-tip">Want a more human voice? iPhone has free high-quality
-          voices: <b>Settings → Accessibility → Spoken Content → Voices → English</b>,
-          and download one marked <b>“Enhanced”</b> or <b>“Premium”</b> (e.g.
-          “Samantha — Enhanced”). Come back here and pick it from the list.</p>
+        <button class="btn" id="voice-test">🔊 Test backup voice</button>
       </div>
 
       <h3>Tip</h3>
@@ -393,7 +393,7 @@ const App = (() => {
         : `<option>No voices found yet — tap “Test”, then reopen this screen</option>`;
       sel.onchange = () => {
         state.settings.voiceURI = sel.value; Speech.setVoice(sel.value); save();
-        Speech.say("Hi Riley! I'm Flamingo Flamingo.");
+        Speech.say("Hi Riley! I'm Flamingo Flamingo.", { device: true });
       };
     }
     if (rate) {
@@ -403,12 +403,12 @@ const App = (() => {
       rate.onchange = () => {
         state.settings.rate = parseFloat(rate.value);
         Speech.setRate(state.settings.rate); save();
-        Speech.say("This is how fast I will talk now.");
+        Speech.say("This is how fast I will talk now.", { device: true });
       };
     }
     const test = $("#voice-test");
     if (test) test.onclick = () =>
-      Speech.say("Hi Riley! I am Flamingo Flamingo. Let's learn together!");
+      Speech.say("Hi Riley! I am Flamingo Flamingo. Let's learn together!", { device: true });
   }
   function resetProgress() {
     if (!confirm("Reset ALL of Riley's stars, stickers and progress?")) return;
