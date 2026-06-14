@@ -144,17 +144,33 @@ const App = (() => {
   const LETTER_BY_CHAR = Object.fromEntries(LETTERS.map(l => [l.letter, l]));
   const LETTERS_ORDERED = TEACHING_SEQUENCE.flat().map(c => LETTER_BY_CHAR[c]);
 
-  let lIdx = 0;
+  let lIdx = 0, lStep = 0;            // step 0 = trace, 1 = say (app-directed)
   function startLetters() { lIdx = 0; renderLetter(); goScreen("letter"); }
   function renderLetter() {
     const L = LETTERS_ORDERED[lIdx];
+    lStep = 0;
     $("#letter-char").textContent = L.letter;
     $("#letter-example").innerHTML =
       `<span class="emoji">${L.emoji}</span> ${L.letter} is for ${L.word}`;
     $("#letter-progress").innerHTML =
       progressCaption("letters", L.letter, lIdx, LETTERS_ORDERED.length, "Letter");
     $("#letter-heard").textContent = "";
+    updateLetterAction();
     flamingo(`This is ${L.letter}. ${L.letter} says ${L.sound}. ${L.letter} is for ${L.word}.`);
+  }
+  function updateLetterAction() {
+    $("#letter-action").textContent = lStep === 0 ? "✏️ Trace it" : "🎤 Say it";
+  }
+  // The app tells Riley what to do next (trace, then say), then moves on.
+  function letterAction() {
+    const L = LETTERS_ORDERED[lIdx];
+    if (lStep === 0) {
+      openTrace(L.letter, () => {
+        lStep = 1; goScreen("letter"); updateLetterAction();
+      }, "letters", L.letter, true);
+    } else {
+      sayLetter().then(() => wait(600)).then(nextLetter);
+    }
   }
   function hearLetter() {
     const L = LETTERS_ORDERED[lIdx];
@@ -167,7 +183,8 @@ const App = (() => {
   /* ---- say-it-back (microphone) for the current letter ----------------- */
   async function sayLetter() {
     const L = LETTERS_ORDERED[lIdx];
-    const ok = await listenFor([L.letter.toLowerCase(), L.sound, L.word.toLowerCase()],
+    const ok = await listenFor(
+      [...(LETTER_NAMES[L.letter] || [L.letter.toLowerCase()]), L.sound, L.word.toLowerCase()],
       `Say the letter ${L.letter}!`,
       `Yes! ${L.letter}! Great job Riley!`,
       `Let's try again. ${L.letter} says ${L.sound}.`,
@@ -193,10 +210,11 @@ const App = (() => {
   /* ===================================================================== *
    * NUMBERS lesson
    * ===================================================================== */
-  let nIdx = 1;                       // start at 1, not the abstract 0
+  let nIdx = 1, nStep = 0;            // step 0 = count, 1 = trace, 2 = say
   function startNumbers() { nIdx = 1; renderNumber(); goScreen("number"); }
   function renderNumber() {
     const N = NUMBERS[nIdx];
+    nStep = 0;
     $("#number-char").textContent = N.value;
     $("#number-example").textContent = N.word;
     // Show that many objects so the numeral connects to a real quantity.
@@ -204,7 +222,24 @@ const App = (() => {
     $("#number-progress").innerHTML =
       progressCaption("numbers", String(N.value), 0, 0, "Number");
     $("#number-heard").textContent = "";
+    updateNumberAction();
     flamingo(`This is ${N.value}. ${N.word}.`);
+  }
+  function updateNumberAction() {
+    $("#number-action").textContent =
+      ["🔢 Count with me", "✏️ Trace it", "🎤 Say it"][nStep];
+  }
+  function numberAction() {
+    const N = NUMBERS[nIdx];
+    if (nStep === 0) {
+      countAloud().then(() => { nStep = 1; updateNumberAction(); });
+    } else if (nStep === 1) {
+      openTrace(String(N.value), () => {
+        nStep = 2; goScreen("number"); updateNumberAction();
+      }, "numbers", String(N.value), true);
+    } else {
+      sayNumber().then(() => wait(600)).then(nextNumber);
+    }
   }
   function hearNumber() { const N = NUMBERS[nIdx]; Speech.say(`${N.value}. ${N.word}.`); }
   // Point to each object and count it out loud, then say the total.
@@ -228,7 +263,7 @@ const App = (() => {
   function prevNumber() { nIdx = (nIdx - 1 + NUMBERS.length) % NUMBERS.length; renderNumber(); }
   async function sayNumber() {
     const N = NUMBERS[nIdx];
-    const ok = await listenFor([String(N.value), N.word],
+    const ok = await listenFor([String(N.value), N.word, ...(NUMBER_HOMOPHONES[N.value] || [])],
       `Say the number ${N.value}!`,
       `Yes! ${N.value}! Awesome Riley!`,
       `Almost! This is ${N.value}, say ${N.word}.`,
@@ -298,6 +333,45 @@ const App = (() => {
   /* ===================================================================== *
    * Shared: listen for one of several acceptable answers
    * ===================================================================== */
+  // How speech recognizers usually transcribe each letter NAME (e.g. it hears
+  // "B" as "bee", "R" as "are"). Matching these makes "Say the letter" reliable.
+  const LETTER_NAMES = {
+    A:["a","ay","eh"], B:["b","bee","be"], C:["c","see","sea"], D:["d","dee"],
+    E:["e","ee"], F:["f","ef","eff"], G:["g","gee","jee"], H:["h","aitch","haitch"],
+    I:["i","eye","aye"], J:["j","jay"], K:["k","kay"], L:["l","el","ell"],
+    M:["m","em"], N:["n","en"], O:["o","oh","owe"], P:["p","pee","pea"],
+    Q:["q","cue","queue"], R:["r","are","ar"], S:["s","es","ess"], T:["t","tee","tea"],
+    U:["u","you","yu"], V:["v","vee"], W:["w","double u","dub"], X:["x","ex","eks"],
+    Y:["y","why","wy"], Z:["z","zee","zed"]
+  };
+  const NUMBER_HOMOPHONES = {
+    0:["zero","oh"], 1:["one","won"], 2:["two","to","too"], 3:["three","tree"],
+    4:["four","for","fore"], 8:["eight","ate"], 10:["ten"]
+  };
+  const tokenize = (t) =>
+    String(t).toLowerCase().replace(/[^a-z0-9 ]/g, " ").split(/\s+/).filter(Boolean);
+  function editDistance(a, b) {
+    const m = a.length, n = b.length, d = Array.from({ length: m + 1 }, (_, i) => [i]);
+    for (let j = 0; j <= n; j++) d[0][j] = j;
+    for (let i = 1; i <= m; i++) for (let j = 1; j <= n; j++)
+      d[i][j] = Math.min(d[i-1][j] + 1, d[i][j-1] + 1,
+        d[i-1][j-1] + (a[i-1] === b[j-1] ? 0 : 1));
+    return d[m][n];
+  }
+  // Word-level match (not substring, so a stray vowel can't match everything),
+  // with fuzzy tolerance for longer words.
+  function heardMatches(text, accept) {
+    const toks = tokenize(text); if (!toks.length) return false;
+    const full = toks.join(" ");
+    return accept.some((raw) => {
+      const a = String(raw).toLowerCase().trim(); if (!a) return false;
+      if (a.includes(" ")) return full.includes(a);
+      if (toks.includes(a)) return true;
+      if (a.length >= 3) return toks.some((t) => Math.abs(t.length - a.length) <= 1 && editDistance(t, a) <= 1);
+      return false;
+    });
+  }
+
   // Returns true (correct), false (heard but wrong/nothing), or null (no mic,
   // so the caller should NOT record a mastery attempt).
   async function listenFor(accept, prompt, good, retry, heardSel) {
@@ -311,8 +385,8 @@ const App = (() => {
     const { text } = await Speech.listen({
       onStart: () => { if (heard) heard.textContent = "🎤 Listening..."; }
     });
-    if (heard) heard.textContent = text ? `I heard: "${text}"` : "I didn't hear you!";
-    const ok = accept.some(a => text.includes(a));
+    if (heard) heard.textContent = text ? `I heard: "${tokenize(text)[0] || text}"` : "I didn't hear you!";
+    const ok = heardMatches(text, accept);
     if (ok) {
       burst("⭐"); const earned = reward(1); playSfx("correct");
       await flamingo(good);
@@ -632,19 +706,15 @@ const App = (() => {
     bind("#tile-spelling", startSpelling);
     bind("#tile-stickers", renderStickers);
 
-    // letter screen
+    // letter screen — app-directed single action (trace → say → next)
     bind("#letter-char", hearLetter);   // kids tap the big letter to hear it
-    bind("#number-char", hearNumber);
-    bind("#letter-hear", hearLetter);
-    bind("#letter-say", sayLetter);
-    bind("#letter-trace", traceLetter);
+    bind("#letter-action", letterAction);
     bind("#letter-next", nextLetter);
     bind("#letter-prev", prevLetter);
 
-    // number screen
-    bind("#number-count", countAloud);
-    bind("#number-say", sayNumber);
-    bind("#number-trace", traceNumber);
+    // number screen — app-directed single action (count → trace → say → next)
+    bind("#number-char", hearNumber);
+    bind("#number-action", numberAction);
     bind("#number-next", nextNumber);
     bind("#number-prev", prevNumber);
 

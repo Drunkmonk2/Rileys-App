@@ -24,8 +24,20 @@ const Speech = (() => {
 
   fetch("audio/manifest.json")
     .then(r => r.ok ? r.json() : null)
-    .then(m => { if (m) clipMap = m; })
+    .then(m => { if (m) { clipMap = m; prefetchClips(m); } })
     .catch(() => {});
+
+  // Warm the cache in the background so every clip plays instantly (no pause
+  // while it downloads on first use). Throttled so it doesn't fight page load.
+  function prefetchClips(map) {
+    const urls = [...new Set(Object.values(map))];
+    let i = 0;
+    const next = () => {
+      if (i >= urls.length) return;
+      fetch(urls[i++]).catch(() => {}).finally(next);
+    };
+    setTimeout(() => { for (let k = 0; k < 4; k++) next(); }, 1500);
+  }
 
   function stopAll() {
     if (currentAudio) { try { currentAudio.pause(); } catch {} currentAudio = null; }

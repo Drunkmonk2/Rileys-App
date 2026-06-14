@@ -1,7 +1,7 @@
 /* Offline cache for Riley's app.
  * Strategy: NETWORK-FIRST so new versions show up as soon as the phone is
  * online, falling back to the cache when offline. Bump CACHE on each release. */
-const CACHE = "rileys-app-el27513815236";
+const CACHE = "rileys-app-v8";
 const ASSETS = [
   "./", "./index.html", "./manifest.json",
   "./css/styles.css",
