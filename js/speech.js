@@ -13,6 +13,38 @@ const Speech = (() => {
   let preferredURI = null;     // a grown-up's chosen voice (saved in settings)
   let baseRate = 0.8;         // friendly, slow default for a 3-year-old
 
+  /* ---- pre-recorded human-voice clips ----------------------------------
+   * audio/manifest.json maps a normalized phrase -> mp3 file. When a clip
+   * exists we play the real voice; otherwise we fall back to the device's
+   * text-to-speech. normalizeKey MUST match scripts/voice/enumerate-phrases.js */
+  let clipMap = null;
+  let currentAudio = null;
+  const normalizeKey = (t) =>
+    String(t).toLowerCase().replace(/[^a-z0-9' ]+/g, " ").replace(/\s+/g, " ").trim();
+
+  fetch("audio/manifest.json")
+    .then(r => r.ok ? r.json() : null)
+    .then(m => { if (m) clipMap = m; })
+    .catch(() => {});
+
+  function stopAll() {
+    if (currentAudio) { try { currentAudio.pause(); } catch {} currentAudio = null; }
+    if (window.speechSynthesis) { try { speechSynthesis.cancel(); } catch {} }
+  }
+  function playClip(url) {
+    return new Promise((resolve) => {
+      const a = new Audio(url);
+      currentAudio = a;
+      a.onended = () => resolve();
+      a.onerror = () => resolve();
+      a.play().catch(() => resolve());
+    });
+  }
+  function clipFor(text) {
+    if (!clipMap) return null;
+    return clipMap[normalizeKey(text)] || null;
+  }
+
   function allVoices() {
     return window.speechSynthesis ? speechSynthesis.getVoices() : [];
   }
@@ -38,12 +70,22 @@ const Speech = (() => {
     speechSynthesis.onvoiceschanged = pickVoice;
   }
 
-  /* Flamingo says something. Returns a promise that resolves when done so we
-   * can chain instructions naturally. */
-  function say(text, { rate, pitch = 1.12 } = {}) {
+  /* Flamingo says something. Plays the pre-recorded human clip when we have
+   * one; otherwise uses the device voice. Pass { device:true } to force the
+   * device voice (used by the dashboard's voice tester). Returns a promise
+   * that resolves when done so we can chain instructions naturally. */
+  function say(text, opts = {}) {
+    stopAll();
+    if (!opts.device) {
+      const clip = clipFor(text);
+      if (clip) return playClip(clip);
+    }
+    return speakDevice(text, opts);
+  }
+
+  function speakDevice(text, { rate, pitch = 1.12 } = {}) {
     return new Promise((resolve) => {
       if (!window.speechSynthesis) { resolve(); return; }
-      speechSynthesis.cancel();
       const u = new SpeechSynthesisUtterance(text);
       if (voice) u.voice = voice;
       u.rate = rate || baseRate; u.pitch = pitch;
@@ -52,9 +94,12 @@ const Speech = (() => {
     });
   }
 
-  /* Sound out a single phonics sound extra slowly (e.g. "sss", "ah"). */
+  /* Sound out a single phonics sound (clip if available, else slow device). */
   function saySound(sound) {
-    return say(sound, { rate: Math.max(0.45, baseRate - 0.25), pitch: 1.08 });
+    stopAll();
+    const clip = clipFor(sound);
+    if (clip) return playClip(clip);
+    return speakDevice(sound, { rate: Math.max(0.45, baseRate - 0.25), pitch: 1.08 });
   }
 
   /* ---- grown-up voice controls (used by the parent dashboard) ----------- */
