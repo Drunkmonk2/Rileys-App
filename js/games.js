@@ -22,7 +22,7 @@ const Games = (() => {
     area().querySelectorAll(".choice").forEach(b => b.onclick = () => {
       if (b.dataset.name === target.name) {
         b.classList.add("correct");
-        App.win(`Yes! That's ${target.name}! 🎉`, colors);
+        App.win(`Yes! That's ${target.name}! 🎉`, colors, "games", "colors");
       } else {
         b.classList.add("wrong");
         App.flamingo(`Oops! That's ${b.dataset.name}. Try the ${target.name} one!`);
@@ -42,7 +42,7 @@ const Games = (() => {
     area().querySelectorAll(".choice").forEach(b => b.onclick = () => {
       if (b.dataset.l === target.letter) {
         b.classList.add("correct");
-        App.win(`Great! That's ${target.letter}! ⭐`, findLetter);
+        App.win(`Great! That's ${target.letter}! ⭐`, findLetter, "games", "letterHunt");
       } else {
         b.classList.add("wrong");
         App.flamingo(`That's ${b.dataset.l}. We want ${target.letter}!`);
@@ -68,7 +68,7 @@ const Games = (() => {
     area().querySelectorAll(".choice").forEach(b => b.onclick = () => {
       if (+b.dataset.v === n) {
         b.classList.add("correct");
-        App.win(`That's right — ${n}! 🎉`, counting);
+        App.win(`That's right — ${n}! 🎉`, counting, "games", "counting");
       } else {
         b.classList.add("wrong");
         App.flamingo(`Let's count again together: one, two, three...`);
@@ -92,7 +92,7 @@ const Games = (() => {
     area().querySelectorAll(".choice").forEach(b => b.onclick = () => {
       if (b.dataset.l === item.first) {
         b.classList.add("correct");
-        App.win(`Yes! ${item.word} starts with ${item.first} — ${item.sound}! ⭐`, firstSound);
+        App.win(`Yes! ${item.word} starts with ${item.first} — ${item.sound}! ⭐`, firstSound, "games", "firstSound");
       } else {
         b.classList.add("wrong");
         App.flamingo(`Listen again... ${item.sound}... ${item.word}.`);

@@ -86,6 +86,7 @@ real HTTPS GitHub Pages URL on the phone, but everything else works locally.)
 | **👂 Sounds** | Phonemic-awareness game: "What sound does *soccer* start with?" |
 | **🎮 Games** | Colors, Letter Hunt, Counting, First Sound — quick rounds with rewards. |
 | **🏆 My Stickers** | Every 5 stars earns a themed sticker (👑 ⚽ 🏈 🥎 🏀 🧁 🖍️ 🦄 🌈). |
+| **🔒 Grown-ups** | Math-gated **parent dashboard**: which letters/numbers/words Riley has mastered vs. is still practicing, total stars/stickers, last played, and a reset. |
 
 Everything is personalized to **Riley** and themed around **princesses,
 soccer, football, softball, basketball, baking, and coloring**.
@@ -111,16 +112,21 @@ js/data.js          Curriculum (letters, sounds, words, sequence, stickers)
 js/speech.js        Flamingo's voice (TTS) + listening (speech recognition)
 js/tracing.js       On-device finger-tracing recognition
 js/games.js         Mini-games
-js/app.js           Navigation, lessons, rewards, saved progress
+js/app.js           Navigation, lessons, rewards, progress + parent dashboard
 icons/              App icons
+ios/                Native iOS wrapper (Mac/cloud build) — see ios/README.md
 ```
 
 ## 🛣️ Ideas for next versions
 - Animated mascot reactions (Flamingo cheering, pointing, blinking).
-- Parent dashboard: see which letters Riley has mastered.
 - Digraphs (sh/ch/th), long vowels, and first decodable sentences.
-- Native iOS build for guaranteed **offline on-device** speech.
+- TestFlight distribution of the native iOS app (guaranteed offline on-device speech).
 - Record-and-playback so Riley hears her own voice.
+
+> A native iOS wrapper already exists in **`ios/`** (WKWebView + on-device
+> `SFSpeechRecognizer`). Building it needs a Mac or a cloud macOS runner —
+> see [`ios/README.md`](ios/README.md). For a PC + iPhone, the PWA above is
+> the recommended path and needs no Mac.
 
 ---
 *Made with love for Riley. Go turn her into a genius. 🦩⭐*

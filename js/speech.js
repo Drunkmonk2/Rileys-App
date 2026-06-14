@@ -45,12 +45,33 @@ const Speech = (() => {
     return say(sound, { rate: 0.7, pitch: 1.1 });
   }
 
-  const supported =
+  // When wrapped in the native iOS app, a Swift bridge exposes on-device
+  // (offline, private) speech recognition. We prefer it when present.
+  const nativeBridge =
+    window.webkit && window.webkit.messageHandlers &&
+    window.webkit.messageHandlers.nativeSpeech;
+
+  const supported = !!nativeBridge ||
     "webkitSpeechRecognition" in window || "SpeechRecognition" in window;
+
+  /* Ask the native iOS layer to listen on-device. Swift calls back into
+   * window.__nativeSpeechResult(text) when done. */
+  function listenNative({ onStart } = {}) {
+    return new Promise((resolve) => {
+      let done = false;
+      const finish = (text) => { if (done) return; done = true;
+        resolve({ ok: true, text: (text || "").trim().toLowerCase() }); };
+      window.__nativeSpeechResult = finish;
+      if (onStart) onStart();
+      try { nativeBridge.postMessage("listen"); } catch { finish(""); }
+      setTimeout(() => finish(""), 7000);
+    });
+  }
 
   /* Listen once and return the best transcript (lowercased) or "".
    * Calls onStart so the UI can show the mic pulsing. */
   function listen({ onStart } = {}) {
+    if (nativeBridge) return listenNative({ onStart });
     return new Promise((resolve) => {
       if (!supported) { resolve({ ok: false, text: "" }); return; }
       const SR = window.SpeechRecognition || window.webkitSpeechRecognition;

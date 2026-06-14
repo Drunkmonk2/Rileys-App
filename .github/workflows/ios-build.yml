@@ -1,0 +1,42 @@
+# Builds the native iOS wrapper in the cloud on a macOS runner, so the Swift
+# code can be compiled and validated WITHOUT owning a Mac.
+#
+# This produces an unsigned simulator build (proves it compiles). Installing on
+# a real iPhone additionally needs code signing — see ios/README.md.
+#
+# Runs only when the iOS project changes, plus on-demand from the Actions tab.
+name: iOS build (simulator)
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "ios/**"
+      - ".github/workflows/ios-build.yml"
+
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install XcodeGen
+        run: brew install xcodegen
+
+      - name: Sync web bundle and generate project
+        run: |
+          cd ios
+          ./scripts/sync-web.sh
+          xcodegen generate
+
+      - name: Build for iOS Simulator (no signing)
+        run: |
+          cd ios
+          xcodebuild \
+            -project RileysApp.xcodeproj \
+            -scheme RileysApp \
+            -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
+            -configuration Debug \
+            CODE_SIGNING_ALLOWED=NO \
+            build

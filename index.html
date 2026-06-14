@@ -88,6 +88,7 @@
       <button class="tile games"    id="tile-games"><span class="ico">🎮</span>Games</button>
       <button class="tile stickers" id="tile-stickers"><span class="ico">🏆</span>My Stickers</button>
     </div>
+    <div class="row"><button class="back" id="grownups">🔒 Grown-ups</button></div>
   </section>
 
   <!-- ================= LETTERS ================= -->
@@ -172,6 +173,27 @@
     <div id="game-area"></div>
     <div class="row">
       <button class="back to-games">⬅️ Games</button>
+      <button class="back to-home">🏠 Home</button>
+    </div>
+  </section>
+
+  <!-- ================= GROWN-UP GATE ================= -->
+  <section id="gate" class="screen">
+    <h2>🔒 Grown-ups only</h2>
+    <p class="subtitle">Solve this to open Riley's progress</p>
+    <div class="bigchar" id="gate-q" style="font-size:3rem"></div>
+    <div class="speech-bubble" id="gate-entry" style="min-height:2rem"></div>
+    <div class="progress" id="gate-msg"></div>
+    <div class="choices" id="gate-pad" style="grid-template-columns:repeat(3,1fr)"></div>
+    <div class="row"><button class="back" id="gate-cancel">⬅️ Back</button></div>
+  </section>
+
+  <!-- ================= PARENT DASHBOARD ================= -->
+  <section id="parent" class="screen">
+    <h2>📊 Riley's Progress</h2>
+    <div id="parent-body"></div>
+    <div class="row">
+      <button class="btn secondary" id="parent-reset">Reset progress</button>
       <button class="back to-home">🏠 Home</button>
     </div>
   </section>

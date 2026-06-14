@@ -167,3 +167,18 @@ h1 { font-size: 2rem; color: var(--pink-deep); }
 
 .progress { text-align:center; font-weight:800; color:#8a6e80; margin-top: 6px; }
 .hidden { display: none !important; }
+
+/* ---- Parent dashboard ---------------------------------------------------*/
+#parent { overflow-y: auto; }
+#parent h3 { margin: 14px 0 6px; color: var(--pink-deep); }
+.dash-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+.dash-stats .stat { background:#fff; border-radius:16px; padding:10px; text-align:center;
+  box-shadow: var(--shadow); }
+.dash-stats .stat b { display:block; font-size:1.3rem; color: var(--ink); }
+.dash-stats .stat span { font-size:.8rem; color:#8a6e80; font-weight:700; }
+.dash-legend { display:flex; gap:8px; justify-content:center; flex-wrap:wrap;
+  font-size:.8rem; font-weight:800; margin:10px 0; }
+.dash-grid { display:flex; flex-wrap:wrap; gap:6px; }
+.dash-grid .choice { box-shadow:none; border-radius:10px; font-weight:800; padding:6px; }
+.dash-tip { background:#fff; border-radius:16px; padding:12px; box-shadow:var(--shadow);
+  font-weight:600; color:#6b5563; }
