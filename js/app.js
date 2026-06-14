@@ -9,10 +9,10 @@ const App = (() => {
   let state = load();
   function load() {
     const base = { stars: 0, stickers: {}, learned: [], progress: {},
-                   settings: { voiceURI: null, rate: 0.8 } };
+                   settings: { voiceURI: null, rate: 0.8, lessonLength: "medium" } };
     try {
       const s = Object.assign(base, JSON.parse(localStorage.getItem(KEY)) || {});
-      s.settings = Object.assign({ voiceURI: null, rate: 0.8 }, s.settings || {});
+      s.settings = Object.assign({ voiceURI: null, rate: 0.8, lessonLength: "medium" }, s.settings || {});
       return s;
     } catch { return base; }
   }
@@ -438,6 +438,11 @@ const App = (() => {
       <h3>Spelling Words</h3>
       <div class="dash-grid">${SPELLING_WORDS.map(w =>
         cell(w.word, masteryLevel("words", w.word))).join("")}</div>
+      <h3>⭐ Lesson Length</h3>
+      <div class="seg" id="lesson-length">
+        ${["short", "medium", "long"].map(v =>
+          `<button data-len="${v}" class="${state.settings.lessonLength === v ? "on" : ""}">${v}</button>`).join("")}
+      </div>
       <h3>🦩 Backup Voice</h3>
       <div class="voice-box">
         <p class="dash-tip">Flamingo speaks with built-in <b>recorded human
@@ -488,6 +493,11 @@ const App = (() => {
     const test = $("#voice-test");
     if (test) test.onclick = () =>
       Speech.say("Hi Riley! I am Flamingo Flamingo. Let's learn together!", { device: true });
+    const seg = $("#lesson-length");
+    if (seg) seg.querySelectorAll("button").forEach(b => b.onclick = () => {
+      state.settings.lessonLength = b.dataset.len; save();
+      seg.querySelectorAll("button").forEach(x => x.classList.toggle("on", x === b));
+    });
   }
   function resetProgress() {
     if (!confirm("Reset ALL of Riley's stars, stickers and progress?\n(Her voice settings are kept.)")) return;
@@ -541,9 +551,10 @@ const App = (() => {
    * GUIDED LESSON — "Let's Learn!" weaves teaching + games + reading and
    * focuses on what Riley hasn't mastered yet. Games live here, not in a menu.
    * ===================================================================== */
-  let gQueue = [], gIdx = 0;
+  let gQueue = [], gIdx = 0, gTotal = 0, sessionStartStars = 0;
   function startGuided() {
-    gQueue = buildSession(); gIdx = 0;
+    sessionStartStars = state.stars;
+    gQueue = buildSession(); gIdx = 0; gTotal = gQueue.length;
     flamingo("Let's learn together, Riley! Here we go!").then(runGuided);
   }
   function runGuided() {
@@ -552,24 +563,52 @@ const App = (() => {
   }
   function guidedNext() { gIdx++; runGuided(); }
   function finishGuided() {
+    const earned = state.stars - sessionStartStars;
+    goScreen("done");
+    $("#done-stars").textContent = "⭐".repeat(Math.max(1, Math.min(earned, 12)));
+    $("#done-msg").textContent =
+      `You earned ${earned} star${earned === 1 ? "" : "s"} this lesson — ${state.stars} stars total!`;
     burst("🏆"); playSfx("sticker");
-    goScreen("home");
     flamingo("You did it! Great job today, Riley! I'm so proud of you!");
   }
+
+  // Adaptive session: prioritizes the letters/words Riley hasn't mastered, and
+  // its length follows the grown-up "lesson length" setting.
+  function leastMastered(list, cat, keyOf) {
+    return [...list].sort((a, b) => {
+      const ea = state.progress[cat] && state.progress[cat][keyOf(a)];
+      const eb = state.progress[cat] && state.progress[cat][keyOf(b)];
+      return ((ea && ea.correct) || 0) - ((eb && eb.correct) || 0);
+    });
+  }
   function buildSession() {
-    const weak = LETTERS_ORDERED.filter(l => masteryLevel("letters", l.letter) < 2);
-    const pick = (n) => (weak[n] || LETTERS_ORDERED[n]).letter;
-    const L1 = pick(0), L2 = pick(1);
-    const word = READ_WORDS[Math.floor(Math.random() * READ_WORDS.length)];
-    return [
-      () => teachLetterStep(L1),
+    const len = (state.settings.lessonLength) || "medium";
+    const conf = { short: { teach: 1, games: 2, read: 1 },
+                   medium: { teach: 2, games: 3, read: 1 },
+                   long: { teach: 3, games: 4, read: 2 } }[len];
+
+    const teachLetters = leastMastered(LETTERS_ORDERED, "letters", l => l.letter)
+      .slice(0, conf.teach);
+    const readWords = leastMastered(READ_WORDS, "reading", w => w.word)
+      .slice(0, conf.read);
+
+    const gamePool = [
       () => { goScreen("game"); Games.firstSound(guidedNext); },
       () => { goScreen("game"); Games.counting(guidedNext); },
-      () => renderRead(word, guidedNext),
-      () => teachLetterStep(L2),
       () => { goScreen("game"); Games.findLetter(guidedNext); },
       () => { goScreen("game"); Games.colors(guidedNext); },
     ];
+    const teachSteps = teachLetters.map(l => () => teachLetterStep(l.letter));
+    const gameSteps = Array.from({ length: conf.games }, (_, i) => gamePool[i % gamePool.length]);
+    const readSteps = readWords.map(w => () => renderRead(w, guidedNext));
+
+    // interleave teaching with games for variety, then end with reading
+    const out = []; let ti = 0, gj = 0;
+    while (ti < teachSteps.length || gj < gameSteps.length) {
+      if (ti < teachSteps.length) out.push(teachSteps[ti++]);
+      if (gj < gameSteps.length) out.push(gameSteps[gj++]);
+    }
+    return out.concat(readSteps);
   }
   function teachLetterStep(ch) {
     const L = LETTER_BY_CHAR[ch];
@@ -624,6 +663,9 @@ const App = (() => {
     bind("#read-sound", readSound);
     bind("#read-say", readSay);
     bind("#read-next", nextReadWord);
+
+    // guided lesson "play again"
+    bind("#done-again", startGuided);
 
     // parent dashboard
     bind("#grownups", openGate);

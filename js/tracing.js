@@ -49,43 +49,64 @@ const Tracing = (() => {
 
   function size(c) { return { w: c.clientWidth, h: c.clientHeight }; }
 
-  /* Build the ink-cell mask by rendering the glyph to an offscreen canvas. */
+  /* Stroke a glyph's polylines into ctx, scaled to a w×h box. */
+  function pathStrokes(ctx, S, w, h) {
+    S.forEach((stroke) => {
+      ctx.beginPath();
+      stroke.forEach((p, i) => (i ? ctx.lineTo(p[0] * w, p[1] * h) : ctx.moveTo(p[0] * w, p[1] * h)));
+      ctx.stroke();
+    });
+  }
+
+  /* Build the ink-cell mask. When we have stroke data we rasterize the SAME
+   * strokes used for the guide/demo/arrows, so everything lines up perfectly.
+   * Falls back to the font glyph for anything without stroke data. */
   function buildMask(ch) {
-    const { w, h } = size(guide);
     const off = document.createElement("canvas");
     off.width = GRID; off.height = GRID;
     const x = off.getContext("2d");
     x.clearRect(0, 0, GRID, GRID);
-    x.fillStyle = "#000";
-    x.textAlign = "center"; x.textBaseline = "middle";
-    // same proportions as the visible guide so the mask lines up with what
-    // Riley actually sees and traces.
-    x.font = `800 ${GRID * 0.74}px "Baloo 2", system-ui, sans-serif`;
-    x.fillText(ch, GRID / 2, GRID / 2 + GRID * 0.03);
+    const S = strokesFor(ch);
+    if (S) {
+      x.strokeStyle = "#000"; x.lineCap = "round"; x.lineJoin = "round";
+      x.lineWidth = GRID * 0.14;          // gives the path real thickness to cover
+      pathStrokes(x, S, GRID, GRID);
+    } else {
+      x.fillStyle = "#000"; x.textAlign = "center"; x.textBaseline = "middle";
+      x.font = `800 ${GRID * 0.74}px "Baloo 2", system-ui, sans-serif`;
+      x.fillText(ch, GRID / 2, GRID / 2 + GRID * 0.03);
+    }
     const data = x.getImageData(0, 0, GRID, GRID).data;
     maskCells = new Set();
     for (let r = 0; r < GRID; r++) {
       for (let c = 0; c < GRID; c++) {
-        const a = data[(r * GRID + c) * 4 + 3];
-        if (a > 60) maskCells.add(r + "," + c);
+        if (data[(r * GRID + c) * 4 + 3] > 60) maskCells.add(r + "," + c);
       }
     }
   }
 
-  /* Faded big letter the child traces on top of. */
+  /* The faded path Riley traces on top of — drawn from the stroke data so it
+   * exactly matches the demo and arrows (font fallback if no stroke data). */
   function drawGuide(ch) {
     const ctx = guide.getContext("2d");
     const { w, h } = size(guide);
     ctx.clearRect(0, 0, w, h);
-    ctx.textAlign = "center"; ctx.textBaseline = "middle";
-    ctx.font = `800 ${h * 0.74}px "Baloo 2", system-ui, sans-serif`;
-    // clearly-visible faded letter so Riley can see exactly what to trace
-    ctx.fillStyle = "rgba(255,95,162,0.30)";
-    ctx.fillText(ch, w / 2, h / 2 + h * 0.03);
-    ctx.lineWidth = 3; ctx.strokeStyle = "rgba(230,57,138,0.55)";
-    ctx.setLineDash([10, 8]);
-    ctx.strokeText(ch, w / 2, h / 2 + h * 0.03);
-    ctx.setLineDash([]);
+    const S = strokesFor(ch);
+    if (S) {
+      ctx.lineCap = "round"; ctx.lineJoin = "round";
+      ctx.lineWidth = Math.max(24, w * 0.14);            // wide "road" to trace on
+      ctx.strokeStyle = "rgba(255,95,162,0.26)";
+      pathStrokes(ctx, S, w, h);
+      ctx.lineWidth = 2; ctx.setLineDash([8, 9]);        // dashed center line
+      ctx.strokeStyle = "rgba(230,57,138,0.55)";
+      pathStrokes(ctx, S, w, h);
+      ctx.setLineDash([]);
+    } else {
+      ctx.textAlign = "center"; ctx.textBaseline = "middle";
+      ctx.font = `800 ${h * 0.74}px "Baloo 2", system-ui, sans-serif`;
+      ctx.fillStyle = "rgba(255,95,162,0.30)";
+      ctx.fillText(ch, w / 2, h / 2 + h * 0.03);
+    }
   }
 
   function clearDrawing() {
