@@ -96,6 +96,33 @@ for (const it of D.FIRST_SOUND_WORDS) {
   add(`Listen again... ${it.sound}... ${it.word}.`);
 }
 
+// --- Counting aloud + number words ----------------------------------------
+add(`Let's count!`);
+add(`Zero means none!`);
+for (const N of D.NUMBERS) {
+  if (N.value >= 1) { add(N.word); add(`${N.value}!`); }
+}
+
+// --- Read Words (blending payoff) -----------------------------------------
+add(`Can you read this word? Sound it out, then say it.`);
+for (const W of D.SPELLING_WORDS) {
+  add(`Now read it: ${W.word}!`);
+  add(`Yes! You read ${W.word}! Great reading!`);
+  add(`Sound it out again, then say ${W.word}.`);
+}
+
+// --- Guided lesson + tracing demo + celebration ---------------------------
+add(`Let's learn together, Riley! Here we go!`);
+add(`You did it! Great job today, Riley! I'm so proud of you!`);
+for (const L of D.LETTERS) {
+  add(`${L.letter} says ${L.sound}. ${L.letter} is for ${L.word}.`);
+  add(`Start at the green dot and follow the arrows to write ${L.letter}.`);
+}
+for (const N of D.NUMBERS) {
+  add(`Start at the green dot and follow the arrows to write ${N.value}.`);
+}
+for (const s of D.STICKERS) add(`Yay! You earned a ${s.label}!`);
+
 // --- write -----------------------------------------------------------------
 const out = [...seen.values()];
 fs.writeFileSync(path.join(__dirname, "phrases.json"), JSON.stringify(out, null, 2));

@@ -80,13 +80,13 @@ real HTTPS GitHub Pages URL on the phone, but everything else works locally.)
 
 | Section | What Riley does |
 |---|---|
-| **🔤 Letters** | See a letter, hear its name + **sound** + a word she loves, then **Say it** (mic) or **Trace it** (finger). |
-| **🔢 Numbers** | 0–20: hear it, say it, trace it. |
-| **📝 Spelling** | Sound out a 3-letter word and tap the letters in order to build it. |
-| **👂 Sounds** | Phonemic-awareness game: "What sound does *soccer* start with?" |
-| **🎮 Games** | Colors, Letter Hunt, Counting, First Sound — quick rounds with rewards. |
-| **🏆 My Stickers** | Every 5 stars earns a themed sticker (👑 ⚽ 🏈 🥎 🏀 🧁 🖍️ 🦄 🌈). |
-| **🔒 Grown-ups** | Math-gated **parent dashboard**: which letters/numbers/words Riley has mastered vs. is still practicing, total stars/stickers, last played, and a reset. |
+| **⭐ Let's Learn!** | A guided lesson that focuses on what she hasn't mastered yet and **weaves the mini-games (colors, letter hunt, counting, first-sound) right into the learning** — no separate "games" section. |
+| **🔤 Letters** | Taught in science-of-reading order; hear the **sound**, **Say it** (mic), or **Trace it** with a green start dot + stroke-direction arrows and a "Watch" demo. |
+| **🔢 Numbers** | Start at 1, see the quantity, **Count with me** (points & counts aloud), say it, trace it. |
+| **📖 Read Words** | The payoff: blend the sounds and **read the whole word** out loud. |
+| **📝 Spelling** | Sound out a word and tap the letters in order to build it. |
+| **🏆 My Stickers** | Every 5 stars earns a themed sticker, with a full-screen celebration + chime. |
+| **🔒 Grown-ups** | Math-gated **parent dashboard**: mastery of letters/numbers/words, backup-voice settings, and a **Reset progress** button. |
 
 Everything is personalized to **Riley** and themed around **princesses,
 soccer, football, softball, basketball, baking, and coloring**.

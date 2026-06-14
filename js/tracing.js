@@ -22,6 +22,7 @@ const Tracing = (() => {
   let drawn;                // Set of every grid cell the child's finger touched
   let drawing = false, lastPt = null;
   let onComplete = null, char = "";
+  let demoRAF = 0, demoActive = false;
 
   function init(guideCanvas, drawCanvas) {
     guide = guideCanvas; draw = drawCanvas;
@@ -39,8 +40,10 @@ const Tracing = (() => {
   function setChar(ch, done) {
     char = ch; onComplete = done;
     drawn = new Set(); lastPt = null;
+    cancelDemo();
     buildMask(ch);
     drawGuide(ch);
+    drawMarks(ch);          // green start dot + direction arrows
     clearDrawing();
   }
 
@@ -91,6 +94,82 @@ const Tracing = (() => {
     ctx.clearRect(0, 0, w, h);
   }
 
+  /* ---- handwriting guidance: start dot, arrows, and animated demo --------*/
+  function strokesFor(ch) {
+    return (typeof STROKES !== "undefined" && STROKES[ch]) ? STROKES[ch] : null;
+  }
+  function drawArrow(ctx, x1, y1, x2, y2, sz) {
+    const ang = Math.atan2(y2 - y1, x2 - x1);
+    ctx.save(); ctx.translate(x2, y2); ctx.rotate(ang);
+    ctx.fillStyle = "rgba(230,57,138,0.6)";
+    ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(-sz, -sz * 0.6);
+    ctx.lineTo(-sz, sz * 0.6); ctx.closePath(); ctx.fill();
+    ctx.restore();
+  }
+  // Draw the green start dot + a few direction arrowheads onto the guide.
+  function drawMarks(ch) {
+    const S = strokesFor(ch); if (!S) return;
+    const ctx = guide.getContext("2d");
+    const { w, h } = size(guide);
+    const sz = Math.max(7, w * 0.022);
+    S.forEach((stroke, si) => {
+      const stepN = Math.max(1, Math.floor((stroke.length - 1) / 2));
+      for (let i = stepN; i < stroke.length; i += stepN) {
+        const a = stroke[i - 1], b = stroke[i];
+        drawArrow(ctx, a[0] * w, a[1] * h, b[0] * w, b[1] * h, sz);
+      }
+      if (si === 0) {
+        const p = stroke[0], r = Math.max(9, w * 0.032);
+        ctx.fillStyle = "#38d39f";
+        ctx.beginPath(); ctx.arc(p[0] * w, p[1] * h, r, 0, 7); ctx.fill();
+        ctx.fillStyle = "#fff"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+        ctx.font = `700 ${r}px system-ui, sans-serif`;
+        ctx.fillText("▶", p[0] * w, p[1] * h);
+      }
+    });
+  }
+  function flatten(S, w, h) {
+    const pts = [];
+    S.forEach((stroke) => stroke.forEach((p, i) => {
+      if (i === 0) { pts.push({ x: p[0] * w, y: p[1] * h, pen: false }); return; }
+      const a = stroke[i - 1], steps = 6;
+      for (let k = 1; k <= steps; k++) {
+        const f = k / steps;
+        pts.push({ x: (a[0] + (p[0] - a[0]) * f) * w, y: (a[1] + (p[1] - a[1]) * f) * h, pen: true });
+      }
+    }));
+    return pts;
+  }
+  function cancelDemo() { if (demoRAF) cancelAnimationFrame(demoRAF); demoRAF = 0; demoActive = false; }
+  // Animate a green dot writing the character so Riley sees the strokes.
+  function demo(ch) {
+    const S = strokesFor(ch || char); if (!S) return;
+    cancelDemo(); demoActive = true;
+    const ctx = draw.getContext("2d");
+    const { w, h } = size(draw);
+    const pts = flatten(S, w, h);
+    let idx = 0;
+    const frame = () => {
+      ctx.clearRect(0, 0, w, h);
+      ctx.lineCap = "round"; ctx.lineJoin = "round";
+      ctx.lineWidth = Math.max(12, w * 0.045); ctx.strokeStyle = "rgba(255,95,162,0.9)";
+      ctx.beginPath();
+      for (let i = 0; i <= idx && i < pts.length; i++) {
+        const p = pts[i];
+        if (!p.pen) { ctx.stroke(); ctx.beginPath(); ctx.moveTo(p.x, p.y); }
+        else ctx.lineTo(p.x, p.y);
+      }
+      ctx.stroke();
+      const cur = pts[Math.min(idx, pts.length - 1)];
+      ctx.fillStyle = "#38d39f";
+      ctx.beginPath(); ctx.arc(cur.x, cur.y, Math.max(9, w * 0.03), 0, 7); ctx.fill();
+      idx += 2;
+      if (idx < pts.length + 2) demoRAF = requestAnimationFrame(frame);
+      else { demoActive = false; setTimeout(() => { if (!demoActive) clearDrawing(); }, 700); }
+    };
+    frame();
+  }
+
   function ptFromEvent(e) {
     const rect = draw.getBoundingClientRect();
     const t = e.touches ? e.touches[0] : e;
@@ -129,7 +208,9 @@ const Tracing = (() => {
   }
 
   function bindPointer() {
-    const start = (e) => { e.preventDefault(); drawing = true; lastPt = null;
+    const start = (e) => { e.preventDefault();
+      if (demoActive) { cancelDemo(); clearDrawing(); }   // clear the demo trail
+      drawing = true; lastPt = null;
       const p = ptFromEvent(e); record(p); strokeTo(p); };
     const move = (e) => { if (!drawing) return; e.preventDefault();
       const p = ptFromEvent(e); record(p); strokeTo(p); };
@@ -170,5 +251,5 @@ const Tracing = (() => {
 
   function reset() { setChar(char, onComplete); }
 
-  return { init, setChar, check, reset };
+  return { init, setChar, check, reset, demo };
 })();

@@ -80,13 +80,17 @@
 
   <!-- ================= HOME ================= -->
   <section id="home" class="screen active">
+    <button class="tile learn" id="tile-learn">
+      <span class="ico">⭐</span>Let's Learn!<small>a fun lesson just for you</small>
+    </button>
     <div class="menu">
       <button class="tile letters"  id="tile-letters"><span class="ico">🔤</span>Letters</button>
       <button class="tile numbers"  id="tile-numbers"><span class="ico">🔢</span>Numbers</button>
+      <button class="tile read"     id="tile-read"><span class="ico">📖</span>Read Words</button>
       <button class="tile spelling" id="tile-spelling"><span class="ico">📝</span>Spelling</button>
-      <button class="tile sounds"   id="tile-sounds"><span class="ico">👂</span>Sounds</button>
-      <button class="tile games"    id="tile-games"><span class="ico">🎮</span>Games</button>
-      <button class="tile stickers" id="tile-stickers"><span class="ico">🏆</span>My Stickers</button>
+    </div>
+    <div class="row">
+      <button class="tile stickers wide" id="tile-stickers"><span class="ico">🏆</span>My Stickers</button>
     </div>
     <div class="row"><button class="back" id="grownups">🔒 Grown-ups</button></div>
   </section>
@@ -117,7 +121,7 @@
     <div class="progress" id="number-progress"></div>
     <div class="heard" id="number-heard"></div>
     <div class="row">
-      <button class="btn" id="number-hear">🔊 Hear it</button>
+      <button class="btn" id="number-count">🔢 Count with me</button>
       <button class="btn" id="number-say">🎤 Say it</button>
       <button class="btn" id="number-trace">✏️ Trace it</button>
     </div>
@@ -152,30 +156,35 @@
     </div>
     <div class="progress" id="trace-result"></div>
     <div class="row">
+      <button class="btn" id="trace-watch">👀 Watch</button>
       <button class="btn" id="trace-check">✅ Done</button>
+    </div>
+    <div class="row">
       <button class="btn secondary" id="trace-clear">🔄 Clear</button>
       <button class="back" id="trace-back">⬅️ Back</button>
     </div>
   </section>
 
-  <!-- ================= GAMES MENU ================= -->
-  <section id="games" class="screen">
-    <h2>🎮 Pick a Game</h2>
-    <div class="menu">
-      <button class="tile games"    id="g-colors"><span class="ico">🎨</span>Colors</button>
-      <button class="tile letters"  id="g-letters"><span class="ico">🔤</span>Letter Hunt</button>
-      <button class="tile numbers"  id="g-count"><span class="ico">🔢</span>Counting</button>
-      <button class="tile sounds"   id="g-sounds"><span class="ico">👂</span>First Sound</button>
+  <!-- ================= READ WORDS ================= -->
+  <section id="read" class="screen">
+    <div style="font-size:3.4rem;text-align:center" id="read-emoji">🐱</div>
+    <div class="read-word" id="read-word"></div>
+    <div class="heard" id="read-heard"></div>
+    <div class="row">
+      <button class="btn" id="read-sound">🔊 Sound it out</button>
+      <button class="btn" id="read-say">🎤 Read it</button>
     </div>
-    <div class="row"><button class="back to-home">🏠 Home</button></div>
+    <div class="row">
+      <button class="back to-home">🏠 Home</button>
+      <button class="btn secondary" id="read-next">Next word ➡️</button>
+    </div>
   </section>
 
-  <!-- ================= SINGLE GAME ================= -->
+  <!-- ================= SINGLE GAME (used inside guided lessons) ========= -->
   <section id="game" class="screen">
     <h2 id="game-title">Game</h2>
     <div id="game-area"></div>
     <div class="row">
-      <button class="back to-games">⬅️ Games</button>
       <button class="back to-home">🏠 Home</button>
     </div>
   </section>
@@ -196,7 +205,7 @@
     <h2>📊 Riley's Progress</h2>
     <div id="parent-body"></div>
     <div class="row">
-      <button class="btn secondary" id="parent-reset">Reset progress</button>
+      <button class="btn danger" id="parent-reset">🗑️ Reset Riley's progress</button>
       <button class="back to-home">🏠 Home</button>
     </div>
   </section>
@@ -212,6 +221,7 @@
 </div>
 
 <script src="js/data.js"></script>
+<script src="js/strokes.js"></script>
 <script src="js/speech.js"></script>
 <script src="js/tracing.js"></script>
 <script src="js/games.js"></script>

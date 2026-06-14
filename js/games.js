@@ -10,8 +10,11 @@ const Games = (() => {
   const rand = (arr) => arr[Math.floor(Math.random() * arr.length)];
   const shuffle = (a) => a.map(v => [Math.random(), v]).sort((x, y) => x[0] - y[0]).map(p => p[1]);
 
+  /* Each game takes an optional onDone() — when present (guided lessons) it
+   * advances after one correct answer; otherwise the game loops itself. */
+
   /* ---- COLORS: "Tap the red one!" -------------------------------------- */
-  function colors() {
+  function colors(onDone) {
     title().textContent = "🎨 Color Game";
     const opts = shuffle([...COLORS]).slice(0, 4);
     const target = rand(opts);
@@ -22,7 +25,7 @@ const Games = (() => {
     area().querySelectorAll(".choice").forEach(b => b.onclick = () => {
       if (b.dataset.name === target.name) {
         b.classList.add("correct");
-        App.win(`Yes! That's ${target.name}! 🎉`, colors, "games", "colors");
+        App.win(`Yes! That's ${target.name}! 🎉`, onDone || colors, "games", "colors");
       } else {
         b.classList.add("wrong");
         App.flamingo(`Oops! That's ${b.dataset.name}. Try the ${target.name} one!`);
@@ -31,7 +34,7 @@ const Games = (() => {
   }
 
   /* ---- FIND THE LETTER ------------------------------------------------- */
-  function findLetter() {
+  function findLetter(onDone) {
     title().textContent = "🔤 Letter Hunt";
     const pool = shuffle([...LETTERS]).slice(0, 4);
     const target = rand(pool);
@@ -42,7 +45,7 @@ const Games = (() => {
     area().querySelectorAll(".choice").forEach(b => b.onclick = () => {
       if (b.dataset.l === target.letter) {
         b.classList.add("correct");
-        App.win(`Great! That's ${target.letter}! ⭐`, findLetter, "games", "letterHunt");
+        App.win(`Great! That's ${target.letter}! ⭐`, onDone || findLetter, "games", "letterHunt");
       } else {
         b.classList.add("wrong");
         App.flamingo(`That's ${b.dataset.l}. We want ${target.letter}!`);
@@ -51,7 +54,7 @@ const Games = (() => {
   }
 
   /* ---- COUNTING: count the emojis, tap the number ---------------------- */
-  function counting() {
+  function counting(onDone) {
     title().textContent = "🔢 Counting Game";
     const n = 1 + Math.floor(Math.random() * 9);     // 1–9, easy to count
     const icon = rand(["🦩","⚽","🧁","👑","🏀","⭐","🏈"]);
@@ -68,7 +71,7 @@ const Games = (() => {
     area().querySelectorAll(".choice").forEach(b => b.onclick = () => {
       if (+b.dataset.v === n) {
         b.classList.add("correct");
-        App.win(`That's right — ${n}! 🎉`, counting, "games", "counting");
+        App.win(`That's right — ${n}! 🎉`, onDone || counting, "games", "counting");
       } else {
         b.classList.add("wrong");
         App.flamingo(`Let's count again together: one, two, three...`);
@@ -78,7 +81,7 @@ const Games = (() => {
   function clampDiff(n, d) { return Math.max(1, Math.min(12, n + d)); }
 
   /* ---- FIRST SOUND (phonemic awareness) ------------------------------- */
-  function firstSound() {
+  function firstSound(onDone) {
     title().textContent = "👂 First Sound";
     const item = rand(FIRST_SOUND_WORDS);
     App.flamingo(`Listen: ${item.word}. What sound does ${item.word} start with?`);
@@ -92,7 +95,7 @@ const Games = (() => {
     area().querySelectorAll(".choice").forEach(b => b.onclick = () => {
       if (b.dataset.l === item.first) {
         b.classList.add("correct");
-        App.win(`Yes! ${item.word} starts with ${item.first} — ${item.sound}! ⭐`, firstSound, "games", "firstSound");
+        App.win(`Yes! ${item.word} starts with ${item.first} — ${item.sound}! ⭐`, onDone || firstSound, "games", "firstSound");
       } else {
         b.classList.add("wrong");
         App.flamingo(`Listen again... ${item.sound}... ${item.word}.`);
