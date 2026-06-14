@@ -10,13 +10,25 @@
 
 const Speech = (() => {
   let voice = null;
+  let preferredURI = null;     // a grown-up's chosen voice (saved in settings)
+  let baseRate = 0.8;         // friendly, slow default for a 3-year-old
 
-  // Pick a pleasant English voice once the list is available.
+  function allVoices() {
+    return window.speechSynthesis ? speechSynthesis.getVoices() : [];
+  }
+
+  // Pick the nicest available English voice. iPhone "Enhanced/Premium" voices
+  // (downloaded by the parent) sound far more human, so we prefer those.
   function pickVoice() {
-    const voices = window.speechSynthesis ? speechSynthesis.getVoices() : [];
+    const voices = allVoices();
     if (!voices.length) return;
+    if (preferredURI) {
+      const chosen = voices.find(v => v.voiceURI === preferredURI);
+      if (chosen) { voice = chosen; return; }
+    }
     voice =
-      voices.find(v => /Samantha|Karen|Moira|Tessa|Female/i.test(v.name) && /en/i.test(v.lang)) ||
+      voices.find(v => /^en/i.test(v.lang) && /(enhanced|premium|siri)/i.test(v.name)) ||
+      voices.find(v => /Samantha|Karen|Moira|Tessa/i.test(v.name) && /en/i.test(v.lang)) ||
       voices.find(v => /en-US/i.test(v.lang)) ||
       voices.find(v => /^en/i.test(v.lang)) ||
       voices[0];
@@ -27,23 +39,34 @@ const Speech = (() => {
   }
 
   /* Flamingo says something. Returns a promise that resolves when done so we
-   * can chain instructions naturally. rate is a bit slow & friendly for kids. */
-  function say(text, { rate = 0.92, pitch = 1.15 } = {}) {
+   * can chain instructions naturally. */
+  function say(text, { rate, pitch = 1.12 } = {}) {
     return new Promise((resolve) => {
       if (!window.speechSynthesis) { resolve(); return; }
       speechSynthesis.cancel();
       const u = new SpeechSynthesisUtterance(text);
       if (voice) u.voice = voice;
-      u.rate = rate; u.pitch = pitch;
+      u.rate = rate || baseRate; u.pitch = pitch;
       u.onend = resolve; u.onerror = resolve;
       speechSynthesis.speak(u);
     });
   }
 
-  /* Sound out a single phonics sound slowly (e.g. "sss", "ah"). */
+  /* Sound out a single phonics sound extra slowly (e.g. "sss", "ah"). */
   function saySound(sound) {
-    return say(sound, { rate: 0.7, pitch: 1.1 });
+    return say(sound, { rate: Math.max(0.45, baseRate - 0.25), pitch: 1.08 });
   }
+
+  /* ---- grown-up voice controls (used by the parent dashboard) ----------- */
+  function getEnglishVoices() {
+    return allVoices()
+      .filter(v => /^en/i.test(v.lang))
+      .map(v => ({ name: v.name, uri: v.voiceURI, lang: v.lang }));
+  }
+  function setVoice(uri) { preferredURI = uri; pickVoice(); }
+  function setRate(r) { baseRate = r; }
+  function getRate() { return baseRate; }
+  function currentVoiceURI() { return voice ? voice.voiceURI : null; }
 
   // When wrapped in the native iOS app, a Swift bridge exposes on-device
   // (offline, private) speech recognition. We prefer it when present.
@@ -98,5 +121,6 @@ const Speech = (() => {
     });
   }
 
-  return { say, saySound, listen, supported };
+  return { say, saySound, listen, supported,
+           getEnglishVoices, setVoice, setRate, getRate, currentVoiceURI };
 })();

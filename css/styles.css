@@ -182,3 +182,11 @@ h1 { font-size: 2rem; color: var(--pink-deep); }
 .dash-grid .choice { box-shadow:none; border-radius:10px; font-weight:800; padding:6px; }
 .dash-tip { background:#fff; border-radius:16px; padding:12px; box-shadow:var(--shadow);
   font-weight:600; color:#6b5563; }
+.voice-box { background:#fff; border-radius:16px; padding:14px; box-shadow:var(--shadow);
+  display:flex; flex-direction:column; gap:12px; }
+.voice-box label { font-weight:800; color: var(--pink-deep); display:flex;
+  flex-direction:column; gap:6px; font-size:.95rem; }
+.voice-box select { font-size:1rem; padding:10px; border-radius:12px;
+  border:2px solid var(--pink-soft); font-weight:700; }
+.voice-box input[type=range] { width:100%; accent-color: var(--pink); height:28px; }
+.voice-box .btn { align-self:flex-start; }

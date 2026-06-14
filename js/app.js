@@ -8,9 +8,17 @@ const App = (() => {
   const KEY = "rileys-app-v1";
   let state = load();
   function load() {
-    const base = { stars: 0, stickers: {}, learned: [], progress: {} };
-    try { return Object.assign(base, JSON.parse(localStorage.getItem(KEY)) || {}); }
-    catch { return base; }
+    const base = { stars: 0, stickers: {}, learned: [], progress: {},
+                   settings: { voiceURI: null, rate: 0.8 } };
+    try {
+      const s = Object.assign(base, JSON.parse(localStorage.getItem(KEY)) || {});
+      s.settings = Object.assign({ voiceURI: null, rate: 0.8 }, s.settings || {});
+      return s;
+    } catch { return base; }
+  }
+  function applyVoiceSettings() {
+    Speech.setRate(state.settings.rate);
+    if (state.settings.voiceURI) Speech.setVoice(state.settings.voiceURI);
   }
   function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch {} }
 
@@ -87,7 +95,13 @@ const App = (() => {
    * HOME
    * ===================================================================== */
   function renderHome() {
-    flamingo(`Hi Riley! I'm Flamingo Flamingo! What do you want to play?`);
+    flamingo(`Welcome Riley! What would you like to work on today?`);
+  }
+  // iOS blocks audio until the first tap, so the greeting can't speak on load.
+  // We replay it on that first interaction (if Riley is still on the home screen).
+  function firstInteraction() {
+    if (window.speechSynthesis) { try { speechSynthesis.resume(); } catch {} }
+    if (screens.home && screens.home.classList.contains("active")) renderHome();
   }
 
   /* ===================================================================== *
@@ -345,12 +359,56 @@ const App = (() => {
       <h3>Spelling Words</h3>
       <div class="dash-grid">${SPELLING_WORDS.map(w =>
         cell(w.word, masteryLevel("words", w.word))).join("")}</div>
+      <h3>🦩 Flamingo's Voice</h3>
+      <div class="voice-box">
+        <label>Voice
+          <select id="voice-select"></select>
+        </label>
+        <label>Talking speed: <span id="rate-label"></span>
+          <input type="range" id="voice-rate" min="0.5" max="1.05" step="0.05">
+        </label>
+        <button class="btn" id="voice-test">🔊 Test voice</button>
+        <p class="dash-tip">Want a more human voice? iPhone has free high-quality
+          voices: <b>Settings → Accessibility → Spoken Content → Voices → English</b>,
+          and download one marked <b>“Enhanced”</b> or <b>“Premium”</b> (e.g.
+          “Samantha — Enhanced”). Come back here and pick it from the list.</p>
+      </div>
+
       <h3>Tip</h3>
       <p class="dash-tip">Aim for short, daily 5–10 min sessions. Mastery here means
         Riley got an item right 3+ times. Green letters are solid — spend time on
         the grey and yellow ones next.</p>
     `;
+    bindVoiceControls();
     goScreen("parent");
+  }
+
+  function bindVoiceControls() {
+    const sel = $("#voice-select"), rate = $("#voice-rate"), lbl = $("#rate-label");
+    if (sel) {
+      const voices = Speech.getEnglishVoices();
+      const current = state.settings.voiceURI || Speech.currentVoiceURI();
+      sel.innerHTML = voices.length
+        ? voices.map(v => `<option value="${v.uri}" ${v.uri === current ? "selected" : ""}>${v.name} (${v.lang})</option>`).join("")
+        : `<option>No voices found yet — tap “Test”, then reopen this screen</option>`;
+      sel.onchange = () => {
+        state.settings.voiceURI = sel.value; Speech.setVoice(sel.value); save();
+        Speech.say("Hi Riley! I'm Flamingo Flamingo.");
+      };
+    }
+    if (rate) {
+      rate.value = state.settings.rate;
+      if (lbl) lbl.textContent = rate.value;
+      rate.oninput = () => { if (lbl) lbl.textContent = rate.value; };
+      rate.onchange = () => {
+        state.settings.rate = parseFloat(rate.value);
+        Speech.setRate(state.settings.rate); save();
+        Speech.say("This is how fast I will talk now.");
+      };
+    }
+    const test = $("#voice-test");
+    if (test) test.onclick = () =>
+      Speech.say("Hi Riley! I am Flamingo Flamingo. Let's learn together!");
   }
   function resetProgress() {
     if (!confirm("Reset ALL of Riley's stars, stickers and progress?")) return;
@@ -364,6 +422,7 @@ const App = (() => {
   function init() {
     document.querySelectorAll(".screen").forEach(s => screens[s.id] = s);
     updateStars();
+    applyVoiceSettings();
 
     // home tiles
     bind("#tile-letters", startLetters);
@@ -416,12 +475,12 @@ const App = (() => {
   }
   function bind(sel, fn) { const el = $(sel); if (el) el.onclick = fn; }
 
-  return { init, flamingo, reward, win, goScreen, goHome, burst };
+  return { init, flamingo, reward, win, goScreen, goHome, burst, firstInteraction };
 })();
 
 window.addEventListener("DOMContentLoaded", App.init);
-// A first tap unlocks audio on iOS (Safari blocks speech until user interacts).
-window.addEventListener("touchstart", function unlock() {
-  if (window.speechSynthesis) { try { speechSynthesis.resume(); } catch {} }
-  window.removeEventListener("touchstart", unlock);
+// The first tap unlocks audio on iOS and triggers Flamingo's spoken welcome.
+window.addEventListener("pointerdown", function unlock() {
+  App.firstInteraction();
+  window.removeEventListener("pointerdown", unlock);
 }, { once: true });
